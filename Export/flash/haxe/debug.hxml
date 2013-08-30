@@ -1,0 +1,16 @@
+-main ApplicationMain 
+-lib openfl
+-cp Source
+-D tools=1
+-D openfl_ver=1.0.6
+-D openfl
+-D debug
+-D fdb
+-D web
+-swf-version 11
+-swf Export/flash/bin/BoardCounter.swf
+-swf-header 800:600:30:FFFFFF
+-cp Export/flash/haxe
+#--remap nme:flash
+--no-inline
+-debug
