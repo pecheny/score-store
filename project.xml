@@ -7,8 +7,13 @@
 	<source path="Source" />
 	
 	<haxelib name="openfl" />
-	
-	<assets path="Assets" rename="assets" exclude="openfl.svg" />
+    <haxelib name="actuate" />
+    <haxelib name="swf" />
+
+
+    <!--<assets path="Assets/CounterAssets.swf" rename="assets" exclude="openfl.svg" />-->
+    <assets path="Assets" rename="assets" exclude="openfl.svg" />
+    <!--<library path="Assets/CounterAssets.swf"/>-->
 	<icon path="Assets/openfl.svg" />
 	
 </project>
