@@ -79,4 +79,52 @@ class PlayerModelTest extends MatchersBase {
         assertThat(playerIds, arrayWithSize(equalTo(9)));
         assertThat(playerIds, arrayContainingInAnyOrder(2, 3, 4, 7, 8, 9, 10, 11, 12));
     }
+
+    @Test
+    public function should_throw_exception_on_getting_unexistent_score():Void {
+        var msg:String = "";
+        try {
+            playerModel.getScore(1);
+        } catch (e:String) {
+            msg = e;
+        }
+        Assert.areEqual(msg, "There is no player with given id: 1");
+    }
+
+    @Test
+    public function should_throw_exception_on_adding_unexistent_score():Void {
+        var msg:String = "";
+        try {
+            playerModel.addScore(1, 1);
+        } catch (e:String) {
+            msg = e;
+        }
+        Assert.areEqual(msg, "There is no player with given id: 1");
+    }
+
+    @Test
+    public function should_throw_exception_on_removing_unexistent_player():Void {
+        var msg:String = "";
+        try {
+            playerModel.removePlayer(1);
+        } catch (e:String) {
+            msg = e;
+        }
+        Assert.areEqual(msg, "There is no player with given id: 1");
+    }
+
+    @Test
+    public function should_throw_exception_on_reaching_players_limit():Void {
+        var msg:String = "";
+        try {
+            for (i in 1...PlayerModel.MAX_PLAYERS + 1) {
+                playerModel.addPlayer();
+            }
+        } catch (e:String) {
+            msg = e;
+        }
+        Assert.areEqual(msg, "Players limit reached");
+    }
+
+
 }

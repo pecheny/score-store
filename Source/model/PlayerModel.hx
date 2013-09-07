@@ -1,6 +1,6 @@
 package model;
 class PlayerModel {
-    static inline var MAX_PLAYERS:Int = 100;
+    public static inline var MAX_PLAYERS:Int = 100;
     private var scores:Array<Int>;
     private var activePlayers:Array<Int>;
 
