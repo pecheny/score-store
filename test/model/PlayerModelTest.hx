@@ -1,13 +1,9 @@
 package model;
 
 import org.hamcrest.MatchersBase;
-import org.hamcrest.collection.IsArrayWithSize;
 import org.hamcrest.MatcherAssert;
-import flash.Vector;
 import massive.munit.Assert;
 import model.PlayerModel;
-import org.hamcrest.core.*;
-import org.hamcrest.*;
 using org.hamcrest.MatcherAssert;
 
 class PlayerModelTest extends MatchersBase {
@@ -70,16 +66,17 @@ class PlayerModelTest extends MatchersBase {
 
     @Test
     public function should_return_players():Void {
-        for (i in 1...33) {
+        for (i in 1...14) {
             playerModel.addPlayer();
         }
-        Assert.areEqual(33, playerModel.getPlayers().length);
+        assertThat(playerModel.getPlayers(), arrayWithSize(equalTo(13)));
+
         playerModel.removePlayer(1);
         playerModel.removePlayer(5);
-
-        var playerIds:Vector<Int> = playerModel.getPlayers();
-
-        assertThat(arrayWithSize(equalTo(31)), playerIds);
-        assertThat(arrayContaining(2,3,4,6,7,8,9,10,33), playerIds);
+        playerModel.removePlayer(6);
+        playerModel.removePlayer(13);
+        var playerIds:Array<Int> = playerModel.getPlayers();
+        assertThat(playerIds, arrayWithSize(equalTo(9)));
+        assertThat(playerIds, arrayContainingInAnyOrder(2, 3, 4, 7, 8, 9, 10, 11, 12));
     }
 }
