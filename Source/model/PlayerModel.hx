@@ -5,6 +5,7 @@
  * Time: 12:21 PM
  */
 package model;
+import flash.Vector;
 class PlayerModel {
 
     public function new() {}
@@ -19,6 +20,10 @@ class PlayerModel {
 
     public function getScore(playerId:Int):Int {
         return 0;
+    }
+
+    public function getPlayers():Vector<Int> {
+        return null;
     }
 
     public function hasPLayer(playerId:Int):Bool {
