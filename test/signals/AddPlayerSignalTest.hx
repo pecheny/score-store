@@ -1,10 +1,6 @@
 package signals;
 
 import massive.munit.Assert;
-import mockatoo.Mockatoo.* ;
-import signals.RemovePlayerSignal;
-import model.PlayerModel;
-using mockatoo.Mockatoo;
 
 class AddPlayerSignalTest {
     var signal:AddPlayerSignal;
