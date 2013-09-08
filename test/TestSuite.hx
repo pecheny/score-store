@@ -4,6 +4,7 @@ import commands.AddPlayerCommandTest;
 import commands.ChangeScoreCommandTest;
 import commands.RemovePlayerCommandTest;
 import model.PlayerModelTest;
+import signals.AddPlayerSignalTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -21,5 +22,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(commands.ChangeScoreCommandTest);
 		add(commands.RemovePlayerCommandTest);
 		add(model.PlayerModelTest);
+		add(signals.AddPlayerSignalTest);
 	}
 }
