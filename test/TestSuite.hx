@@ -5,6 +5,7 @@ import commands.ChangeScoreCommandTest;
 import commands.RemovePlayerCommandTest;
 import model.PlayerModelTest;
 import signals.AddPlayerSignalTest;
+import signals.ChangeScoreSignalTest;
 import signals.RemovePlayerSignalTest;
 
 /**
@@ -24,6 +25,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(commands.RemovePlayerCommandTest);
 		add(model.PlayerModelTest);
 		add(signals.AddPlayerSignalTest);
+		add(signals.ChangeScoreSignalTest);
 		add(signals.RemovePlayerSignalTest);
 	}
 }
