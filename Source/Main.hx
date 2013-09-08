@@ -1,6 +1,7 @@
 package;
 
 
+import signals.RemovePlayerSignal;
 import flash.text.TextField;
 import flash.geom.Matrix;
 import flash.text.TextFormat;
@@ -23,6 +24,7 @@ class Main extends Sprite {
 testButton.transform.matrix = new Matrix();
                 var name:TextField = cast testButton.getChildByName("_name");
                 initTextField(name);
+        var sig = new RemovePlayerSignal(Int);
     //        name.text = "Name";
     //        name.textColor = 0xffffff;
     //        name.defaultTextFormat = mTFormat;

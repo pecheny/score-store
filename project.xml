@@ -4,9 +4,10 @@
 	<meta title="BoardCounter" package="com.example.boardcounter" version="1.0.0" company="Company Name" />
 	<app main="Main" path="Export" file="BoardCounter" />
 	
-	<source path="src" />
+	<source path="Source" />
 	
     <haxelib name="openfl" />
+    <haxelib name="msignal" />
     <haxelib name="actuate" />
     <haxelib name="swf" />
 

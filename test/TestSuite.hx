@@ -1,5 +1,8 @@
 import massive.munit.TestSuite;
 
+import commands.AddPlayerCommandTest;
+import commands.ChangeScoreCommandTest;
+import commands.RemovePlayerCommandTest;
 import model.PlayerModelTest;
 
 /**
@@ -14,6 +17,9 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(commands.AddPlayerCommandTest);
+		add(commands.ChangeScoreCommandTest);
+		add(commands.RemovePlayerCommandTest);
 		add(model.PlayerModelTest);
 	}
 }
