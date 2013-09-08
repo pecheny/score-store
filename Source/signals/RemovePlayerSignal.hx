@@ -5,7 +5,7 @@ import msignal.Signal.Signal;
 class RemovePlayerSignal extends Signal1<Int> {
     public var playerId:Int;
 
-    public function new(Class) {
+    public function new() {
         super(Int);
     }
 

@@ -10,11 +10,7 @@ class AddPlayerCommand extends mmvc.impl.Command {
     @inject
     public var playersModel:PlayerModel;
 
-    public function new() {
-        super();
-    }
-
-    override public function execute():Void {
+   override public function execute():Void {
         playersModel.addPlayer();
     }
 

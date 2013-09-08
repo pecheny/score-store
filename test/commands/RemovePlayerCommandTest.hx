@@ -13,22 +13,19 @@ class RemovePlayerCommandTest {
 
     }
 
-
     @Before
      public function setup():Void {
          instance = new RemovePlayerCommand();
      }
 
-
      @Test
      public function command_should_call_addPlayer():Void {
          var playerModel = mock(PlayerModel);
-//         var signal = mock(RemovePlayerSignal);
-//         signal.playerId.returns(1);
-//
-//         instance.playersModel = playerModel;
-//         instance.mySignal = signal;
-//         instance.execute();
-//         playerModel.removePlayer(1).verify(1);
+         var signal = new RemovePlayerSignal();
+         signal.playerId = 1;
+         instance.playersModel = playerModel;
+         instance.mySignal = signal;
+         instance.execute();
+         playerModel.removePlayer(1).verify(1);
      }
 }
