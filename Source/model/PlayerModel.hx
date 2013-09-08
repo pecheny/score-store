@@ -36,7 +36,7 @@ class PlayerModel {
         scores[id] = 0;
     }
 
-    public function addScore(playerId:Int, deltaScore:Int):Void {
+    public function changeScore(playerId:Int, deltaScore:Int):Void {
         if (hasPLayer(playerId)) {
             scores[playerId] += deltaScore;
             return;

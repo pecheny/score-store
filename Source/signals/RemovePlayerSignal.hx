@@ -9,5 +9,9 @@ class RemovePlayerSignal extends Signal1<Int> {
         super(Int);
     }
 
+    override public function dispatch(value:Int) {
+        playerId = value;
+        super.dispatch(value);
+    }
 
 }

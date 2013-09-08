@@ -1,22 +1,27 @@
 package commands;
 
-import massive.munit.Assert;
+import mockatoo.Mockatoo.* ;
+import model.PlayerModel;
+import signals.ChangeScoreSignal;
+using mockatoo.Mockatoo;
 
 class ChangeScoreCommandTest {
-    var instance:ChangeScoreCommand;
-
-    public function new() {
-
-    }
-
-
+    var changeScoreCommand:ChangeScoreCommand;
 
     @Before
     public function setup():Void {
+        changeScoreCommand = new ChangeScoreCommand();
     }
 
-
     @Test
-    public function testExample():Void {
+    public function command_should_call_changeScore():Void {
+        var playerModel = mock(PlayerModel);
+        var signal = new ChangeScoreSignal();
+        signal.playerId = 1;
+        signal.deltaScore = 2;
+        changeScoreCommand.playersModel = playerModel;
+        changeScoreCommand.mySignal = signal;
+        changeScoreCommand.execute();
+        playerModel.changeScore(1, 2).verify(1);
     }
 }

@@ -1,31 +1,26 @@
 package commands;
 
-import mockatoo.Mockatoo;
-import mockatoo.Mockatoo.*;
+import mockatoo.Mockatoo.* ;
 import signals.RemovePlayerSignal;
 import model.PlayerModel;
 using mockatoo.Mockatoo;
 
 class RemovePlayerCommandTest {
-    var instance:RemovePlayerCommand;
-
-    public function new() {
-
-    }
+    var removePlayerCommand:RemovePlayerCommand;
 
     @Before
-     public function setup():Void {
-         instance = new RemovePlayerCommand();
-     }
+    public function setup():Void {
+        removePlayerCommand = new RemovePlayerCommand();
+    }
 
-     @Test
-     public function command_should_call_addPlayer():Void {
-         var playerModel = mock(PlayerModel);
-         var signal = new RemovePlayerSignal();
-         signal.playerId = 1;
-         instance.playersModel = playerModel;
-         instance.mySignal = signal;
-         instance.execute();
-         playerModel.removePlayer(1).verify(1);
-     }
+    @Test
+    public function command_should_call_removePlayer():Void {
+        var playerModel = mock(PlayerModel);
+        var signal = new RemovePlayerSignal();
+        signal.playerId = 1;
+        removePlayerCommand.playersModel = playerModel;
+        removePlayerCommand.mySignal = signal;
+        removePlayerCommand.execute();
+        playerModel.removePlayer(1).verify(1);
+    }
 }
