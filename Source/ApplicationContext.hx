@@ -1,0 +1,39 @@
+import commands.ChangeScoreCommand;
+import commands.RemovePlayerCommand;
+import model.PlayerViewsModel;
+import model.PlayerModel;
+import commands.AddPlayerCommand;
+import view.ApplicationView;
+import commands.StartupCommand;
+import signals.StartupSignal;
+import signals.ChangeScoreSignal;
+import signals.RemovePlayerSignal;
+import signals.AddPlayerSignal;
+import mmvc.api.IViewContainer;
+class ApplicationContext extends mmvc.impl.Context {
+    public function new(?contextView:IViewContainer = null) {
+        super(contextView);
+    }
+
+/**
+	Overrides startup to configure all context commands, models and mediators
+	@see mmvc.impl.Context
+	*/
+
+    override public function startup() {
+        injector.mapValue(ApplicationView, contextView);
+        injector.mapSingleton(PlayerModel);
+        injector.mapSingleton(PlayerViewsModel);
+        commandMap.mapSignalClass(StartupSignal, StartupCommand);
+        commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
+        commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
+        commandMap.mapSignalClass(ChangeScoreSignal, ChangeScoreCommand);
+        var startupSignal:StartupSignal = cast injector.getInstance(StartupSignal);
+        startupSignal.dispatch();
+    }
+
+
+    override public function shutdown() {
+
+    }
+}

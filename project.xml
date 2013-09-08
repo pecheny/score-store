@@ -7,6 +7,7 @@
 	<source path="Source" />
 	
     <haxelib name="openfl" />
+    <haxelib name="mmvc" />
     <haxelib name="msignal" />
     <haxelib name="actuate" />
     <haxelib name="swf" />
