@@ -16,6 +16,7 @@ class PlayerView extends Sprite {
     }
 
     private function initTextField() {
+    #if (display)
         var fontAsset:Font = Assets.getFont("assets/DroidSans-Bold.ttf");
         var mTFormat:TextFormat = new TextFormat(fontAsset.fontName, 30);
         mTFormat.color = 0xffffff;
@@ -30,6 +31,7 @@ class PlayerView extends Sprite {
 //            mTF.transform.matrix = sourceTextField.transform.matrix;
 //            parent.removeChild(sourceTextField);
         addChild(mTF);
+        #end
     }
 
     public function setText(text:String):Void {
