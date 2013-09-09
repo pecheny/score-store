@@ -9,6 +9,7 @@ import model.PlayerViewsModelTest;
 import signals.AddPlayerSignalTest;
 import signals.ChangeScoreSignalTest;
 import signals.RemovePlayerSignalTest;
+import view.PlayerViewTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -31,5 +32,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(signals.AddPlayerSignalTest);
 		add(signals.ChangeScoreSignalTest);
 		add(signals.RemovePlayerSignalTest);
+		add(view.PlayerViewTest);
 	}
 }

@@ -1,8 +1,6 @@
 package view;
-import flash.text.TextFormat;
+import flash.display.DisplayObject;
 import flash.text.TextField;
-import openfl.Assets;
-import flash.text.Font;
 import flash.display.Sprite;
 class PlayerView extends Sprite {
     private var mTF:TextField;
@@ -16,7 +14,8 @@ class PlayerView extends Sprite {
     }
 
     private function initTextField() {
-    #if (display)
+        mTF = new TextField();
+        #if (display)
         var fontAsset:Font = Assets.getFont("assets/DroidSans-Bold.ttf");
         var mTFormat:TextFormat = new TextFormat(fontAsset.fontName, 30);
         mTFormat.color = 0xffffff;
@@ -36,5 +35,13 @@ class PlayerView extends Sprite {
 
     public function setText(text:String):Void {
         mTF.text = text;
+    }
+
+    override public function toString():String {
+        return "PlayerView: " + mTF.text;
+    }
+
+    public function getPlusButton():DisplayObject {
+        return this;
     }
 }
