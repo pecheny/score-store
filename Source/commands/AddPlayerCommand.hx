@@ -11,9 +11,9 @@ class AddPlayerCommand extends mmvc.impl.Command {
     public var playersModel:PlayerModel;
     @inject
     public var playerViewsModel:PlayerViewsModel;
-    @Inject
+    @inject
     public var viewFactory:PlayerViewFactory;
-    @Inject
+    @inject
     public var appView:ApplicationView;
 
    override public function execute():Void {

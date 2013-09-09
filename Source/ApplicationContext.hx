@@ -1,3 +1,7 @@
+import mediators.PlayerViewMediator;
+import view.PlayerView;
+import mediators.ApplicationViewMediator;
+import model.PlayerViewFactory;
 import commands.ChangeScoreCommand;
 import commands.RemovePlayerCommand;
 import model.PlayerViewsModel;
@@ -24,10 +28,14 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapValue(ApplicationView, contextView);
         injector.mapSingleton(PlayerModel);
         injector.mapSingleton(PlayerViewsModel);
+        injector.mapSingleton(PlayerViewFactory);
         commandMap.mapSignalClass(StartupSignal, StartupCommand);
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
         commandMap.mapSignalClass(ChangeScoreSignal, ChangeScoreCommand);
+        mediatorMap.mapView(PlayerView, PlayerViewMediator);
+        mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
+
         var startupSignal:StartupSignal = cast injector.getInstance(StartupSignal);
         startupSignal.dispatch();
     }
