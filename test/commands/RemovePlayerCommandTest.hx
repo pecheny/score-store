@@ -1,5 +1,6 @@
 package commands;
 
+import model.vo.PlayerId;
 import mockatoo.Mockatoo.* ;
 import signals.RemovePlayerSignal;
 import model.PlayerModel;
@@ -17,10 +18,10 @@ class RemovePlayerCommandTest {
     public function command_should_call_removePlayer():Void {
         var playerModel = mock(PlayerModel);
         var signal = new RemovePlayerSignal();
-        signal.playerId = 1;
+        removePlayerCommand.playerId = PlayerId.fromInt(1);
         removePlayerCommand.playersModel = playerModel;
         removePlayerCommand.mySignal = signal;
         removePlayerCommand.execute();
-        playerModel.removePlayer(1).verify(1);
+        playerModel.removePlayer(PlayerId.fromInt(1)).verify(1);
     }
 }

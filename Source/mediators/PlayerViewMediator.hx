@@ -7,7 +7,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<ApplicationView> {
 
 
     override function onRegister() {
-        trace("player's mediator");
         super.onRegister();
     }
 

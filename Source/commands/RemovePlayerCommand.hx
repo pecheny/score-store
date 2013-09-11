@@ -1,4 +1,5 @@
 package commands;
+import model.vo.PlayerId;
 import model.PlayerModel;
 import signals.RemovePlayerSignal;
 class RemovePlayerCommand extends mmvc.impl.Command {
@@ -6,9 +7,11 @@ class RemovePlayerCommand extends mmvc.impl.Command {
     public var mySignal:RemovePlayerSignal;
     @inject
     public var playersModel:PlayerModel;
+    @inject
+    public var playerId:PlayerId;
 
     override public function execute():Void {
-        playersModel.removePlayer(mySignal.playerId);
+        playersModel.removePlayer(playerId);
     }
 
 }

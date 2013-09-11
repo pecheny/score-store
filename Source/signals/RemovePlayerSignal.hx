@@ -1,17 +1,9 @@
 package signals;
-import msignal.Slot;
+import model.vo.PlayerId;
 import msignal.Signal.Signal1;
 import msignal.Signal.Signal;
-class RemovePlayerSignal extends Signal1<Int> {
-    public var playerId:Int;
-
+class RemovePlayerSignal extends Signal1<PlayerId> {
     public function new() {
-        super(Int);
+        super(PlayerId);
     }
-
-    override public function dispatch(value:Int) {
-        playerId = value;
-        super.dispatch(value);
-    }
-
 }

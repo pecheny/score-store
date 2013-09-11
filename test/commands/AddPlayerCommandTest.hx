@@ -1,5 +1,6 @@
 package commands;
 
+import model.vo.PlayerId;
 import view.ApplicationView;
 import view.PlayerView;
 import model.PlayerViewFactory;
@@ -23,7 +24,7 @@ class AddPlayerCommandTest {
         addPlayerCommand = new AddPlayerCommand();
 
         playerModel = mock(PlayerModel);
-        playerModel.addPlayer().returns(1);
+        playerModel.addPlayer().returns(PlayerId.fromInt(1));
         playerViewsModel = mock(PlayerViewsModel);
         view = mock(PlayerView);
         var factory:PlayerViewFactory = mock(PlayerViewFactory);
@@ -45,7 +46,7 @@ class AddPlayerCommandTest {
     @Test
     public function should_create_view_and_add_to_model():Void {
         addPlayerCommand.execute();
-        playerViewsModel.addView(1, view).verify(1);
+        playerViewsModel.addView(PlayerId.fromInt(1), view).verify(1);
     }
 
     @Test

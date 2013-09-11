@@ -1,5 +1,6 @@
 package model;
 
+import model.vo.PlayerId;
 import org.hamcrest.MatchersBase;
 import org.hamcrest.MatcherAssert;
 import massive.munit.Assert;
@@ -17,20 +18,20 @@ class PlayerModelTest extends MatchersBase {
 
     @Test
     public function should_create_player():Void {
-        var playerId:Int = playerModel.addPlayer();
+        var playerId:PlayerId = playerModel.addPlayer();
         Assert.isTrue(playerModel.hasPLayer(playerId));
     }
 
     @Test
     public function should_add_score_for_player():Void {
-        var playerId:Int = playerModel.addPlayer();
+        var playerId:PlayerId = playerModel.addPlayer();
         playerModel.changeScore(playerId, 1);
         Assert.areEqual(1, playerModel.getScore(playerId));
     }
 
     @Test
     public function should_remove_score_from_player():Void {
-        var playerId:Int = playerModel.addPlayer();
+        var playerId:PlayerId = playerModel.addPlayer();
         playerModel.changeScore(playerId, 5);
         playerModel.changeScore(playerId, -2);
         Assert.areEqual(3, playerModel.getScore(playerId));
@@ -38,7 +39,7 @@ class PlayerModelTest extends MatchersBase {
 
     @Test
     public function created_player_should_have_zero_score():Void {
-        var playerId:Int = playerModel.addPlayer();
+        var playerId:PlayerId = playerModel.addPlayer();
         Assert.areEqual(0, playerModel.getScore(playerId));
 
         playerModel.changeScore(playerId, 1);
@@ -50,17 +51,17 @@ class PlayerModelTest extends MatchersBase {
 
     @Test
     public function should_remove_player():Void {
-        var playerId:Int = playerModel.addPlayer();
+        var playerId:PlayerId = playerModel.addPlayer();
         playerModel.removePlayer(playerId);
         Assert.isFalse(playerModel.hasPLayer(playerId));
     }
 
     @Test
     public function should_reuse_free_id():Void {
-        var player1Id:Int = playerModel.addPlayer();
-        var player2Id:Int = playerModel.addPlayer();
+        var player1Id:PlayerId = playerModel.addPlayer();
+        var player2Id:PlayerId = playerModel.addPlayer();
         playerModel.removePlayer(player1Id);
-        var player3Id:Int = playerModel.addPlayer();
+        var player3Id:PlayerId = playerModel.addPlayer();
         Assert.areEqual(player1Id, player3Id);
     }
 
@@ -71,10 +72,10 @@ class PlayerModelTest extends MatchersBase {
         }
         assertThat(playerModel.getPlayers(), arrayWithSize(equalTo(13)));
 
-        playerModel.removePlayer(1);
-        playerModel.removePlayer(5);
-        playerModel.removePlayer(6);
-        playerModel.removePlayer(13);
+        playerModel.removePlayer(PlayerId.fromInt(1));
+        playerModel.removePlayer(PlayerId.fromInt(5));
+        playerModel.removePlayer(PlayerId.fromInt(6));
+        playerModel.removePlayer(PlayerId.fromInt(13));
         var playerIds:Array<Int> = playerModel.getPlayers();
         assertThat(playerIds, arrayWithSize(equalTo(9)));
         assertThat(playerIds, arrayContainingInAnyOrder(2, 3, 4, 7, 8, 9, 10, 11, 12));
@@ -84,7 +85,7 @@ class PlayerModelTest extends MatchersBase {
     public function should_throw_exception_on_getting_unexistent_score():Void {
         var msg:String = "";
         try {
-            playerModel.getScore(1);
+            playerModel.getScore(PlayerId.fromInt(1));
         } catch (e:String) {
             msg = e;
         }
@@ -95,7 +96,7 @@ class PlayerModelTest extends MatchersBase {
     public function should_throw_exception_on_adding_unexistent_score():Void {
         var msg:String = "";
         try {
-            playerModel.changeScore(1, 1);
+            playerModel.changeScore(PlayerId.fromInt(1), 1);
         } catch (e:String) {
             msg = e;
         }
@@ -106,7 +107,7 @@ class PlayerModelTest extends MatchersBase {
     public function should_throw_exception_on_removing_unexistent_player():Void {
         var msg:String = "";
         try {
-            playerModel.removePlayer(1);
+            playerModel.removePlayer(PlayerId.fromInt(1));
         } catch (e:String) {
             msg = e;
         }
@@ -117,7 +118,7 @@ class PlayerModelTest extends MatchersBase {
     public function should_throw_exception_on_reaching_players_limit():Void {
         var msg:String = "";
         try {
-            for (i in 1...PlayerModel.MAX_PLAYERS + 1) {
+            for (i in 1...PlayerId.MAX_PLAYERS + 1) {
                 playerModel.addPlayer();
             }
         } catch (e:String) {

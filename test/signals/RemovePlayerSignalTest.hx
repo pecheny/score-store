@@ -1,5 +1,6 @@
 package signals;
 
+import model.vo.PlayerId;
 import massive.munit.Assert;
 
 class RemovePlayerSignalTest {
@@ -13,22 +14,22 @@ class RemovePlayerSignalTest {
     @Test
     public function signal_should_call_callback():Void {
     var callsCounter:Int = 0;
-        var callback:Int -> Void  = function(playerId:Int) {
+        var callback:PlayerId -> Void  = function(playerId:PlayerId) {
             callsCounter++;
         }
         signal.add(callback);
-        signal.dispatch(1);
+        signal.dispatch(PlayerId.fromInt(1));
         Assert.areEqual(callsCounter, 1);
     }
 
     @Test
        public function signal_should_pass_playerId():Void {
-       var passedId:Int = 0;
-           var callback:Int -> Void  = function(playerId:Int) {
+       var passedId:PlayerId;
+           var callback:PlayerId -> Void  = function(playerId:PlayerId) {
                passedId = playerId;
            }
            signal.add(callback);
-           signal.dispatch(5);
-           Assert.areEqual(passedId, 5);
+           signal.dispatch(PlayerId.fromInt(5));
+           Assert.areEqual(passedId, PlayerId.fromInt(5));
        }
 }

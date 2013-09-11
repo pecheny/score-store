@@ -1,4 +1,5 @@
 package commands;
+import model.vo.PlayerId;
 import model.PlayerModel;
 import signals.ChangeScoreSignal;
 class ChangeScoreCommand extends mmvc.impl.Command {
@@ -6,9 +7,13 @@ class ChangeScoreCommand extends mmvc.impl.Command {
     public var mySignal:ChangeScoreSignal;
     @inject
     public var playersModel:PlayerModel;
+    @inject
+    public var playerId:PlayerId;
+    @inject
+    public var deltaScore:Int;
 
     override public function execute():Void {
-        playersModel.changeScore(mySignal.playerId, mySignal.deltaScore);
+        playersModel.changeScore(playerId, deltaScore);
     }
 
 }
