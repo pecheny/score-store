@@ -1,7 +1,8 @@
 package commands;
+import view.PlayerView;
 import model.vo.PlayerId;
 import view.ApplicationView;
-import model.PlayerViewFactory;
+import view.PlayerViewFactory;
 import model.PlayerViewsModel;
 import model.PlayerModel;
 import signals.AddPlayerSignal;
@@ -19,8 +20,9 @@ class AddPlayerCommand extends mmvc.impl.Command {
 
    override public function execute():Void {
        var id:PlayerId = playersModel.addPlayer();
-       var view = viewFactory.getView();
+       var view:PlayerView = viewFactory.getView();
        playerViewsModel.addView(id, view);
+       view.setPlayerId(id);
        appView.addChild(view);
     }
 }

@@ -1,8 +1,8 @@
-package model;
+package view;
 import view.PlayerView;
 import org.hamcrest.MatchersBase;
 import org.hamcrest.MatcherAssert;
-import model.PlayerViewFactory;
+import view.PlayerViewFactory;
 using org.hamcrest.MatcherAssert;
 
 class PlayerViewFactoryTest extends MatchersBase {

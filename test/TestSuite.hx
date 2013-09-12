@@ -5,11 +5,11 @@ import commands.ChangeScoreCommandTest;
 import commands.RemovePlayerCommandTest;
 import mediators.PlayerViewMediatorTest;
 import model.PlayerModelTest;
-import model.PlayerViewFactoryTest;
 import model.PlayerViewsModelTest;
 import signals.AddPlayerSignalTest;
 import signals.ChangeScoreSignalTest;
 import signals.RemovePlayerSignalTest;
+import view.PlayerViewFactoryTest;
 import view.PlayerViewTest;
 
 /**
@@ -29,11 +29,11 @@ class TestSuite extends massive.munit.TestSuite
 		add(commands.RemovePlayerCommandTest);
 		add(mediators.PlayerViewMediatorTest);
 		add(model.PlayerModelTest);
-		add(model.PlayerViewFactoryTest);
 		add(model.PlayerViewsModelTest);
 		add(signals.AddPlayerSignalTest);
 		add(signals.ChangeScoreSignalTest);
 		add(signals.RemovePlayerSignalTest);
+		add(view.PlayerViewFactoryTest);
 		add(view.PlayerViewTest);
 	}
 }

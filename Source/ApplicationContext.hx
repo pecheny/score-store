@@ -1,7 +1,9 @@
+import commands.MouseHandleCommand;
+import signals.PlayerButtonSignal;
 import mediators.PlayerViewMediator;
 import view.PlayerView;
 import mediators.ApplicationViewMediator;
-import model.PlayerViewFactory;
+import view.PlayerViewFactory;
 import commands.ChangeScoreCommand;
 import commands.RemovePlayerCommand;
 import model.PlayerViewsModel;
@@ -33,6 +35,7 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
         commandMap.mapSignalClass(ChangeScoreSignal, ChangeScoreCommand);
+        commandMap.mapSignalClass(PlayerButtonSignal, MouseHandleCommand);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 

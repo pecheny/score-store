@@ -3,7 +3,7 @@ package commands;
 import model.vo.PlayerId;
 import view.ApplicationView;
 import view.PlayerView;
-import model.PlayerViewFactory;
+import view.PlayerViewFactory;
 import mockatoo.Mockatoo;
 import model.PlayerViewsModel;
 import mockatoo.Mockatoo.
@@ -22,7 +22,6 @@ class AddPlayerCommandTest {
     @Before
     public function setup():Void {
         addPlayerCommand = new AddPlayerCommand();
-
         playerModel = mock(PlayerModel);
         playerModel.addPlayer().returns(PlayerId.fromInt(1));
         playerViewsModel = mock(PlayerViewsModel);
@@ -30,7 +29,6 @@ class AddPlayerCommandTest {
         var factory:PlayerViewFactory = mock(PlayerViewFactory);
         factory.getView().returns(view);
         appView = mock(ApplicationView);
-
         addPlayerCommand.playersModel = playerModel;
         addPlayerCommand.playerViewsModel = playerViewsModel;
         addPlayerCommand.viewFactory = factory;
@@ -54,4 +52,10 @@ class AddPlayerCommandTest {
         addPlayerCommand.execute();
         appView.addChild(view).verify(1);
     }
+
+    @Test
+       public function should_set_playerId_to_view():Void {
+           addPlayerCommand.execute();
+           view.setPlayerId(PlayerId.fromInt(1)).verify(1);
+       }
 }

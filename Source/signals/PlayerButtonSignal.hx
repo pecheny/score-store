@@ -1,4 +1,5 @@
 package signals;
+import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import msignal.Signal.Signal2;
 class PlayerButtonSignal extends Signal2<PlayerId, MouseEvent> {
