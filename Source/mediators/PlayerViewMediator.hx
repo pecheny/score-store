@@ -1,4 +1,6 @@
 package mediators;
+import flash.display.Sprite;
+import view.PlayerViewLayout;
 import view.LabelFactory;
 import flash.events.MouseEvent;
 import view.PlayerView;
@@ -6,7 +8,7 @@ import signals.PlayerButtonSignal;
 class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerButtonSignal:PlayerButtonSignal;
     @inject public var labelFactory:LabelFactory;
-
+    @inject public var layout:PlayerViewLayout;
     public function new() {
         super();
     }
@@ -16,6 +18,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         super.onRegister();
         view.setMainTextField(labelFactory.getLabel(30, 0xffffff));
         view.addEventListener(MouseEvent.CLICK, mouseHandler);
+        var layoutMc:Sprite = layout.movieClip;
+        view.addChild(layoutMc);
     }
 
 

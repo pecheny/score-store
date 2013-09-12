@@ -1,3 +1,4 @@
+import view.LabelFactory;
 import commands.MouseHandleCommand;
 import signals.PlayerButtonSignal;
 import mediators.PlayerViewMediator;
@@ -31,6 +32,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(PlayerModel);
         injector.mapSingleton(PlayerViewsModel);
         injector.mapSingleton(PlayerViewFactory);
+        injector.mapSingleton(LabelFactory);
         commandMap.mapSignalClass(StartupSignal, StartupCommand);
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
