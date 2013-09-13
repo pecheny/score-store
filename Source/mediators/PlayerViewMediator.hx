@@ -36,7 +36,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         var scoreLabel:TextField = labelFactory.getLabel(
             PlayerViewStyle.SCORE_SIZE,
             PlayerViewStyle.SCORE_COLOR,
-            PlayerViewStyle.SCORE_ALIGN,
+            cast PlayerViewStyle.SCORE_ALIGN,
             PlayerViewStyle.SCORE_SPACING
         );
         scoreLabel.width = _score.width;
