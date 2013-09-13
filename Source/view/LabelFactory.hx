@@ -1,4 +1,5 @@
 package view;
+import view.PlayerViewStyle.LabelStyle;
 import flash.text.TextFormatAlign;
 import flash.text.TextFormat;
 import openfl.Assets;
@@ -28,6 +29,11 @@ class LabelFactory {
         mTF.embedFonts = true;
         return mTF;
     }
+
+    public function gelLabelFromStyle(style:LabelStyle):TextField {
+        return getLabel(style.size, style.color, style.align, style.spacing);
+    }
+
 #if (flash)
     public function getAlignValue(string:String):TextFormatAlign {
         switch(string){
