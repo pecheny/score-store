@@ -9,8 +9,11 @@ class PlayerView extends Sprite {
 
     public function new() {
         super();
+    }
+
+    public function initBackground(w:Float, h:Float, r:Float):Void {
         graphics.beginFill(0, 0.75);
-        graphics.drawRoundRect(0, 0, 300, 100, 20, 20);
+        graphics.drawRoundRect(0, 0, w, h, r, r);
         graphics.endFill();
     }
 
@@ -19,13 +22,10 @@ class PlayerView extends Sprite {
             throw "TextField should be null";
         }
         label = textField;
-        label.x = 30;
-        label.y = 30;
         addChild(label);
     }
 
     public function setText(text:String):Void {
-        trace("call ch text" + text);
         label.text = text;
     }
 
