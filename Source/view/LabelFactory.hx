@@ -27,6 +27,7 @@ class LabelFactory {
         var mTF:TextField = new TextField();
         mTF.defaultTextFormat = mTFormat;
         mTF.embedFonts = true;
+        mTF.selectable = false;
         return mTF;
     }
 
