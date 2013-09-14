@@ -1,4 +1,5 @@
 package mediators;
+import signals.ChangeScoreSignal;
 import flash.display.Shape;
 import flash.display.DisplayObject;
 import view.PlayerViewStyle;
@@ -11,11 +12,16 @@ import view.PlayerView;
 import signals.PlayerButtonSignal;
 class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerButtonSignal:PlayerButtonSignal;
+    @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
     @inject public var layout:PlayerViewLayout;
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
+
+    var plusTapZone:DisplayObject;
+    var minusTapZone:DisplayObject;
+    var scoreTapZone:DisplayObject;
 
     public function new() {
         super();
@@ -24,8 +30,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
     override public function onRegister() {
         super.onRegister();
-        view.addEventListener(MouseEvent.CLICK, mouseHandler);
         setupLayout();
+        view.addEventListener(MouseEvent.CLICK, mouseHandler);
     }
 
     public function setupLayout():Void {
@@ -46,40 +52,44 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         nameLabel.text = "Player " + playerView.getPlayerId().toInt();
         playerView.addChild(nameLabel);
 
-        var plusButton = makeButton("_plus_view", "_plus_hitArea");
+        var plusButton = makeGraphics("_plus_view");
         playerView.addChild(plusButton);
 
-        var minusButton = makeButton("_minus_view", "_minus_hitArea");
+        var minusButton = makeGraphics("_minus_view");
         playerView.addChild(minusButton);
 
-        var scoreButton = makeButton("_minus_view", "_score_hitArea");
-        playerView.addChild(scoreButton);
+
+        plusTapZone = makeTapZone("_plus_hitArea");
+        playerView.addChild(plusTapZone);
+
+        minusTapZone = makeTapZone("_minus_hitArea");
+        playerView.addChild(minusTapZone);
+
+        scoreTapZone = makeTapZone("_score_hitArea");
+        playerView.addChild(scoreTapZone);
 
     }
 
-    public function makeButton(sourceName:String, hitAreaName:String):DisplayObject {
+    public function makeGraphics(sourceName:String):DisplayObject {
         var _plus_view:Sprite = cast layoutMc.getChildByName(sourceName);
         var _plus_shape:Shape = cast _plus_view.getChildAt(0);
         var button = new Sprite();
         button.graphics.copyFrom(_plus_shape.graphics);
         button.transform.matrix = _plus_view.transform.matrix.clone();
+        button.mouseEnabled = false;
+        return button;
+    }
 
-
+    public function makeTapZone(hitAreaName:String):DisplayObject {
         var _hitArea:Sprite = cast layoutMc.getChildByName(hitAreaName);
         var _hitArea_shape:Shape = cast _hitArea.getChildAt(0);
         var hitArea = new Sprite();
         hitArea.graphics.copyFrom(_hitArea_shape.graphics);
-
-        var invButtonMatrix = button.transform.concatenatedMatrix.clone();
-        invButtonMatrix.invert();
-        var matrix = _hitArea.transform.concatenatedMatrix.clone();
-        matrix.concat(invButtonMatrix);
+        var matrix = _hitArea.transform.matrix.clone();
         hitArea.transform.matrix = matrix;
-        hitArea.alpha = 0.1;
-
-        button.addChild(hitArea);
-
-        return button;
+        hitArea.alpha = 0;
+        hitArea.mouseChildren = false;
+        return hitArea;
     }
 
     function makeLabel(style:LabelStyle, transformSource:DisplayObject):TextField {
@@ -96,6 +106,14 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     private function mouseHandler(e:MouseEvent):Void {
-        playerButtonSignal.dispatch(view.getPlayerId(), e);
+        if (e.target == plusTapZone) {
+            changeScoreSignal.dispatch(playerView.getPlayerId(), 1);
+        }
+        else if (e.target == minusTapZone) {
+            changeScoreSignal.dispatch(playerView.getPlayerId(), -1);
+        }
+        else if (e.target == scoreTapZone) {
+            playerButtonSignal.dispatch(view.getPlayerId(), e);
+        }
     }
 }
