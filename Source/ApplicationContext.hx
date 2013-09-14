@@ -1,3 +1,5 @@
+import commands.ScaleStageCommand;
+import signals.StageResizedSignal;
 import view.LabelFactory;
 import commands.MouseHandleCommand;
 import signals.PlayerButtonSignal;
@@ -33,6 +35,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(PlayerViewsModel);
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
+        commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);
         commandMap.mapSignalClass(StartupSignal, StartupCommand);
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
