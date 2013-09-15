@@ -1,9 +1,14 @@
 package view;
+import format.SWF;
 import flash.display.MovieClip;
 class PlayerViewLayout {
-    public var movieClip:MovieClip;
+    private var swf:SWF;
 
-    public function new(mc:MovieClip):Void {
-        movieClip = mc;
+    public function new(mc:SWF):Void {
+        swf = mc;
+    }
+
+    public function getMovieClip():MovieClip {
+        return swf.createMovieClip("PlayerUnitView");
     }
 }

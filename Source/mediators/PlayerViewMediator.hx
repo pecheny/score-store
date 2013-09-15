@@ -1,4 +1,6 @@
 package mediators;
+import Type;
+import flash.display.MovieClip;
 import signals.ChangeScoreSignal;
 import flash.display.Shape;
 import flash.display.DisplayObject;
@@ -35,7 +37,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     public function setupLayout():Void {
-        layoutMc = layout.movieClip;
+        layoutMc = layout.getMovieClip();
         playerView = cast view;
 
         var bg:Sprite = cast layoutMc.getChildByName("_background");
@@ -71,24 +73,16 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     public function makeGraphics(sourceName:String):DisplayObject {
-        var _plus_view:Sprite = cast layoutMc.getChildByName(sourceName);
-        var _plus_shape:Shape = cast _plus_view.getChildAt(0);
-        var button = new Sprite();
-        button.graphics.copyFrom(_plus_shape.graphics);
-        button.transform.matrix = _plus_view.transform.matrix.clone();
-        button.mouseEnabled = false;
-        return button;
+        var sprite:Sprite = cast layoutMc.getChildByName(sourceName);
+        sprite.mouseEnabled = false;
+        return sprite;
     }
 
     public function makeTapZone(hitAreaName:String):DisplayObject {
-        var _hitArea:Sprite = cast layoutMc.getChildByName(hitAreaName);
-        var _hitArea_shape:Shape = cast _hitArea.getChildAt(0);
-        var hitArea = new Sprite();
-        hitArea.graphics.copyFrom(_hitArea_shape.graphics);
-        var matrix = _hitArea.transform.matrix.clone();
-        hitArea.transform.matrix = matrix;
+        var hitArea:Sprite = cast layoutMc.getChildByName(hitAreaName);
         hitArea.alpha = 0;
         hitArea.mouseChildren = false;
+        hitArea.name = hitAreaName;
         return hitArea;
     }
 
@@ -106,13 +100,14 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     private function mouseHandler(e:MouseEvent):Void {
-        if (e.target == plusTapZone) {
+        var target:MovieClip = cast e.target;
+        if (target.name == plusTapZone.name) {
             changeScoreSignal.dispatch(playerView.getPlayerId(), 1);
         }
-        else if (e.target == minusTapZone) {
+        else if (target.name == minusTapZone.name) {
             changeScoreSignal.dispatch(playerView.getPlayerId(), -1);
         }
-        else if (e.target == scoreTapZone) {
+        else if (target.name == scoreTapZone.name) {
             playerButtonSignal.dispatch(view.getPlayerId(), e);
         }
     }

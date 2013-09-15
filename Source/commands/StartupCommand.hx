@@ -1,6 +1,5 @@
 package commands;
 import signals.StageResizedSignal;
-import flash.display.MovieClip;
 import view.PlayerViewLayout;
 import format.SWF;
 import openfl.Assets;
@@ -13,8 +12,7 @@ class StartupCommand extends mmvc.impl.Command {
 
     override public function execute():Void {
         var swf:SWF = new SWF (Assets.getBytes("assets/CounterAssets.swf"));
-        var testButton:MovieClip = swf.createMovieClip("PlayerUnitView");
-        var layout = new PlayerViewLayout(testButton);
+        var layout = new PlayerViewLayout(swf);
         injector.mapValue(PlayerViewLayout, layout);
         addPlayerSignal.dispatch();
         resizeSignal.dispatch();
