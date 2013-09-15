@@ -1,4 +1,5 @@
 package mediators;
+import flash.text.TextFieldAutoSize;
 import Type;
 import flash.display.MovieClip;
 import signals.ChangeScoreSignal;
@@ -51,6 +52,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
         var _name:TextField = cast layoutMc.getChildByName("_name");
         var nameLabel:TextField = makeLabel(PlayerViewStyle.NAME, _name);
+        nameLabel.autoSize = TextFieldAutoSize.LEFT;
         nameLabel.text = "Player " + playerView.getPlayerId().toInt();
         playerView.addChild(nameLabel);
 
