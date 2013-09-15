@@ -7,6 +7,8 @@ align:String
 }
 class PlayerViewStyle {
 
+    public static var GRID_STEP:Int = 20;
+
     public static var SCORE:LabelStyle = {
     var val:LabelStyle = {
     size : 92,
