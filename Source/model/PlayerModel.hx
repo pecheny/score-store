@@ -53,8 +53,12 @@ class PlayerModel {
         throw "There is no player with given id: " + playerId;
     }
 
-    public function getPlayers():Array<Int> {
-        return activePlayers.copy();
+    public function getPlayers():Array<PlayerId> {
+        var val:Array<PlayerId> = new Array<PlayerId>();
+        for (id in activePlayers.iterator()) {
+            val.push(PlayerId.fromInt(id));
+        }
+         return val;
     }
 
     public function hasPLayer(playerId:PlayerId):Bool {

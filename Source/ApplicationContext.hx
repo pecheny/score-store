@@ -1,3 +1,4 @@
+import commands.LayoutViewsCommand;
 import commands.ScaleStageCommand;
 import signals.StageResizedSignal;
 import view.LabelFactory;
@@ -36,6 +37,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
         commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);
+        commandMap.mapSignalClass(StageResizedSignal, LayoutViewsCommand);
         commandMap.mapSignalClass(StartupSignal, StartupCommand);
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);

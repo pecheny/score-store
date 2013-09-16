@@ -76,9 +76,9 @@ class PlayerModelTest extends MatchersBase {
         playerModel.removePlayer(PlayerId.fromInt(5));
         playerModel.removePlayer(PlayerId.fromInt(6));
         playerModel.removePlayer(PlayerId.fromInt(13));
-        var playerIds:Array<Int> = playerModel.getPlayers();
+        var playerIds:Array<PlayerId> = playerModel.getPlayers();
         assertThat(playerIds, arrayWithSize(equalTo(9)));
-        assertThat(playerIds, arrayContainingInAnyOrder(2, 3, 4, 7, 8, 9, 10, 11, 12));
+        assertThat(playerIds, arrayContainingInAnyOrder(PlayerId.fromInt(2), PlayerId.fromInt(3), PlayerId.fromInt(4), PlayerId.fromInt(7), PlayerId.fromInt(8), PlayerId.fromInt(9), PlayerId.fromInt(10), PlayerId.fromInt(11), PlayerId.fromInt(12)));
     }
 
     @Test

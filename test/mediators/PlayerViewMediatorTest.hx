@@ -1,4 +1,9 @@
 package mediators;
+import signals.ChangeScoreSignal;
+import view.PlayerViewStyle;
+import flash.display.DisplayObject;
+import view.PlayerViewLayout;
+import flash.display.MovieClip;
 import org.hamcrest.MatchersBase;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.MatcherAssert;
@@ -13,7 +18,8 @@ import model.vo.PlayerId;
 import signals.PlayerButtonSignal;
 import view.PlayerView;
 import massive.munit.util.Timer;
-import mockatoo.Mockatoo.* ;
+import mockatoo.Mockatoo.
+* ;
 using mockatoo.Mockatoo;
 using org.hamcrest.MatcherAssert;
 
@@ -21,24 +27,28 @@ class PlayerViewMediatorTest extends MatchersBase {
     public var playerViewMediator:PlayerViewMediator;
     var view:PlayerView;
     var passedId:PlayerId;
-    var passedEvent:Event;
+    var passedScore:Int;
     var callsCounter:Int = 0;
     var timer:Timer;
-    var signal:PlayerButtonSignal;
+    var signal:ChangeScoreSignal;
     var label:TextField;
+    var mc:MovieClip;
 
     @Before
     public function startup():Void {
         label = new TextField();
         label.text = "foobar";
-
         var labelFactory:LabelFactory = mock(LabelFactory);
-        labelFactory.getLabel(cast Matcher.any, cast Matcher.any).returns(label);
-        signal = new PlayerButtonSignal();
+        labelFactory.getLabel(cast Matcher.any, cast Matcher.any, cast Matcher.any, cast Matcher.any).returns(label);
+        labelFactory.getLabelFromStyle(cast Matcher.any).returns(label);
+        mc = new MovieClipMocked(label);
+        var layout:PlayerViewLayout = mock(PlayerViewLayout);
+        layout.getMovieClip().returns(mc);
+        signal = new ChangeScoreSignal();
         playerViewMediator = new PlayerViewMediator();
+        playerViewMediator.layout = layout;
         playerViewMediator.labelFactory = labelFactory;
-        playerViewMediator.playerButtonSignal = signal;
-
+        playerViewMediator.changeScoreSignal = signal;
     }
 
     @AsyncTest
@@ -48,20 +58,22 @@ class PlayerViewMediatorTest extends MatchersBase {
         playerViewMediator.view = view;
 
         playerViewMediator.onRegister();
-        signal.add(function(id:PlayerId, event:Event) {
+        signal.add(function(id:PlayerId, delta:Int) {
             callsCounter++;
             passedId = id;
-            passedEvent = event;
+            passedScore = delta;
         });
         var handler:Dynamic = asyncFactory.createHandler(this, mouseHandleTestComplete, 300);
         timer = Timer.delay(handler, 200);
-        view.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+
+        mc.name = PlayerViewStyle.NAME_PLUS_HITAREA;
+        mc.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     private function mouseHandleTestComplete():Void {
         Assert.areEqual(callsCounter, 1);
         Assert.areEqual(passedId, PlayerId.fromInt(2));
-        MatcherAssert.assertThat(passedEvent, instanceOf(MouseEvent));
+        Assert.areEqual(passedScore, 1);
     }
 
     @Test
@@ -72,5 +84,22 @@ class PlayerViewMediatorTest extends MatchersBase {
 
         playerViewMediator.onRegister();
         view.setMainTextField(label).verify(1);
+    }
+}
+
+// Mockatoo can't mock MovieClip
+class MovieClipMocked extends MovieClip {
+    var label:TextField;
+
+    public function new(label:TextField):Void {
+        this.label = label;
+        super();
+    }
+
+    override public function getChildByName(s:String):DisplayObject {
+        if (s == PlayerViewStyle.NAME_SCORE || s == PlayerViewStyle.NAME_NAME) {
+            return label;
+        }
+        return this;
     }
 }

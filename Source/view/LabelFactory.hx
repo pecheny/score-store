@@ -31,7 +31,7 @@ class LabelFactory {
         return mTF;
     }
 
-    public function gelLabelFromStyle(style:LabelStyle):TextField {
+    public function getLabelFromStyle(style:LabelStyle):TextField {
         return getLabel(style.size, style.color, style.align, style.spacing);
     }
 

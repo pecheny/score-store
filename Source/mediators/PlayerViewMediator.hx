@@ -41,35 +41,35 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         layoutMc = layout.getMovieClip();
         playerView = cast view;
 
-        var bg:Sprite = cast layoutMc.getChildByName("_background");
+        var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);
         playerView.initBackground(bg.width, bg.height, 25 * 2);
 
-        var _score:TextField = cast layoutMc.getChildByName("_score");
-        var scoreLabel:TextField = makeLabel(PlayerViewStyle.SCORE, _score);
+        var _score:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_SCORE);
+        var scoreLabel:TextField = makeLabel(PlayerViewStyle.STYLE_SCORE, _score);
         scoreLabel.text = "25";
         playerView.setMainTextField(scoreLabel);
 
 
-        var _name:TextField = cast layoutMc.getChildByName("_name");
-        var nameLabel:TextField = makeLabel(PlayerViewStyle.NAME, _name);
+        var _name:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_NAME);
+        var nameLabel:TextField = makeLabel(PlayerViewStyle.STYLE_NAME, _name);
         nameLabel.autoSize = TextFieldAutoSize.LEFT;
         nameLabel.text = "Player " + playerView.getPlayerId().toInt();
         playerView.addChild(nameLabel);
 
-        var plusButton = makeGraphics("_plus_view");
+        var plusButton = makeGraphics(PlayerViewStyle.NAME_PLUS_VIEW);
         playerView.addChild(plusButton);
 
-        var minusButton = makeGraphics("_minus_view");
+        var minusButton = makeGraphics(PlayerViewStyle.NAME_MINUS_VIEW);
         playerView.addChild(minusButton);
 
 
-        plusTapZone = makeTapZone("_plus_hitArea");
+        plusTapZone = makeTapZone(PlayerViewStyle.NAME_PLUS_HITAREA);
         playerView.addChild(plusTapZone);
 
-        minusTapZone = makeTapZone("_minus_hitArea");
+        minusTapZone = makeTapZone(PlayerViewStyle.NAME_MINUS_HITAREA);
         playerView.addChild(minusTapZone);
 
-        scoreTapZone = makeTapZone("_score_hitArea");
+        scoreTapZone = makeTapZone(PlayerViewStyle.NAME_SCORE_HITAREA);
         playerView.addChild(scoreTapZone);
 
     }
@@ -89,7 +89,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     function makeLabel(style:LabelStyle, transformSource:DisplayObject):TextField {
-        var label:TextField = labelFactory.gelLabelFromStyle(style);
+        var label:TextField = labelFactory.getLabelFromStyle(style);
         label.width = transformSource.width;
         label.height = transformSource.height;
         label.transform.matrix = transformSource.transform.matrix.clone();
@@ -102,7 +102,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     private function mouseHandler(e:MouseEvent):Void {
-        var target:MovieClip = cast e.target;
+        var target:Sprite = cast e.target;
         if (target.name == plusTapZone.name) {
             changeScoreSignal.dispatch(playerView.getPlayerId(), 1);
         }
