@@ -2,16 +2,22 @@ package view;
 import model.vo.PlayerId;
 import flash.display.DisplayObject;
 import flash.text.TextField;
-import flash.display.Sprite;
-class PlayerView extends Sprite {
+class PlayerView extends ViewBase {
     var label:TextField;
     var playerId:PlayerId;
+    var myHeight:Float;
 
     public function new() {
         super();
     }
 
-    public function initBackground(w:Float, h:Float, r:Float):Void {
+    override public function getHeight():Float {
+        return myHeight;
+    }
+
+
+    public function initBounds(w:Float, h:Float, r:Float):Void {
+        myHeight = h;
         graphics.beginFill(0, 0.75);
         graphics.drawRoundRect(0, 0, w, h, r, r);
         graphics.endFill();
@@ -30,11 +36,7 @@ class PlayerView extends Sprite {
     }
 
     override public function toString():String {
-        return "PlayerView: " + label.text;
-    }
-
-    public function getPlusButton():DisplayObject {
-        return this;
+        return "PlayerView for player " + playerId.toInt();
     }
 
     public function setPlayerId(v:PlayerId):PlayerId {

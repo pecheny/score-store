@@ -16,7 +16,6 @@ class ScaleStageCommand extends mmvc.impl.Command {
         root.scaleX = scale;
         root.scaleY = scale;
         root.x = PlayerViewStyle.GRID_STEP * scale;
-        root.y = PlayerViewStyle.GRID_STEP * scale;
     }
 
     private function grtScale():Float {

@@ -1,16 +1,10 @@
 package view;
+
+
 import flash.text.TextField;
-import mockatoo.Mockatoo.* ;
 import massive.munit.Assert;
-import org.hamcrest.MatchersBase;
-import org.hamcrest.MatcherAssert;
-import flash.display.DisplayObject;
-import view.PlayerView;
-using org.hamcrest.MatcherAssert;
-using mockatoo.Mockatoo;
-
-
-class PlayerViewTest extends MatchersBase {
+import model.vo.PlayerId;
+class PlayerViewTest  {
     public var playerView:PlayerView;
 
     @Before
@@ -18,19 +12,10 @@ class PlayerViewTest extends MatchersBase {
         playerView = new PlayerView();
     }
 
-    @Test
-    public function should_return_DO_as_plus_button():Void {
-        var plusButton:DisplayObject = playerView.getPlusButton();
-        assertThat(plusButton, instanceOf(DisplayObject));
-    }
-
-    @Test
+      @Test
     public function should_generate_toString():Void {
-        var label:TextField = new TextField();
-        label.text = "foobar";
-        playerView.setMainTextField(label);
-        Assert.areEqual(label.text, "foobar");
-        Assert.areEqual(playerView.toString(), "PlayerView: foobar");
+        playerView.setPlayerId(PlayerId.fromInt(1));
+        Assert.areEqual(playerView.toString(), "PlayerView for player 1");
     }
 
     @Test

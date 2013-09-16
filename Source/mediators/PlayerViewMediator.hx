@@ -42,7 +42,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         playerView = cast view;
 
         var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);
-        playerView.initBackground(bg.width, bg.height, 25 * 2);
+        playerView.initBounds(bg.width, bg.height, 25 * 2);
 
         var _score:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_SCORE);
         var scoreLabel:TextField = makeLabel(PlayerViewStyle.STYLE_SCORE, _score);
