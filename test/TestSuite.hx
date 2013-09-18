@@ -5,6 +5,7 @@ import commands.ChangeScoreCommandTest;
 import commands.LayoutViewsCommandTest;
 import commands.RemovePlayerCommandTest;
 import mediators.PlayerViewMediatorTest;
+import model.ButtonsModelTest;
 import model.PlayerModelTest;
 import model.PlayerViewsModelTest;
 import signals.AddPlayerSignalTest;
@@ -31,6 +32,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(commands.LayoutViewsCommandTest);
 		add(commands.RemovePlayerCommandTest);
 		add(mediators.PlayerViewMediatorTest);
+		add(model.ButtonsModelTest);
 		add(model.PlayerModelTest);
 		add(model.PlayerViewsModelTest);
 		add(signals.AddPlayerSignalTest);
