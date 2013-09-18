@@ -15,6 +15,9 @@ class StartupCommand extends mmvc.impl.Command {
         var layout = new PlayerViewLayout(swf);
         injector.mapValue(PlayerViewLayout, layout);
         addPlayerSignal.dispatch();
+        addPlayerSignal.dispatch();
+        addPlayerSignal.dispatch();
+        addPlayerSignal.dispatch();
         resizeSignal.dispatch();
     }
 
