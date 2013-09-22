@@ -1,6 +1,6 @@
 package mediators;
 import signals.ChangeScoreSignal;
-import view.PlayerViewStyle;
+import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
 import view.PlayerViewLayout;
 import flash.display.MovieClip;
@@ -43,7 +43,7 @@ class PlayerViewMediatorTest extends MatchersBase {
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(label);
         mc = new MovieClipMocked(label);
         var layout:PlayerViewLayout = mock(PlayerViewLayout);
-        layout.getMovieClip().returns(mc);
+        layout.getPlayerViewMovieClip().returns(mc);
         signal = new ChangeScoreSignal();
         playerViewMediator = new PlayerViewMediator();
         playerViewMediator.layout = layout;

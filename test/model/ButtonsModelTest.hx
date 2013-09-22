@@ -1,5 +1,6 @@
 package model;
 
+import constants.ErrorConsts;
 import massive.munit.Assert;
 import msignal.Signal.Signal0;
 import org.hamcrest.MatchersBase;

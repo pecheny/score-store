@@ -1,6 +1,6 @@
 package commands;
 import flash.display.DisplayObject;
-import view.PlayerViewStyle;
+import constants.PlayerViewStyle;
 import view.ApplicationView;
 class ScaleStageCommand extends mmvc.impl.Command {
 

@@ -1,6 +1,6 @@
 package commands;
 
-import view.PlayerViewStyle;
+import constants.PlayerViewStyle;
 import massive.munit.Assert;
 import model.vo.PlayerId;
 import view.ApplicationView;

@@ -1,5 +1,6 @@
 package view;
-import view.PlayerViewStyle.LabelStyle;
+import constants.PlayerViewStyle;
+import constants.PlayerViewStyle.LabelStyle;
 import flash.text.TextFormatAlign;
 import flash.text.TextFormat;
 import openfl.Assets;

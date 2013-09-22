@@ -1,4 +1,5 @@
 package model;
+import constants.ErrorConsts;
 import msignal.Signal;
 import view.ViewBase;
 using Lambda;

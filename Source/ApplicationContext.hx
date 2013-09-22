@@ -1,3 +1,5 @@
+import model.ButtonsModel;
+import model.ButtonBarContainerModel;
 import commands.LayoutViewsCommand;
 import commands.ScaleStageCommand;
 import signals.StageResizedSignal;
@@ -34,6 +36,8 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapValue(ApplicationView, contextView);
         injector.mapSingleton(PlayerModel);
         injector.mapSingleton(PlayerViewsModel);
+        injector.mapSingleton(ButtonsModel);
+        injector.mapSingleton(ButtonBarContainerModel);
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
         commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);

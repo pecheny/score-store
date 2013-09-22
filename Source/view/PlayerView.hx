@@ -15,13 +15,11 @@ class PlayerView extends ViewBase {
         return myHeight;
     }
 
-
-    public function initBounds(w:Float, h:Float, r:Float):Void {
+    override public function initBounds(w:Float, h:Float, r:Float):Void {
         myHeight = h;
-        graphics.beginFill(0, 0.75);
-        graphics.drawRoundRect(0, 0, w, h, r, r);
-        graphics.endFill();
+        super.initBounds(w, h, r);
     }
+
 
     public function setMainTextField(textField:TextField) {
         if (textField == null) {

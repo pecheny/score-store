@@ -5,7 +5,7 @@ import flash.display.MovieClip;
 import signals.ChangeScoreSignal;
 import flash.display.Shape;
 import flash.display.DisplayObject;
-import view.PlayerViewStyle;
+import constants.PlayerViewStyle;
 import flash.text.TextField;
 import flash.display.Sprite;
 import view.PlayerViewLayout;
@@ -38,7 +38,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     public function setupLayout():Void {
-        layoutMc = layout.getMovieClip();
+        layoutMc = layout.getPlayerViewMovieClip();
         playerView = cast view;
 
         var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);

@@ -1,4 +1,4 @@
-package view;
+package constants;
 typedef LabelStyle = {
 size:Int,
 spacing:Float,
