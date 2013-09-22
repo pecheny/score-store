@@ -1,3 +1,13 @@
+import signals.UpdateLayoutSignal;
+import mediators.ButtonMediator;
+import view.Button;
+import commands.RefreshButtonsCommand;
+import signals.RefreshButtonsSignal;
+import signals.PlayersModifyComplete;
+import signals.NewGameSignal;
+import signals.ModifyPlayersSignal;
+import signals.ExitSignal;
+import commands.EmptyCommand;
 import model.ButtonsModel;
 import model.ButtonBarContainerModel;
 import commands.LayoutViewsCommand;
@@ -40,13 +50,20 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(ButtonBarContainerModel);
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
+        commandMap.mapSignalClass(ExitSignal, EmptyCommand);
+        commandMap.mapSignalClass(RefreshButtonsSignal, RefreshButtonsCommand);
+        commandMap.mapSignalClass(ModifyPlayersSignal, EmptyCommand);
+        commandMap.mapSignalClass(NewGameSignal, EmptyCommand);
+        commandMap.mapSignalClass(PlayersModifyComplete, EmptyCommand);
         commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);
         commandMap.mapSignalClass(StageResizedSignal, LayoutViewsCommand);
+        commandMap.mapSignalClass(UpdateLayoutSignal, LayoutViewsCommand);
         commandMap.mapSignalClass(StartupSignal, StartupCommand);
         commandMap.mapSignalClass(AddPlayerSignal, AddPlayerCommand);
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
         commandMap.mapSignalClass(ChangeScoreSignal, ChangeScoreCommand);
         commandMap.mapSignalClass(PlayerButtonSignal, MouseHandleCommand);
+        mediatorMap.mapView(Button, ButtonMediator);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 

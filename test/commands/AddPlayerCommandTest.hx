@@ -1,5 +1,8 @@
 package commands;
 
+import haxe.Timer;
+import massive.munit.async.AsyncFactory;
+import signals.UpdateLayoutSignal;
 import model.vo.PlayerId;
 import view.ApplicationView;
 import view.PlayerView;
@@ -18,6 +21,7 @@ class AddPlayerCommandTest {
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
     var appView:ApplicationView;
+    private var updateLayoutSignal:UpdateLayoutSignal;
 
     @Before
     public function setup():Void {
@@ -25,6 +29,7 @@ class AddPlayerCommandTest {
         playerModel = mock(PlayerModel);
         playerModel.addPlayer().returns(PlayerId.fromInt(1));
         playerViewsModel = mock(PlayerViewsModel);
+        updateLayoutSignal = mock(UpdateLayoutSignal);
         view = mock(PlayerView);
         var factory:PlayerViewFactory = mock(PlayerViewFactory);
         factory.getView().returns(view);
@@ -33,6 +38,7 @@ class AddPlayerCommandTest {
         addPlayerCommand.playerViewsModel = playerViewsModel;
         addPlayerCommand.viewFactory = factory;
         addPlayerCommand.appView = appView;
+        addPlayerCommand.updateLayoutSignal = updateLayoutSignal;
     }
 
     @Test
@@ -54,8 +60,16 @@ class AddPlayerCommandTest {
     }
 
     @Test
-       public function should_set_playerId_to_view():Void {
-           addPlayerCommand.execute();
-           view.setPlayerId(PlayerId.fromInt(1)).verify(1);
-       }
+    public function should_set_playerId_to_view():Void {
+        addPlayerCommand.execute();
+        view.setPlayerId(PlayerId.fromInt(1)).verify(1);
+    }
+
+    @Test public function should_dispatch_update_layout():Void {
+        addPlayerCommand.execute();
+        updateLayoutSignal.dispatch().verify(1);
+    }
+
+
 }
+

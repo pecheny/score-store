@@ -18,6 +18,12 @@ class PlayerViewStyle {
     public static var NAME_MINUS_HITAREA:String = "_minus_hitArea";
     public static var NAME_SCORE_HITAREA:String = "_score_hitArea";
 
+    public static var CORNER_RADIUS:Float = 50;
+    public static var UNIT_HEIGHT:Float = 140;
+    public static var UNIT_WIDTH:Float = 500;
+
+
+
     public static var STYLE_SCORE:LabelStyle = {
     var val:LabelStyle = {
     size : 92,

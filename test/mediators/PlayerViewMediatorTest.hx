@@ -2,7 +2,7 @@ package mediators;
 import signals.ChangeScoreSignal;
 import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
-import view.PlayerViewLayout;
+import view.AssetsModel;
 import flash.display.MovieClip;
 import org.hamcrest.MatchersBase;
 import org.hamcrest.MatcherAssert;
@@ -42,7 +42,7 @@ class PlayerViewMediatorTest extends MatchersBase {
         labelFactory.getLabel(cast Matcher.any, cast Matcher.any, cast Matcher.any, cast Matcher.any).returns(label);
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(label);
         mc = new MovieClipMocked(label);
-        var layout:PlayerViewLayout = mock(PlayerViewLayout);
+        var layout:AssetsModel = mock(AssetsModel);
         layout.getPlayerViewMovieClip().returns(mc);
         signal = new ChangeScoreSignal();
         playerViewMediator = new PlayerViewMediator();

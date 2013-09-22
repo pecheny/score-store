@@ -1,5 +1,7 @@
 package commands;
 
+import view.ViewBase;
+import model.ButtonBarContainerModel;
 import constants.PlayerViewStyle;
 import massive.munit.Assert;
 import model.vo.PlayerId;
@@ -20,6 +22,7 @@ class LayoutViewsCommandTest {
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
     var appView:ApplicationView;
+    var buttonBarContainerModel:ButtonBarContainerModel;
 
     @Before
     public function setup():Void {
@@ -32,8 +35,12 @@ class LayoutViewsCommandTest {
         playerViewsModel = mock(PlayerViewsModel);
         playerViewsModel.getView(cast Matcher.any).returns(playerView);
 
+        buttonBarContainerModel = mock(ButtonBarContainerModel);
+        buttonBarContainerModel.butonBarContainer = mock(ViewBase);
+
         layoutViewsCommand.playersModel = playerModel;
         layoutViewsCommand.playerViewsModel = playerViewsModel;
+        layoutViewsCommand.buttonBarContainerModel = buttonBarContainerModel;
     }
 
     @Test

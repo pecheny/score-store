@@ -1,4 +1,5 @@
 package mediators;
+import flash.Lib;
 import signals.StageResizedSignal;
 import flash.events.Event;
 import view.ApplicationView;
@@ -13,7 +14,7 @@ class ApplicationViewMediator extends mmvc.impl.Mediator<ApplicationView> {
 
     override function onRegister() {
         super.onRegister();
-        view.rootContainer.stage.addEventListener(Event.RESIZE, stageResizedHandler);
+        Lib.current.stage.addEventListener(Event.RESIZE, stageResizedHandler);
     }
 
     private function stageResizedHandler(e:Event):Void {

@@ -1,7 +1,6 @@
 package constants;
-enum ButtonNames {
-    Plus;
-    Minus;
+enum ButtonName {
+    Exit;
     New;
     Undo;
     AddPlayer;

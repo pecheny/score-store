@@ -1,5 +1,7 @@
 package model;
 
+import constants.ButtonName;
+import mockatoo.Mockatoo;
 import constants.ErrorConsts;
 import massive.munit.Assert;
 import msignal.Signal.Signal0;
@@ -7,8 +9,7 @@ import org.hamcrest.MatchersBase;
 import view.ViewBase;
 import org.hamcrest.MatcherAssert;
 using org.hamcrest.MatcherAssert;
-import mockatoo.Mockatoo.
-* ;
+import mockatoo.Mockatoo.* ;
 using mockatoo.Mockatoo;
 
 class ButtonsModelTest extends MatchersBase {
@@ -22,7 +23,7 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_register_and_check_button_by_name():Void {
         var button:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name = "Name";
+        var name = ButtonName.Exit;
         Assert.isFalse(buttonsModel.hasButtonRegistred(name));
         buttonsModel.registerButtonType(name, button, signal);
         Assert.isTrue(buttonsModel.hasButtonRegistred(name));
@@ -31,7 +32,7 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_register_and_check_button_by_view():Void {
         var button:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name = "Name";
+        var name = ButtonName.Exit;
         Assert.isFalse(buttonsModel.hasButtonRegistred(button));
         buttonsModel.registerButtonType(name, button, signal);
         Assert.isTrue(buttonsModel.hasButtonRegistred(button));
@@ -40,7 +41,7 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_throw_on_check_button_by_wrong_type():Void {
         var button:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name = "Name";
+        var name = ButtonName.Exit;
         buttonsModel.registerButtonType(name, button, signal);
         var msg:String = "";
         try {
@@ -54,7 +55,7 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_enable_one_registered_button():Void {
         var button:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name = "Name";
+        var name = ButtonName.Exit;
         buttonsModel.registerButtonType(name, button, signal);
         buttonsModel.enableButtons(name);
         var activeButtons = buttonsModel.getActiveButtons();
@@ -66,9 +67,9 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_enable_registered_buttons():Void {
         var button1:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name1 = "Name1";
+        var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
-        var name2 = "Name2";
+        var name2 = ButtonName.AddPlayer;
 
         buttonsModel.registerButtonType(name1, button1, signal);
         buttonsModel.registerButtonType(name2, button2, signal);
@@ -82,7 +83,7 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_throw_on_enable_buttons_wasnt_registered():Void {
         var msg:String = "";
         try {
-            buttonsModel.enableButtons("NotRegisteredName");
+            buttonsModel.enableButtons(ButtonName.AddPlayer);
         } catch (e:String) {
             msg = e;
         }
@@ -92,9 +93,9 @@ class ButtonsModelTest extends MatchersBase {
     @Test public function should_reset_buttons():Void {
         var button1:ViewBase = mock(ViewBase);
         var signal = new Signal0();
-        var name1 = "Name1";
+        var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
-        var name2 = "Name2";
+        var name2 = ButtonName.AddPlayer;
 
         buttonsModel.registerButtonType(name1, button1, signal);
         buttonsModel.registerButtonType(name2, button2, signal);
@@ -109,9 +110,9 @@ class ButtonsModelTest extends MatchersBase {
         var button1:ViewBase = mock(ViewBase);
         var signal1 = new Signal0();
         var signal2 = new Signal0();
-        var name1 = "Name1";
+        var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
-        var name2 = "Name2";
+        var name2 = ButtonName.AddPlayer;
 
         buttonsModel.registerButtonType(name1, button1, signal1);
         buttonsModel.registerButtonType(name2, button2, signal2);

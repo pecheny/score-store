@@ -5,26 +5,39 @@ import flash.display.DisplayObjectContainer;
 
 class ApplicationView implements mmvc.api.IViewContainer {
     public var viewAdded:Dynamic -> Void;
-    public var viewRemoved:Dynamic -> Void;
-    public var rootContainer:DisplayObjectContainer;
+       public var viewRemoved:Dynamic -> Void;
 
-    public function new(rootContainer:DisplayObjectContainer) {
-        this.rootContainer = rootContainer;
+    private var container:DisplayObjectContainer;
+
+
+    public function new(container:DisplayObjectContainer) {
+        this.container = container;
     }
 
-    public function addChild(child:DisplayObject):Void {
-        rootContainer.addChild(child);
+
+    public function addChild(child:DisplayObject):DisplayObject {
+        if (Std.is(child, ViewBase)) {
+            var view:ViewBase = cast child;
+            view.viewAdded = viewAdded;
+            view.viewRemoved = viewRemoved;
+        }
+        container.addChild(child);
         viewAdded(child);
+        return child;
     }
 
-    public function removeChild(child:DisplayObject):Void {
-        rootContainer.removeChild(child);
+    public function removeChild(child:DisplayObject):DisplayObject {
         viewRemoved(child);
+        container.removeChild(child);
+        return child;
     }
-
 
     public function isAdded(view:Dynamic):Bool {
-        return true;
+        var parent:DisplayObjectContainer = null;
+        while (view.parent != null) {
+            parent = view.parent;
+        }
+        return (parent!= null) && (parent == container);
     }
 
 

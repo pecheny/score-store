@@ -1,8 +1,8 @@
 package view;
 import format.SWF;
 import flash.display.MovieClip;
-class PlayerViewLayout {
-    private var swf(default, null):SWF;
+class AssetsModel {
+    public var swf(default, null):SWF;
 
     public function new(mc:SWF):Void {
         swf = mc;

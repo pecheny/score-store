@@ -8,7 +8,7 @@ import flash.display.DisplayObject;
 import constants.PlayerViewStyle;
 import flash.text.TextField;
 import flash.display.Sprite;
-import view.PlayerViewLayout;
+import view.AssetsModel;
 import view.LabelFactory;
 import flash.events.MouseEvent;
 import view.PlayerView;
@@ -17,7 +17,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerButtonSignal:PlayerButtonSignal;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
-    @inject public var layout:PlayerViewLayout;
+    @inject public var layout:AssetsModel;
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
@@ -42,7 +42,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         playerView = cast view;
 
         var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);
-        playerView.initBounds(bg.width, bg.height, 25 * 2);
+        trace(bg.width, bg.height);
+        playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
         var _score:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_SCORE);
         var scoreLabel:TextField = makeLabel(PlayerViewStyle.STYLE_SCORE, _score);

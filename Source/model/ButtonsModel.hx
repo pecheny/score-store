@@ -1,4 +1,5 @@
 package model;
+import constants.ButtonName;
 import constants.ErrorConsts;
 import msignal.Signal;
 import view.ViewBase;
@@ -8,18 +9,18 @@ class ButtonsModel {
     public static var VALUE_EXISTS:String = "Value exists";
     public static var VALUE_NOT_EXISTS:String = "Value does not exist";
 
-    var customViews:Map<String, ViewBase>;
+    var customViews:Map<ButtonName, ViewBase>;
     var activeButtons:Array<ViewBase>;
     var buttonSignals:Map<ViewBase, Signal0>;
 
     public function new():Void {
-        customViews = new Map<String, ViewBase>();
+        customViews = new Map<ButtonName, ViewBase>();
         buttonSignals = new Map<ViewBase, Signal0>();
         activeButtons = new Array<ViewBase>();
     }
 
 
-    public function registerButtonType(name:String, view:ViewBase, signal:Signal0):Void {
+    public function registerButtonType(name:ButtonName, view:ViewBase, signal:Signal0):Void {
         if (customViews.exists(name)) {
             throw KEY_EXISTS;
         }
@@ -30,7 +31,7 @@ class ButtonsModel {
         buttonSignals[view] = signal;
     }
 
-    public function enableButtons(button1:String, ?button2:Null<String>, ?button3:Null<String>):Void {
+    public function enableButtons(button1:ButtonName, ?button2:Null<ButtonName>, ?button3:Null<ButtonName>):Void {
         resetButtons();
         enableButton(button1);
         if (button2 != null) {
@@ -41,7 +42,7 @@ class ButtonsModel {
         }
     }
 
-    function enableButton(buttonName:String):Void {
+    function enableButton(buttonName:ButtonName):Void {
         if (!customViews.exists(buttonName)) {
             throw ErrorConsts.ERROR_COMMON;
         }
@@ -50,7 +51,7 @@ class ButtonsModel {
     }
 
     public function hasButtonRegistred(value:Dynamic):Bool {
-        if (Std.is(value, String)) {
+        if (Std.is(value, ButtonName)) {
             return customViews.exists(value);
         }
         else if (Std.is(value, ViewBase)) {
