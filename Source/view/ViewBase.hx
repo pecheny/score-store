@@ -47,5 +47,10 @@ class ViewBase extends Sprite {
         return child;
     }
 
+    override public function removeChildAt(i:Int):DisplayObject {
+        var child = getChildAt(i);
+        return removeChild(child);
+    }
+
 
 }
