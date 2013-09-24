@@ -1,4 +1,6 @@
 package commands;
+import signals.RefreshButtonsSignal;
+import model.ButtonsModel;
 import signals.UpdateLayoutSignal;
 import view.PlayerView;
 import model.vo.PlayerId;
@@ -19,6 +21,7 @@ class AddPlayerCommand extends mmvc.impl.Command {
     @inject
     public var appView:ApplicationView;
     @inject public var updateLayoutSignal:UpdateLayoutSignal;
+
 
    override public function execute():Void {
        var id:PlayerId = playersModel.addPlayer();
