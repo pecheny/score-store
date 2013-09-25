@@ -10,7 +10,13 @@ class ButtonMediator extends mmvc.impl.Mediator<Button> {
         view.addEventListener(MouseEvent.CLICK, mouseHandler);
     }
 
+    override public function preRemove():Void {
+        view.removeEventListener(MouseEvent.CLICK, mouseHandler);
+    }
+
+
     function mouseHandler(e:MouseEvent) {
+    trace("Boo");
         var signal = buttonsModel.getSignal(view);
         signal.dispatch();
     }
