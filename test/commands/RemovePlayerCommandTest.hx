@@ -5,7 +5,8 @@ import view.ApplicationView;
 import model.PlayerViewsModel;
 import view.PlayerView;
 import model.vo.PlayerId;
-import mockatoo.Mockatoo.* ;
+import mockatoo.Mockatoo.
+* ;
 import model.PlayerModel;
 using mockatoo.Mockatoo;
 
@@ -42,5 +43,11 @@ class RemovePlayerCommandTest {
     public function command_should_call_removeChild():Void {
         removePlayerCommand.execute();
         appView.removeChild(view).verify(1);
+    }
+
+    @Test
+    public function command_should_remove_view_from_model():Void {
+        removePlayerCommand.execute();
+        playerViewsModel.removeView(PlayerId.fromInt(1)).verify(1);
     }
 }
