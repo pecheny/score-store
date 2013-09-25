@@ -1,8 +1,11 @@
 package mediators;
+import view.PlayerEditorView;
+import signals.EnterEditModeSignal;
+import signals.EnterGameModeSignal;
 import signals.ChangeScoreSignal;
 import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
-import view.AssetsModel;
+import model.AssetsModel;
 import flash.display.MovieClip;
 import org.hamcrest.MatchersBase;
 import org.hamcrest.MatcherAssert;
@@ -25,12 +28,14 @@ using org.hamcrest.MatcherAssert;
 
 class PlayerViewMediatorTest extends MatchersBase {
     public var playerViewMediator:PlayerViewMediator;
-    var view:PlayerView;
+    var playerView:PlayerView;
     var passedId:PlayerId;
     var passedScore:Int;
     var callsCounter:Int = 0;
     var timer:Timer;
-    var signal:ChangeScoreSignal;
+    var changeScore:ChangeScoreSignal;
+    var enterGameModeSignal:EnterGameModeSignal;
+    var enterEditModeSignal:EnterEditModeSignal;
     var label:TextField;
     var mc:MovieClip;
 
@@ -44,21 +49,28 @@ class PlayerViewMediatorTest extends MatchersBase {
         mc = new MovieClipMocked(label);
         var layout:AssetsModel = mock(AssetsModel);
         layout.getPlayerViewMovieClip().returns(mc);
-        signal = new ChangeScoreSignal();
+//        changeScore = new ChangeScoreSignal();
         playerViewMediator = new PlayerViewMediator();
         playerViewMediator.layout = layout;
         playerViewMediator.labelFactory = labelFactory;
-        playerViewMediator.changeScoreSignal = signal;
+        playerViewMediator.changeScoreSignal = changeScore = new ChangeScoreSignal();
+        playerViewMediator.enterGameModeSignal = enterGameModeSignal = new EnterGameModeSignal();
+        playerViewMediator.enterEditModeSignal = enterEditModeSignal = new EnterEditModeSignal();
+
+
+        callsCounter = 0;
+        passedId = null;
+        passedScore = 0;
     }
 
     @AsyncTest
     public function should_handle_mouse_and_dispatch_signal(asyncFactory:AsyncFactory):Void {
-        view = new PlayerView();
-        view.setPlayerId(PlayerId.fromInt(2));
-        playerViewMediator.view = view;
+        playerView = new PlayerView();
+        playerView.setPlayerId(PlayerId.fromInt(2));
+        playerViewMediator.view = playerView;
 
         playerViewMediator.onRegister();
-        signal.add(function(id:PlayerId, delta:Int) {
+        changeScore.add(function(id:PlayerId, delta:Int) {
             callsCounter++;
             passedId = id;
             passedScore = delta;
@@ -76,15 +88,89 @@ class PlayerViewMediatorTest extends MatchersBase {
         Assert.areEqual(passedScore, 1);
     }
 
-    @Test
-    public function should_set_textfield():Void {
-        view = mock(PlayerView);
-        view.getPlayerId().returns(PlayerId.fromInt(2));
-        playerViewMediator.view = view;
+    @AsyncTest
+    public function should_unregister_handler(asyncFactory:AsyncFactory):Void {
+        playerView = new PlayerView();
+        playerView.setPlayerId(PlayerId.fromInt(2));
+        playerViewMediator.view = playerView;
 
         playerViewMediator.onRegister();
-        view.setMainTextField(label).verify(1);
+        playerViewMediator.preRemove();
+
+        changeScore.add(function(id:PlayerId, delta:Int) {
+            callsCounter++;
+            passedId = id;
+            passedScore = delta;
+        });
+        var handler:Dynamic = asyncFactory.createHandler(this, mouseHandleRemovedTestComplete, 300);
+        timer = Timer.delay(handler, 200);
+
+        mc.name = PlayerViewStyle.NAME_PLUS_HITAREA;
+        mc.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
+
+    private function mouseHandleRemovedTestComplete():Void {
+        Assert.areEqual(callsCounter, 0);
+        Assert.isNull(passedId);
+        Assert.areEqual(passedScore, 0);
+    }
+
+
+    @AsyncTest public function should_add_edit_view_on_enter_edit_mode(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldAddEditViewOnEnterEditModeHandler, 300);
+        timer = Timer.delay(handler, 200);
+        mockPlayerView();
+        playerViewMediator.onRegister();
+        enterEditModeSignal.dispatch();
+    }
+
+    function shouldAddEditViewOnEnterEditModeHandler():Void {
+        playerView.addChild(cast Matcher.instanceOf(PlayerEditorView)).verify(1);
+    }
+
+    @AsyncTest public function should_unregister_edit_view_on_enter_edit_mode(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldUnregisterEditViewOnEnterEditModeHandler, 300);
+        timer = Timer.delay(handler, 200);
+        mockPlayerView();
+        playerViewMediator.onRegister();
+        playerViewMediator.preRemove();
+        enterEditModeSignal.dispatch();
+
+    }
+
+    function shouldUnregisterEditViewOnEnterEditModeHandler():Void {
+        playerView.addChild(cast Matcher.instanceOf(PlayerEditorView)).verify(0);
+    }
+
+    @AsyncTest public function should_remove_edit_view_on_enter_game_mode(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldRemoveEditViewOnEnterGameModeHandler, 300);
+        timer = Timer.delay(handler, 200);
+        mockPlayerView();
+        playerView.contains(cast Matcher.any).returns(true);
+        playerViewMediator.onRegister();
+        enterGameModeSignal.dispatch();
+
+    }
+
+    function shouldRemoveEditViewOnEnterGameModeHandler():Void {
+        playerView.removeChild(cast Matcher.instanceOf(PlayerEditorView)).verify(1);
+
+    }
+
+
+    @Test
+    public function should_set_textfield():Void {
+        mockPlayerView();
+        playerViewMediator.onRegister();
+        playerView.setMainTextField(label).verify(1);
+    }
+
+    function mockPlayerView():Void {
+        playerView = mock(PlayerView);
+        playerView.getPlayerId().returns(PlayerId.fromInt(2));
+        playerViewMediator.view = playerView;
+    }
+
 }
 
 // Mockatoo can't mock MovieClip

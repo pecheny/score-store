@@ -1,30 +1,38 @@
 package mediators;
+import view.PlayerEditorView;
+import signals.EnterEditModeSignal;
+import signals.EnterGameModeSignal;
 import flash.text.TextFieldAutoSize;
-import Type;
 import flash.display.MovieClip;
 import signals.ChangeScoreSignal;
-import flash.display.Shape;
 import flash.display.DisplayObject;
 import constants.PlayerViewStyle;
 import flash.text.TextField;
 import flash.display.Sprite;
-import view.AssetsModel;
+import model.AssetsModel;
 import view.LabelFactory;
 import flash.events.MouseEvent;
 import view.PlayerView;
 import signals.PlayerButtonSignal;
+
+using mediators.AssetsMixin;
+
 class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerButtonSignal:PlayerButtonSignal;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
     @inject public var layout:AssetsModel;
+    @inject public var enterGameModeSignal:EnterGameModeSignal;
+    @inject public var enterEditModeSignal:EnterEditModeSignal;
 
     var playerView:PlayerView;
-    var layoutMc:Sprite;
+    var layoutMc:MovieClip;
 
     var plusTapZone:DisplayObject;
     var minusTapZone:DisplayObject;
     var scoreTapZone:DisplayObject;
+
+    var editView:PlayerEditorView;
 
     public function new() {
         super();
@@ -33,73 +41,69 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
     override public function onRegister() {
         super.onRegister();
+        playerView = cast view;
+        editView = PlayerEditorView.fromPlayerId(playerView.getPlayerId());
+        enterGameModeSignal.add(enterGameMode);
+        enterEditModeSignal.add(enterEditMode);
         setupLayout();
-        view.addEventListener(MouseEvent.CLICK, mouseHandler);
+        playerView.addEventListener(MouseEvent.CLICK, mouseHandler);
     }
+
+    override public function preRemove():Void {
+        enterGameModeSignal.remove(enterGameMode);
+        enterEditModeSignal.remove(enterEditMode);
+        playerView.removeEventListener(MouseEvent.CLICK, mouseHandler);
+    }
+
 
     public function setupLayout():Void {
         layoutMc = layout.getPlayerViewMovieClip();
-        playerView = cast view;
 
         var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);
         trace(bg.width, bg.height);
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
         var _score:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_SCORE);
-        var scoreLabel:TextField = makeLabel(PlayerViewStyle.STYLE_SCORE, _score);
+        var scoreLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE);
+        scoreLabel.copyTransformFrom(_score);
         scoreLabel.text = "25";
         playerView.setMainTextField(scoreLabel);
 
 
         var _name:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_NAME);
-        var nameLabel:TextField = makeLabel(PlayerViewStyle.STYLE_NAME, _name);
+        var nameLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_NAME);
+        nameLabel.copyTransformFrom(_name);
         nameLabel.autoSize = TextFieldAutoSize.LEFT;
         nameLabel.text = "Player " + playerView.getPlayerId().toInt();
         playerView.addChild(nameLabel);
 
-        var plusButton = makeGraphics(PlayerViewStyle.NAME_PLUS_VIEW);
+        var plusButton = layoutMc.makeGraphics(PlayerViewStyle.NAME_PLUS_VIEW);
         playerView.addChild(plusButton);
 
-        var minusButton = makeGraphics(PlayerViewStyle.NAME_MINUS_VIEW);
+        var minusButton = layoutMc.makeGraphics(PlayerViewStyle.NAME_MINUS_VIEW);
         playerView.addChild(minusButton);
 
 
-        plusTapZone = makeTapZone(PlayerViewStyle.NAME_PLUS_HITAREA);
+        plusTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_PLUS_HITAREA);
         playerView.addChild(plusTapZone);
 
-        minusTapZone = makeTapZone(PlayerViewStyle.NAME_MINUS_HITAREA);
+        minusTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_MINUS_HITAREA);
         playerView.addChild(minusTapZone);
 
-        scoreTapZone = makeTapZone(PlayerViewStyle.NAME_SCORE_HITAREA);
+        scoreTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_SCORE_HITAREA);
         playerView.addChild(scoreTapZone);
 
     }
 
-    public function makeGraphics(sourceName:String):DisplayObject {
-        var sprite:Sprite = cast layoutMc.getChildByName(sourceName);
-        sprite.mouseEnabled = false;
-        return sprite;
+    private function enterGameMode():Void {
+        if (playerView.contains(editView)) {
+            playerView.removeChild(editView);
+        }
     }
 
-    public function makeTapZone(hitAreaName:String):DisplayObject {
-        var hitArea:Sprite = cast layoutMc.getChildByName(hitAreaName);
-        hitArea.alpha = 0;
-        hitArea.mouseChildren = false;
-        hitArea.name = hitAreaName;
-        return hitArea;
-    }
-
-    function makeLabel(style:LabelStyle, transformSource:DisplayObject):TextField {
-        var label:TextField = labelFactory.getLabelFromStyle(style);
-        label.width = transformSource.width;
-        label.height = transformSource.height;
-        label.transform.matrix = transformSource.transform.matrix.clone();
-        return label;
-    }
-
-
-    override public function onRemove():Void {
-        super.onRemove();
+    private function enterEditMode():Void {
+        trace("e" + Std.is(editView, PlayerEditorView));
+        playerView.addChild(editView);
     }
 
     private function mouseHandler(e:MouseEvent):Void {
