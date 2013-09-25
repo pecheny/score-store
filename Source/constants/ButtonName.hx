@@ -5,6 +5,6 @@ enum ButtonName {
     Undo;
     AddPlayer;
     EditPlayer;
-    Ok;
+    ToGame;
     Cancel;
 }

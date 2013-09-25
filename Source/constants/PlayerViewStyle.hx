@@ -18,10 +18,18 @@ class PlayerViewStyle {
     public static var NAME_MINUS_HITAREA:String = "_minus_hitArea";
     public static var NAME_SCORE_HITAREA:String = "_score_hitArea";
 
+    public static var NAME_EDITOR_DELETE:String = "_delete";
+    public static var NAME_EDITOR_NAME:String = "_name";
+    public static var NAME_EDITOR_AVATAR:String = "_avatar";
+
+    public static var NAME_EDITOR_DELETE_HITAREA:String = "_delete_hitArea";
+    public static var NAME_EDITOR_NAME_HITAREA:String = "_name_hitArea";
+    public static var NAME_EDITOR_AVATAR_HITAREA:String = "_avatar_hitArea";
+
+
     public static var CORNER_RADIUS:Float = 50;
     public static var UNIT_HEIGHT:Float = 140;
     public static var UNIT_WIDTH:Float = 500;
-
 
 
     public static var STYLE_SCORE:LabelStyle = {
@@ -39,6 +47,12 @@ class PlayerViewStyle {
     spacing : - 3,
     color:0xffffff,
     align:"left"};
+    val;
+    };
+
+    public static var STYLE_NAME_EDITOR:LabelStyle = {
+    var val:LabelStyle = Reflect.copy(STYLE_NAME);
+    val.color = 0;
     val;
     };
 
