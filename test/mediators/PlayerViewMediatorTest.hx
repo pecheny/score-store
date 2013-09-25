@@ -1,4 +1,5 @@
 package mediators;
+import factories.PlayerViewFactory;
 import view.PlayerEditorView;
 import signals.EnterEditModeSignal;
 import signals.EnterGameModeSignal;
@@ -7,26 +8,21 @@ import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
 import model.AssetsModel;
 import flash.display.MovieClip;
-import org.hamcrest.MatchersBase;
-import org.hamcrest.MatcherAssert;
 import org.hamcrest.MatcherAssert;
 import mockatoo.Mockatoo;
-import view.LabelFactory;
+import factories.LabelFactory;
 import flash.text.TextField;
 import massive.munit.async.AsyncFactory;
 import massive.munit.Assert;
-import flash.events.Event;
 import flash.events.MouseEvent;
 import model.vo.PlayerId;
-import signals.PlayerButtonSignal;
 import view.PlayerView;
 import massive.munit.util.Timer;
-import mockatoo.Mockatoo.
-* ;
+import mockatoo.Mockatoo.* ;
 using mockatoo.Mockatoo;
 using org.hamcrest.MatcherAssert;
 
-class PlayerViewMediatorTest extends MatchersBase {
+class PlayerViewMediatorTest  {
     public var playerViewMediator:PlayerViewMediator;
     var playerView:PlayerView;
     var passedId:PlayerId;
@@ -38,6 +34,7 @@ class PlayerViewMediatorTest extends MatchersBase {
     var enterEditModeSignal:EnterEditModeSignal;
     var label:TextField;
     var mc:MovieClip;
+    var playerViewFactory:PlayerViewFactory;
 
     @Before
     public function startup():Void {
@@ -49,14 +46,17 @@ class PlayerViewMediatorTest extends MatchersBase {
         mc = new MovieClipMocked(label);
         var layout:AssetsModel = mock(AssetsModel);
         layout.getPlayerViewMovieClip().returns(mc);
-//        changeScore = new ChangeScoreSignal();
+
+        playerViewFactory = mock (PlayerViewFactory);
+        playerViewFactory.getEditorView(cast Matcher.any).returns(PlayerEditorView.fromPlayerId(PlayerId.fromInt(2)));
+
         playerViewMediator = new PlayerViewMediator();
         playerViewMediator.layout = layout;
         playerViewMediator.labelFactory = labelFactory;
         playerViewMediator.changeScoreSignal = changeScore = new ChangeScoreSignal();
         playerViewMediator.enterGameModeSignal = enterGameModeSignal = new EnterGameModeSignal();
         playerViewMediator.enterEditModeSignal = enterEditModeSignal = new EnterEditModeSignal();
-
+        playerViewMediator.playerViewFactory = playerViewFactory;
 
         callsCounter = 0;
         passedId = null;

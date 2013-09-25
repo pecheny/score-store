@@ -3,6 +3,7 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 class ViewBase extends Sprite {
     public var isAddedFlag:Bool;
+    public var backgroundColor:UInt = 0;
 
     public var viewAdded:Dynamic -> Void;
     public var viewRemoved:Dynamic -> Void;
@@ -13,7 +14,7 @@ class ViewBase extends Sprite {
 
     public function initBounds(w:Float, h:Float, r:Float):Void {
         graphics.clear();
-        graphics.beginFill(0, 0.75);
+        graphics.beginFill(backgroundColor, 0.75);
         graphics.drawRoundRect(0, 0, w, h, r, r);
         graphics.endFill();
     }

@@ -5,7 +5,7 @@ import signals.UpdateLayoutSignal;
 import view.PlayerView;
 import model.vo.PlayerId;
 import view.ApplicationView;
-import view.PlayerViewFactory;
+import factories.PlayerViewFactory;
 import model.PlayerViewsModel;
 import model.PlayerModel;
 import signals.AddPlayerSignal;

@@ -6,7 +6,7 @@ import signals.UpdateLayoutSignal;
 import model.vo.PlayerId;
 import view.ApplicationView;
 import view.PlayerView;
-import view.PlayerViewFactory;
+import factories.PlayerViewFactory;
 import mockatoo.Mockatoo;
 import model.PlayerViewsModel;
 import mockatoo.Mockatoo.

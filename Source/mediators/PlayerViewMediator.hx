@@ -1,4 +1,5 @@
 package mediators;
+import factories.PlayerViewFactory;
 import view.PlayerEditorView;
 import signals.EnterEditModeSignal;
 import signals.EnterGameModeSignal;
@@ -10,7 +11,7 @@ import constants.PlayerViewStyle;
 import flash.text.TextField;
 import flash.display.Sprite;
 import model.AssetsModel;
-import view.LabelFactory;
+import factories.LabelFactory;
 import flash.events.MouseEvent;
 import view.PlayerView;
 import signals.PlayerButtonSignal;
@@ -18,6 +19,7 @@ import signals.PlayerButtonSignal;
 using mediators.AssetsMixin;
 
 class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
+    @inject public var playerViewFactory:PlayerViewFactory;
     @inject public var playerButtonSignal:PlayerButtonSignal;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
@@ -26,7 +28,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var enterEditModeSignal:EnterEditModeSignal;
 
     var playerView:PlayerView;
-    var layoutMc:MovieClip;
+    var layoutMc:Sprite;
 
     var plusTapZone:DisplayObject;
     var minusTapZone:DisplayObject;
@@ -42,7 +44,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     override public function onRegister() {
         super.onRegister();
         playerView = cast view;
-        editView = PlayerEditorView.fromPlayerId(playerView.getPlayerId());
+        editView = playerViewFactory.getEditorView(playerView.getPlayerId());
         enterGameModeSignal.add(enterGameMode);
         enterEditModeSignal.add(enterEditMode);
         setupLayout();
