@@ -1,4 +1,4 @@
-package view;
+package factories;
 import constants.PlayerViewStyle;
 import constants.PlayerViewStyle.LabelStyle;
 import flash.text.TextFormatAlign;
