@@ -10,7 +10,6 @@ class AssetsMixin {
     }
 
     public static function makeTapZone<DisplayObjectContainer>(layoutMc:flash.display.Sprite, hitAreaName:String):DisplayObject {
-    trace("Ololo");
         var hitArea:Sprite = cast layoutMc.getChildByName(hitAreaName);
         hitArea.alpha = 0;
         hitArea.mouseChildren = false;
