@@ -16,5 +16,8 @@ class AssetsModel {
         return swf.createMovieClip("PlayerEditMode");
     }
 
+    public function getScoreInputMovieClip():Sprite {
+        return swf.createMovieClip("ScoreInputView");
+    }
 
 }
