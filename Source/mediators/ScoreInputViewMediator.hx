@@ -30,7 +30,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     override public function onRegister():Void {
         scoreInputView = cast view;
         assets = assetsModel.getScoreInputMovieClip();
-        var _bg = assets.getChildByName(AssetNames.NAME_BACKGROUND);
+        var _bg = assets.getChildByName(AssetNames.BACKGROUND);
         scoreInputView.initBounds(_bg.width, _bg.height, PlayerViewStyle.CORNER_RADIUS);
         createViews();
         createTapZones();
@@ -44,41 +44,41 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     private function createViews():Void {
         for (i in 0...10) {
             var numberLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_DIGIT);
-            numberLabel.copyTransformFrom(assets.getChildByName(AssetNames.NAME_SCORE_NUMBER_PREFIX + i));
+            numberLabel.copyTransformFrom(assets.getChildByName(AssetNames.SCORE_NUMBER_PREFIX + i));
             numberLabel.text = cast i;
             scoreInputView.addChild(numberLabel);
         }
         valueLabel = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_VALUE);
-        valueLabel.copyTransformFrom(assets.getChildByName(AssetNames.NAME_SCORE_VALUE));
+        valueLabel.copyTransformFrom(assets.getChildByName(AssetNames.SCORE_VALUE));
         scoreInputView.addChild(valueLabel);
 
-        scoreInputView.addChild(assets.makeGraphics(AssetNames.NAME_SCORE_PLUS));
-        scoreInputView.addChild(assets.makeGraphics(AssetNames.NAME_SCORE_MINUS));
-        scoreInputView.addChild(assets.makeGraphics(AssetNames.NAME_SCORE_CANCEL));
-        scoreInputView.addChild(assets.makeGraphics(AssetNames.NAME_SCORE_BACKSPACE));
+        scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_PLUS));
+        scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_MINUS));
+        scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_CANCEL));
+        scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_BACKSPACE));
     }
 
     private function createTapZones():Void {
         var tapZone:DisplayObject;
         for (i in 0...10) {
-            tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i);
+            tapZone = assets.makeTapZone(AssetNames.SCORE_NUMBER_HITAREA_PREFIX + i);
             tapZone.addEventListener(MouseEvent.CLICK, digitClickHandler);
             scoreInputView.addChild(tapZone);
         }
 
-        tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_BACKSPACE_HITAREA);
+        tapZone = assets.makeTapZone(AssetNames.SCORE_BACKSPACE_HITAREA);
         tapZone.addEventListener(MouseEvent.CLICK, backspaceClickHandler);
         scoreInputView.addChild(tapZone);
 
-        tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_CANCEL_HITAREA);
+        tapZone = assets.makeTapZone(AssetNames.SCORE_CANCEL_HITAREA);
         tapZone.addEventListener(MouseEvent.CLICK, cancelClickHandler);
         scoreInputView.addChild(tapZone);
 
-        tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_MINUS_HITAREA);
+        tapZone = assets.makeTapZone(AssetNames.SCORE_MINUS_HITAREA);
         tapZone.addEventListener(MouseEvent.CLICK, actionClickHandler);
         scoreInputView.addChild(tapZone);
 
-        tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_PLUS_HITAREA);
+        tapZone = assets.makeTapZone(AssetNames.SCORE_PLUS_HITAREA);
         tapZone.addEventListener(MouseEvent.CLICK, actionClickHandler);
         scoreInputView.addChild(tapZone);
 
@@ -87,18 +87,18 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
 
     private function unmapTapZones():Void {
         for (i in 0...10) {
-            scoreInputView.getChildByName(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i).removeEventListener(MouseEvent.CLICK, digitClickHandler);
+            scoreInputView.getChildByName(AssetNames.SCORE_NUMBER_HITAREA_PREFIX + i).removeEventListener(MouseEvent.CLICK, digitClickHandler);
         }
 
-        scoreInputView.getChildByName(AssetNames.NAME_SCORE_BACKSPACE_HITAREA).removeEventListener(MouseEvent.CLICK, backspaceClickHandler);
-        scoreInputView.getChildByName(AssetNames.NAME_SCORE_CANCEL_HITAREA).removeEventListener(MouseEvent.CLICK, cancelClickHandler);
-        scoreInputView.getChildByName(AssetNames.NAME_SCORE_MINUS_HITAREA).removeEventListener(MouseEvent.CLICK, actionClickHandler);
-        scoreInputView.getChildByName(AssetNames.NAME_SCORE_PLUS_HITAREA).removeEventListener(MouseEvent.CLICK, actionClickHandler);
+        scoreInputView.getChildByName(AssetNames.SCORE_BACKSPACE_HITAREA).removeEventListener(MouseEvent.CLICK, backspaceClickHandler);
+        scoreInputView.getChildByName(AssetNames.SCORE_CANCEL_HITAREA).removeEventListener(MouseEvent.CLICK, cancelClickHandler);
+        scoreInputView.getChildByName(AssetNames.SCORE_MINUS_HITAREA).removeEventListener(MouseEvent.CLICK, actionClickHandler);
+        scoreInputView.getChildByName(AssetNames.SCORE_PLUS_HITAREA).removeEventListener(MouseEvent.CLICK, actionClickHandler);
     }
 
     private function digitClickHandler(e:MouseEvent):Void {
         var target:Sprite = cast e.target;
-        var val:Int = cast target.name.substr(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX.length, 1);
+        var val:Int = cast target.name.substr(AssetNames.SCORE_NUMBER_HITAREA_PREFIX.length, 1);
 
         if (scoreValue == 0) {
             setScoreValue(val);
@@ -122,9 +122,9 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         var target:Sprite = cast e.target;
         var sign:Int = 0;
         switch (target.name) {
-            case AssetNames.NAME_SCORE_MINUS_HITAREA:
+            case AssetNames.SCORE_MINUS_HITAREA:
                 sign = -1;
-            case AssetNames.NAME_SCORE_PLUS_HITAREA:
+            case AssetNames.SCORE_PLUS_HITAREA:
                 sign = 1;
         }
 

@@ -70,7 +70,7 @@ class ScoreInputViewMediatorTest {
         var handler:Dynamic = asyncFactory.createHandler(this, shouldSetValueOnClickHandler, 300);
         timer = Timer.delay(handler, 200);
         scoreInputViewMediator.onRegister();
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldSetValueOnClickHandler():Void {
@@ -81,8 +81,8 @@ class ScoreInputViewMediatorTest {
         var handler:Dynamic = asyncFactory.createHandler(this, shouldSetDoubledigitValueOnClickHandler, 300);
         timer = Timer.delay(handler, 200);
         scoreInputViewMediator.onRegister();
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldSetDoubledigitValueOnClickHandler():Void {
@@ -98,9 +98,9 @@ class ScoreInputViewMediatorTest {
             passedId = id;
             passedScore = delta;
         });
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_PLUS_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_PLUS_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldDispatchChangeScoreOnPlusHandler():Void {
@@ -119,9 +119,9 @@ class ScoreInputViewMediatorTest {
             passedId = id;
             passedScore = delta;
         });
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_MINUS_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_MINUS_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldDispatchChangeScoreOnMinusHandler():Void {
@@ -134,9 +134,9 @@ class ScoreInputViewMediatorTest {
         var handler:Dynamic = asyncFactory.createHandler(this, shouldRemoveLastDigitOnBspaceHandler, 300);
         timer = Timer.delay(handler, 200);
         scoreInputViewMediator.onRegister();
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_BACKSPACE_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 0].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_BACKSPACE_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldRemoveLastDigitOnBspaceHandler():Void {
@@ -147,8 +147,8 @@ class ScoreInputViewMediatorTest {
         var handler:Dynamic = asyncFactory.createHandler(this, shouldChange1digitValueToZeroOnBspaceHandler, 300);
         timer = Timer.delay(handler, 200);
         scoreInputViewMediator.onRegister();
-        assetMocks[AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
-        assetMocks[AssetNames.NAME_SCORE_BACKSPACE_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_NUMBER_HITAREA_PREFIX + 2].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        assetMocks[AssetNames.SCORE_BACKSPACE_HITAREA].dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
     function shouldChange1digitValueToZeroOnBspaceHandler():Void {
@@ -196,15 +196,15 @@ class ScoreInputViewMediatorTest {
         var dummySprite = new Sprite();
         assetMocks = new Map<String, DisplayObject>();
         var asset:Sprite = mock(Sprite);
-        var names:Array<String> = [AssetNames.NAME_BACKGROUND, AssetNames.NAME_SCORE_MINUS, AssetNames.NAME_SCORE_PLUS, AssetNames.NAME_SCORE_CANCEL, AssetNames.NAME_SCORE_BACKSPACE,
-        AssetNames.NAME_SCORE_PLUS_HITAREA, AssetNames.NAME_SCORE_MINUS_HITAREA, AssetNames.NAME_SCORE_BACKSPACE_HITAREA, AssetNames.NAME_SCORE_CANCEL_HITAREA ];
+        var names:Array<String> = [AssetNames.BACKGROUND, AssetNames.SCORE_MINUS, AssetNames.SCORE_PLUS, AssetNames.SCORE_CANCEL, AssetNames.SCORE_BACKSPACE,
+        AssetNames.SCORE_PLUS_HITAREA, AssetNames.SCORE_MINUS_HITAREA, AssetNames.SCORE_BACKSPACE_HITAREA, AssetNames.SCORE_CANCEL_HITAREA ];
 
         for (i in 0...10) {
-            storeAssetMock(asset, AssetNames.NAME_SCORE_NUMBER_PREFIX + i, mockTextField);
-            storeAssetMock(asset, AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i, new Sprite());
+            storeAssetMock(asset, AssetNames.SCORE_NUMBER_PREFIX + i, mockTextField);
+            storeAssetMock(asset, AssetNames.SCORE_NUMBER_HITAREA_PREFIX + i, new Sprite());
         }
 
-        storeAssetMock(asset, AssetNames.NAME_SCORE_VALUE, mockTextField);
+        storeAssetMock(asset, AssetNames.SCORE_VALUE, mockTextField);
         for (name in names.iterator()) {
             if (name.indexOf("_hitArea") > -1) {
                 storeAssetMock(asset, name, new Sprite());

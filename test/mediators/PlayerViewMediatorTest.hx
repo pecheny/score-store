@@ -1,4 +1,5 @@
 package mediators;
+import constants.AssetNames;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
 import signals.EnterEditModeSignal;
@@ -78,7 +79,7 @@ class PlayerViewMediatorTest  {
         var handler:Dynamic = asyncFactory.createHandler(this, mouseHandleTestComplete, 300);
         timer = Timer.delay(handler, 200);
 
-        mc.name = PlayerViewStyle.NAME_PLUS_HITAREA;
+        mc.name = AssetNames.PLUS_HITAREA;
         mc.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
@@ -105,7 +106,7 @@ class PlayerViewMediatorTest  {
         var handler:Dynamic = asyncFactory.createHandler(this, mouseHandleRemovedTestComplete, 300);
         timer = Timer.delay(handler, 200);
 
-        mc.name = PlayerViewStyle.NAME_PLUS_HITAREA;
+        mc.name = AssetNames.PLUS_HITAREA;
         mc.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
     }
 
@@ -183,7 +184,7 @@ class MovieClipMocked extends MovieClip {
     }
 
     override public function getChildByName(s:String):DisplayObject {
-        if (s == PlayerViewStyle.NAME_SCORE || s == PlayerViewStyle.NAME_NAME) {
+        if (s == AssetNames.SCORE || s == AssetNames.NAME) {
             return label;
         }
         return this;

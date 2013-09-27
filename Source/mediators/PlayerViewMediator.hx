@@ -1,4 +1,5 @@
 package mediators;
+import constants.AssetNames;
 import signals.EnterScoreInputModeSignal;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
@@ -63,38 +64,38 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     public function setupLayout():Void {
         layoutMc = layout.getPlayerViewMovieClip();
 
-        var bg:Sprite = cast layoutMc.getChildByName(PlayerViewStyle.NAME_BACKGROUND);
+        var bg:Sprite = cast layoutMc.getChildByName(AssetNames.BACKGROUND);
         trace(bg.width, bg.height);
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
-        var _score:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_SCORE);
+        var _score:TextField = cast layoutMc.getChildByName(AssetNames.SCORE);
         var scoreLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE);
         scoreLabel.copyTransformFrom(_score);
         scoreLabel.text = "25";
         playerView.setMainTextField(scoreLabel);
 
 
-        var _name:TextField = cast layoutMc.getChildByName(PlayerViewStyle.NAME_NAME);
+        var _name:TextField = cast layoutMc.getChildByName(AssetNames.NAME);
         var nameLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_NAME);
         nameLabel.copyTransformFrom(_name);
         nameLabel.autoSize = TextFieldAutoSize.LEFT;
         nameLabel.text = "Player " + playerView.getPlayerId().toInt();
         playerView.addChild(nameLabel);
 
-        var plusButton = layoutMc.makeGraphics(PlayerViewStyle.NAME_PLUS_VIEW);
+        var plusButton = layoutMc.makeGraphics(AssetNames.PLUS_VIEW);
         playerView.addChild(plusButton);
 
-        var minusButton = layoutMc.makeGraphics(PlayerViewStyle.NAME_MINUS_VIEW);
+        var minusButton = layoutMc.makeGraphics(AssetNames.MINUS_VIEW);
         playerView.addChild(minusButton);
 
 
-        plusTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_PLUS_HITAREA);
+        plusTapZone = layoutMc.makeTapZone(AssetNames.PLUS_HITAREA);
         playerView.addChild(plusTapZone);
 
-        minusTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_MINUS_HITAREA);
+        minusTapZone = layoutMc.makeTapZone(AssetNames.MINUS_HITAREA);
         playerView.addChild(minusTapZone);
 
-        scoreTapZone = layoutMc.makeTapZone(PlayerViewStyle.NAME_SCORE_HITAREA);
+        scoreTapZone = layoutMc.makeTapZone(AssetNames.SCORE_HITAREA);
         playerView.addChild(scoreTapZone);
 
     }

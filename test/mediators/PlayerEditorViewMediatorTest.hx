@@ -1,4 +1,5 @@
 package mediators;
+import constants.AssetNames;
 import flash.text.TextField;
 import massive.munit.Assert;
 import model.vo.PlayerId;
@@ -37,9 +38,9 @@ class PlayerEditorViewMediatorTest {
         playerEditorView = PlayerEditorView.fromPlayerId(PlayerId.fromInt(1));
 
         var pemc = mock(Sprite);
-        pemc.getChildByName(PlayerViewStyle.NAME_EDITOR_NAME).returns(tf);
-        pemc.getChildByName(PlayerViewStyle.NAME_EDITOR_DELETE_HITAREA).returns(sprite);
-        pemc.getChildByName(PlayerViewStyle.NAME_EDITOR_DELETE).returns(sprite);
+        pemc.getChildByName(AssetNames.EDITOR_NAME).returns(tf);
+        pemc.getChildByName(AssetNames.EDITOR_DELETE_HITAREA).returns(sprite);
+        pemc.getChildByName(AssetNames.EDITOR_DELETE).returns(sprite);
         assetsModel.getPlayerEditMovieClip().returns(pemc);
 
         playerEditorViewMediator = new PlayerEditorViewMediator();
