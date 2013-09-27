@@ -3,7 +3,7 @@
 	
 	<meta title="BoardCounter" package="com.example.boardcounter" version="1.0.0" company="Company Name" />
 	<app main="Main" path="Export" file="BoardCounter" />
-    <window width="640" height="480" background="##660000" fps="30"  unless="mobile" />
+    <window width="640" height="800" background="##660000" fps="30"  unless="mobile" />
 	
 	<source path="Source" />
 	
