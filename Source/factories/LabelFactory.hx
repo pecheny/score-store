@@ -29,6 +29,7 @@ class LabelFactory {
         mTF.defaultTextFormat = mTFormat;
         mTF.embedFonts = true;
         mTF.selectable = false;
+        mTF.mouseEnabled = false;
         return mTF;
     }
 
