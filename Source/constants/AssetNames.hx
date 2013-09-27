@@ -18,5 +18,7 @@ class AssetNames {
     public static var NAME_SCORE_CANCEL_HITAREA:String = "_hitArea_x";
     public static var NAME_SCORE_BACKSPACE_HITAREA:String = "_hitArea_b";
 
+    public static var NAME_BACKGROUND:String = "_bg";
+
 
 }

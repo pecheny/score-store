@@ -5,7 +5,7 @@ import flash.display.DisplayObjectContainer;
 
 class ApplicationView implements mmvc.api.IViewContainer {
     public var viewAdded:Dynamic -> Void;
-       public var viewRemoved:Dynamic -> Void;
+    public var viewRemoved:Dynamic -> Void;
 
     private var container:DisplayObjectContainer;
 
@@ -37,7 +37,20 @@ class ApplicationView implements mmvc.api.IViewContainer {
         while (view.parent != null) {
             parent = view.parent;
         }
-        return (parent!= null) && (parent == container);
+        return (parent != null) && (parent == container);
+    }
+
+    public function getStageWidth():Float {
+        return container.stage.stageWidth;
+    }
+
+    public function getStageHeight():Float {
+        trace(container.stage.stageHeight);
+        return container.stage.stageHeight;
+    }
+
+    public function getRootContainer():DisplayObjectContainer {
+        return container;
     }
 
 

@@ -1,4 +1,6 @@
 package mediators;
+import view.ViewBase;
+import signals.CenterViewwVerticallySignal;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import massive.munit.async.AsyncFactory;
@@ -18,6 +20,7 @@ import mockatoo.Mockatoo.
 using mockatoo.Mockatoo;
 class ScoreInputViewMediatorTest {
     var scoreInputViewMediator:ScoreInputViewMediator;
+    var centerViewwVerticallySignal:CenterViewwVerticallySignal;
     var scoreInputView:ScoreInputView;
     var changeScoreSignal:ChangeScoreSignal;
     var assetsModel:AssetsModel;
@@ -29,24 +32,28 @@ class ScoreInputViewMediatorTest {
     var passedId:PlayerId;
     var passedScore:Int;
     var callsCounter:Int = 0;
+    var targetViewBase:ViewBase;
 
 
     @Before public function startup() {
         factoryTextField = new TextField();
         mockTextField = new TextField();
 
-        scoreInputView = ScoreInputView.fromPlayerId(PlayerId.fromInt(2));
+        scoreInputView = new ScoreInputView();
+        scoreInputView.id = PlayerId.fromInt(2);
         changeScoreSignal = new ChangeScoreSignal();
         labelFactory = mock(LabelFactory);
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(factoryTextField);
         assetsModel = mock(AssetsModel);
         assetsModel.getScoreInputMovieClip().returns(createAssetMock());
+        centerViewwVerticallySignal = new CenterViewwVerticallySignal();
 
         scoreInputViewMediator = new ScoreInputViewMediator();
         scoreInputViewMediator.changeScoreSignal = changeScoreSignal;
         scoreInputViewMediator.labelFactory = labelFactory;
         scoreInputViewMediator.view = scoreInputView;
         scoreInputViewMediator.assetsModel = assetsModel;
+        scoreInputViewMediator.centerViewwVerticallySignal = centerViewwVerticallySignal;
 
         passedId = null;
         passedScore = 0;
@@ -170,15 +177,29 @@ class ScoreInputViewMediatorTest {
         Assert.areEqual(0, scoreInputViewMediator.getScoreValue());
     }
 
+    @AsyncTest public function should_dispatch_center_signal(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldDispatchCenterSignalHandler, 300);
+        timer = Timer.delay(handler, 200);
+
+        centerViewwVerticallySignal.add(function(target:ViewBase) {
+            targetViewBase = target;
+        });
+        scoreInputViewMediator.onRegister();
+    }
+
+    function shouldDispatchCenterSignalHandler():Void {
+        Assert.areEqual(scoreInputView, targetViewBase);
+    }
+
 
     private function createAssetMock():Sprite {
         var dummySprite = new Sprite();
         assetMocks = new Map<String, DisplayObject>();
         var asset:Sprite = mock(Sprite);
-        var names:Array<String> = [AssetNames.NAME_SCORE_MINUS, AssetNames.NAME_SCORE_PLUS, AssetNames.NAME_SCORE_CANCEL, AssetNames.NAME_SCORE_BACKSPACE,
+        var names:Array<String> = [AssetNames.NAME_BACKGROUND, AssetNames.NAME_SCORE_MINUS, AssetNames.NAME_SCORE_PLUS, AssetNames.NAME_SCORE_CANCEL, AssetNames.NAME_SCORE_BACKSPACE,
         AssetNames.NAME_SCORE_PLUS_HITAREA, AssetNames.NAME_SCORE_MINUS_HITAREA, AssetNames.NAME_SCORE_BACKSPACE_HITAREA, AssetNames.NAME_SCORE_CANCEL_HITAREA ];
 
-        for (i in 0...11) {
+        for (i in 0...10) {
             storeAssetMock(asset, AssetNames.NAME_SCORE_NUMBER_PREFIX + i, mockTextField);
             storeAssetMock(asset, AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i, new Sprite());
         }

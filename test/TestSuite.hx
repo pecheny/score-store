@@ -1,8 +1,11 @@
 import massive.munit.TestSuite;
 
 import commands.AddPlayerCommandTest;
+import commands.CenterViewwVerticallyCommandTest;
 import commands.ChangeScoreCommandTest;
+import commands.EnterScoreInputModeCommandTest;
 import commands.LayoutViewsCommandTest;
+import commands.LeaveScoreInputModeCommandTest;
 import commands.RemovePlayerCommandTest;
 import mediators.ButtonMediatorTest;
 import mediators.PlayerEditorViewMediatorTest;
@@ -31,8 +34,11 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(commands.AddPlayerCommandTest);
+		add(commands.CenterViewwVerticallyCommandTest);
 		add(commands.ChangeScoreCommandTest);
+		add(commands.EnterScoreInputModeCommandTest);
 		add(commands.LayoutViewsCommandTest);
+		add(commands.LeaveScoreInputModeCommandTest);
 		add(commands.RemovePlayerCommandTest);
 		add(mediators.ButtonMediatorTest);
 		add(mediators.PlayerEditorViewMediatorTest);

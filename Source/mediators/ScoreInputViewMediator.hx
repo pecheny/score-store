@@ -1,4 +1,6 @@
 package mediators;
+import signals.CenterViewwVerticallySignal;
+import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import flash.display.DisplayObject;
 import constants.PlayerViewStyle;
@@ -16,6 +18,8 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     @inject public var labelFactory:LabelFactory;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var assetsModel:AssetsModel;
+    @inject public var centerViewwVerticallySignal:CenterViewwVerticallySignal;
+
     var scoreInputView:ScoreInputView;
     var scoreValue:Int = 0;
     var assets:Sprite;
@@ -26,8 +30,11 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     override public function onRegister():Void {
         scoreInputView = cast view;
         assets = assetsModel.getScoreInputMovieClip();
+        var _bg = assets.getChildByName(AssetNames.NAME_BACKGROUND);
+        scoreInputView.initBounds(_bg.width, _bg.height, PlayerViewStyle.CORNER_RADIUS);
         createViews();
         createTapZones();
+        centerViewwVerticallySignal.dispatch(scoreInputView);
     }
 
     override public function preRemove():Void {
@@ -35,12 +42,13 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     }
 
     private function createViews():Void {
-        for (i in 0...11) {
-            var numberLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_NAME);
+        for (i in 0...10) {
+            var numberLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_DIGIT);
             numberLabel.copyTransformFrom(assets.getChildByName(AssetNames.NAME_SCORE_NUMBER_PREFIX + i));
+            numberLabel.text = cast i;
             scoreInputView.addChild(numberLabel);
         }
-        valueLabel = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_NAME);
+        valueLabel = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_VALUE);
         valueLabel.copyTransformFrom(assets.getChildByName(AssetNames.NAME_SCORE_VALUE));
         scoreInputView.addChild(valueLabel);
 
@@ -52,7 +60,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
 
     private function createTapZones():Void {
         var tapZone:DisplayObject;
-        for (i in 0...11) {
+        for (i in 0...10) {
             tapZone = assets.makeTapZone(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i);
             tapZone.addEventListener(MouseEvent.CLICK, digitClickHandler);
             scoreInputView.addChild(tapZone);
@@ -78,7 +86,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     }
 
     private function unmapTapZones():Void {
-        for (i in 0...11) {
+        for (i in 0...10) {
             scoreInputView.getChildByName(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX + i).removeEventListener(MouseEvent.CLICK, digitClickHandler);
         }
 
@@ -92,23 +100,18 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         var target:Sprite = cast e.target;
         var val:Int = cast target.name.substr(AssetNames.NAME_SCORE_NUMBER_HITAREA_PREFIX.length, 1);
 
-        if (scoreValue == 0 ) {
-        setScoreValue(val);
+        if (scoreValue == 0) {
+            setScoreValue(val);
         } else if (scoreValue < 10) {
-            setScoreValue(scoreValue* 10 + val);
+            setScoreValue(scoreValue * 10 + val);
         }
     }
 
     private function backspaceClickHandler(e:MouseEvent):Void {
-    trace("b1 " + getScoreValue() );
         var val = getScoreValue();
         val -= (val % 10);
-        trace("b2 " + getScoreValue() );
-        trace("b3 " + val / 10 + " " + Math.floor(val / 10) );
         val = Math.floor(val / 10);
-        trace("b4 " + val);
         setScoreValue(val);
-        trace("b5 " + getScoreValue());
     }
 
     private function cancelClickHandler(e:MouseEvent):Void {
@@ -116,7 +119,6 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     }
 
     private function actionClickHandler(e:MouseEvent):Void {
-        trace("click");
         var target:Sprite = cast e.target;
         var sign:Int = 0;
         switch (target.name) {
@@ -130,7 +132,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     }
 
     public function setScoreValue(value:Int):Void {
-        if (value < 100)   {
+        if (value < 100) {
             scoreValue = value;
             valueLabel.text = cast value;
         }

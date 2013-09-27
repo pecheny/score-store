@@ -1,4 +1,5 @@
 package mediators;
+import signals.EnterScoreInputModeSignal;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
 import signals.EnterEditModeSignal;
@@ -26,6 +27,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var layout:AssetsModel;
     @inject public var enterGameModeSignal:EnterGameModeSignal;
     @inject public var enterEditModeSignal:EnterEditModeSignal;
+    @inject public var enterScoreInputModeSignal:EnterScoreInputModeSignal;
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
@@ -117,7 +119,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
             changeScoreSignal.dispatch(playerView.getPlayerId(), -1);
         }
         else if (target.name == scoreTapZone.name) {
-            playerButtonSignal.dispatch(view.getPlayerId(), e);
+            enterScoreInputModeSignal.dispatch(playerView.getPlayerId());
         }
     }
 }

@@ -1,3 +1,11 @@
+import commands.CenterViewwVerticallyCommand;
+import signals.CenterViewwVerticallySignal;
+import signals.LeaveScoreInputModeSignal;
+import commands.LeaveScoreInputModeCommand;
+import commands.EnterScoreInputModeCommand;
+import signals.EnterScoreInputModeSignal;
+import view.ScoreInputView;
+import mediators.ScoreInputViewMediator;
 import mediators.PlayerEditorViewMediator;
 import view.PlayerEditorView;
 import commands.EnterGameModeCommand;
@@ -42,11 +50,6 @@ class ApplicationContext extends mmvc.impl.Context {
         super(contextView);
     }
 
-/**
-	Overrides startup to configure all context commands, models and mediators
-	@see mmvc.impl.Context
-	*/
-
     override public function startup() {
         injector.mapValue(ApplicationView, contextView);
         injector.mapSingleton(PlayerModel);
@@ -55,6 +58,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(ButtonBarContainerModel);
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
+        injector.mapSingleton(ScoreInputView);
         commandMap.mapSignalClass(ExitSignal, EmptyCommand);
         commandMap.mapSignalClass(EnterEditModeSignal, EnterEditModeCommand);
         commandMap.mapSignalClass(EnterGameModeSignal, EnterGameModeCommand);
@@ -69,9 +73,13 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(RemovePlayerSignal, RemovePlayerCommand);
         commandMap.mapSignalClass(ChangeScoreSignal, ChangeScoreCommand);
         commandMap.mapSignalClass(PlayerButtonSignal, MouseHandleCommand);
+        commandMap.mapSignalClass(EnterScoreInputModeSignal, EnterScoreInputModeCommand);
+        commandMap.mapSignalClass(LeaveScoreInputModeSignal, LeaveScoreInputModeCommand);
+        commandMap.mapSignalClass(CenterViewwVerticallySignal, CenterViewwVerticallyCommand);
         mediatorMap.mapView(Button, ButtonMediator);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(PlayerEditorView, PlayerEditorViewMediator);
+        mediatorMap.mapView(ScoreInputView, ScoreInputViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 
         var startupSignal:StartupSignal = cast injector.getInstance(StartupSignal);

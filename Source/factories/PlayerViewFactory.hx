@@ -1,4 +1,5 @@
 package factories;
+import view.ScoreInputView;
 import model.vo.PlayerId;
 import view.PlayerEditorView;
 import view.PlayerView;
@@ -14,4 +15,5 @@ class PlayerViewFactory {
     public function getEditorView(id:PlayerId):PlayerEditorView {
         return PlayerEditorView.fromPlayerId(id);
     }
+
 }
