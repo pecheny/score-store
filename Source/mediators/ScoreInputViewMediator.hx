@@ -45,6 +45,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     override public function preRemove():Void {
         stageResizedSignal.remove(stageResizedHandler);
         unmapTapZones();
+        scoreInputView.clearChildren();
     }
 
     private function createViews():Void {
@@ -56,6 +57,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         }
         valueLabel = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_VALUE);
         valueLabel.copyTransformFrom(assets.getChildByName(AssetNames.SCORE_VALUE));
+        valueLabel.text = "0";
         scoreInputView.addChild(valueLabel);
 
         scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_PLUS));
@@ -104,7 +106,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
 
     private function digitClickHandler(e:MouseEvent):Void {
         var target:Sprite = cast e.target;
-        var val:Int = cast target.name.substr(AssetNames.SCORE_NUMBER_HITAREA_PREFIX.length, 1);
+        var val:Int = Std.parseInt(target.name.substr(AssetNames.SCORE_NUMBER_HITAREA_PREFIX.length, 1));
 
         if (scoreValue == 0) {
             setScoreValue(val);
@@ -145,7 +147,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     public function setScoreValue(value:Int):Void {
         if (value < 100) {
             scoreValue = value;
-            valueLabel.text = cast value;
+            valueLabel.text = "" + value;
         }
     }
 

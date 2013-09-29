@@ -54,4 +54,10 @@ class ViewBase extends Sprite {
     }
 
 
+    public function clearChildren():Void {
+        while (numChildren > 0) {
+            removeChildAt(0);
+        }
+    }
+
 }

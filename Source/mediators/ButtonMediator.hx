@@ -16,7 +16,6 @@ class ButtonMediator extends mmvc.impl.Mediator<Button> {
 
 
     function mouseHandler(e:MouseEvent) {
-    trace("Boo");
         var signal = buttonsModel.getSignal(view);
         signal.dispatch();
     }

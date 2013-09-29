@@ -9,7 +9,7 @@ class RefreshButtonsCommand extends mmvc.impl.Command {
     @inject public var buttonBarContainerModel:ButtonBarContainerModel;
 
     override public function execute():Void {
-        clearContainer();
+        buttonBarContainerModel.butonBarContainer.clearChildren();
         var buttons = buttonsModel.getActiveButtons();
         var x:Float = 0; // PlayerViewStyle.GRID_STEP;
         var allButtonsWidth = PlayerViewStyle.UNIT_WIDTH - PlayerViewStyle.GRID_STEP * (buttons.length - 1);
@@ -23,10 +23,6 @@ class RefreshButtonsCommand extends mmvc.impl.Command {
         }
     }
 
-    function clearContainer():Void {
-        while (buttonBarContainerModel.butonBarContainer.numChildren > 0) {
-            buttonBarContainerModel.butonBarContainer.removeChildAt(0);
-        }
-    }
+
 
 }

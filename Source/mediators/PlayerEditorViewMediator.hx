@@ -40,7 +40,7 @@ class PlayerEditorViewMediator extends mmvc.impl.Mediator<PlayerEditorView> {
 
     override public function preRemove():Void {
         deleteHitArea.removeEventListener(MouseEvent.CLICK, deleteClickHandler);
-
+        playerEditorView.clearChildren();
     }
 
     private function deleteClickHandler(e:MouseEvent):Void {

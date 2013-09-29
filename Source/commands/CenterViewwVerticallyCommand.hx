@@ -7,7 +7,7 @@ class CenterViewwVerticallyCommand extends mmvc.impl.Command {
     @inject public var viewBase:ViewBase;
 
     override public function execute():Void {
-        viewBase.y = (applicationView.getStageHeight() - viewBase.getHeight()) / 2;
+        viewBase.y = (applicationView.getStageHeight()/applicationView.calculateScale() - viewBase.getHeight()) / 2;
     }
 
 }

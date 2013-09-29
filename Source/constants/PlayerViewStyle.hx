@@ -39,7 +39,7 @@ class PlayerViewStyle {
     var val:LabelStyle = {
     size : 82,
     spacing : 0,
-    color:0xffffff,
+    color:0x999999,
     align:"left"};
     val;
     };

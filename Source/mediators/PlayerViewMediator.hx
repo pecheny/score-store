@@ -58,6 +58,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         enterGameModeSignal.remove(enterGameMode);
         enterEditModeSignal.remove(enterEditMode);
         playerView.removeEventListener(MouseEvent.CLICK, mouseHandler);
+        playerView.clearChildren();
     }
 
 
