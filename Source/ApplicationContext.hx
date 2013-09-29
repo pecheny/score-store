@@ -1,3 +1,5 @@
+import mediators.ModalBackgroundViewMediator;
+import view.ModalBackgroundView;
 import commands.CenterViewwVerticallyCommand;
 import signals.CenterViewwVerticallySignal;
 import signals.LeaveScoreInputModeSignal;
@@ -59,6 +61,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
         injector.mapSingleton(ScoreInputView);
+        injector.mapSingleton(ModalBackgroundView);
         commandMap.mapSignalClass(ExitSignal, EmptyCommand);
         commandMap.mapSignalClass(EnterEditModeSignal, EnterEditModeCommand);
         commandMap.mapSignalClass(EnterGameModeSignal, EnterGameModeCommand);
@@ -80,6 +83,7 @@ class ApplicationContext extends mmvc.impl.Context {
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(PlayerEditorView, PlayerEditorViewMediator);
         mediatorMap.mapView(ScoreInputView, ScoreInputViewMediator);
+        mediatorMap.mapView(ModalBackgroundView, ModalBackgroundViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 
         var startupSignal:StartupSignal = cast injector.getInstance(StartupSignal);

@@ -12,19 +12,12 @@ class ScaleStageCommand extends mmvc.impl.Command {
 
     override public function execute():Void {
         root = appView.getRootContainer();
-        var scale = grtScale();
+        var scale = appView.calculateScale();
         root.scaleX = scale;
         root.scaleY = scale;
         root.x = PlayerViewStyle.GRID_STEP * scale;
     }
 
-    private function grtScale():Float {
-        var rootBoundBox = root.getBounds(root);
-        var xRatio = appView.getStageWidth() / (rootBoundBox.width + PlayerViewStyle.GRID_STEP * 2);
-        return xRatio;
-//        var yRatio = stage.stageHeight / root.height;
-//        var ratio = (xRatio < yRatio) ? xRatio : yRatio;
-//        return ratio
-    }
+
 
 }

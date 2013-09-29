@@ -1,4 +1,6 @@
 package view;
+import constants.PlayerViewStyle;
+import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
@@ -45,12 +47,16 @@ class ApplicationView implements mmvc.api.IViewContainer {
     }
 
     public function getStageHeight():Float {
-        trace(container.stage.stageHeight);
         return container.stage.stageHeight;
     }
 
     public function getRootContainer():DisplayObjectContainer {
         return container;
+    }
+
+    public function calculateScale():Float {
+           var xRatio = getStageWidth() / (PlayerViewStyle.UNIT_WIDTH + PlayerViewStyle.GRID_STEP * 2);
+           return xRatio;
     }
 
 

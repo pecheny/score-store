@@ -1,4 +1,6 @@
 package mediators;
+import signals.LeaveScoreInputModeSignal;
+import signals.StageResizedSignal;
 import signals.CenterViewwVerticallySignal;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
@@ -19,6 +21,8 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var assetsModel:AssetsModel;
     @inject public var centerViewwVerticallySignal:CenterViewwVerticallySignal;
+    @inject public var stageResizedSignal:StageResizedSignal;
+    @inject public var leaveScoreInputModeSignal:LeaveScoreInputModeSignal;
 
     var scoreInputView:ScoreInputView;
     var scoreValue:Int = 0;
@@ -35,9 +39,11 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         createViews();
         createTapZones();
         centerViewwVerticallySignal.dispatch(scoreInputView);
+        stageResizedSignal.add(stageResizedHandler);
     }
 
     override public function preRemove():Void {
+        stageResizedSignal.remove(stageResizedHandler);
         unmapTapZones();
     }
 
@@ -115,7 +121,11 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
     }
 
     private function cancelClickHandler(e:MouseEvent):Void {
+        leaveScoreInputModeSignal.dispatch();
+    }
 
+    private function stageResizedHandler():Void {
+        centerViewwVerticallySignal.dispatch(scoreInputView);
     }
 
     private function actionClickHandler(e:MouseEvent):Void {
@@ -129,6 +139,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         }
 
         changeScoreSignal.dispatch(scoreInputView.id, getScoreValue() * sign);
+        leaveScoreInputModeSignal.dispatch();
     }
 
     public function setScoreValue(value:Int):Void {

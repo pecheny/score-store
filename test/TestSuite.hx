@@ -8,6 +8,7 @@ import commands.LayoutViewsCommandTest;
 import commands.LeaveScoreInputModeCommandTest;
 import commands.RemovePlayerCommandTest;
 import mediators.ButtonMediatorTest;
+import mediators.ModalBackgroundViewMediatorTest;
 import mediators.PlayerEditorViewMediatorTest;
 import mediators.PlayerViewMediatorTest;
 import mediators.ScoreInputViewMediatorTest;
@@ -41,6 +42,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(commands.LeaveScoreInputModeCommandTest);
 		add(commands.RemovePlayerCommandTest);
 		add(mediators.ButtonMediatorTest);
+		add(mediators.ModalBackgroundViewMediatorTest);
 		add(mediators.PlayerEditorViewMediatorTest);
 		add(mediators.PlayerViewMediatorTest);
 		add(mediators.ScoreInputViewMediatorTest);
