@@ -13,7 +13,7 @@ class RemovePlayerCommand extends mmvc.impl.Command {
     @inject public var playerId:PlayerId;
 
     override public function execute():Void {
-        playersModel.removePlayer(playerId);
+        playersModel.disablePlayer(playerId);
         var pview:PlayerView = playerViewsModel.getView(playerId);
         playerViewsModel.removeView(playerId);
         appView.removeChild(pview);

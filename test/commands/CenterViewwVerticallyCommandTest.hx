@@ -17,11 +17,12 @@ class CenterViewwVerticallyCommandTest {
 //        containter = new Sprite();
         viewBase = new ViewBase();
         applicationView = mock(ApplicationView);
+        applicationView.calculateScale().returns(1);
         centerViewwVerticallyCommand.viewBase = viewBase;
         centerViewwVerticallyCommand.applicationView = applicationView;
     }
 
-    @Test public function should_define_playerId():Void {
+    @Test public function should_center_view():Void {
         viewBase.initBounds(100, 300, 0);
         applicationView.getStageHeight().returns(800);
 //        applicationView.getRootContainer().returns(containter)

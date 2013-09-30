@@ -36,7 +36,7 @@ class RemovePlayerCommandTest {
     @Test
     public function command_should_call_removePlayer():Void {
         removePlayerCommand.execute();
-        playerModel.removePlayer(PlayerId.fromInt(1)).verify(1);
+        playerModel.disablePlayer(PlayerId.fromInt(1)).verify(1);
     }
 
     @Test

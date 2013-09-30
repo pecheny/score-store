@@ -3,44 +3,35 @@ import model.vo.PlayerId;
 import model.vo.PlayerId;
 import model.vo.PlayerId;
 class PlayerModel {
-    private var scores:Array<Int>;
-    private var activePlayers:Array<Int>;
+    private var scores:Map<PlayerId, Int>;
+    private var activePlayers:Array<PlayerId>;
 
     public function new() {
-        scores = new Array<Int>();
-        activePlayers = new Array<Int>();
+        scores = new Map<PlayerId, Int>();
+        activePlayers = new Array<PlayerId>();
     }
 
-    public function addPlayer():PlayerId {
-        var newId:Int = getFreeId();
-        activePlayers.push(newId);
-        scores[newId] = 0;
-        return PlayerId.fromInt(newId);
-    }
-
-    private function getFreeId():Int {
-        if (activePlayers.length <= PlayerId.MAX_PLAYERS) {
-            for (i in 1...PlayerId.MAX_PLAYERS) {
-                if (!Lambda.has(activePlayers, i)) {
-                    return i;
-                }
-            }
+    public function enablePlayer(id:PlayerId):Void {
+        if (hasPLayer(id)) {
+            throw "Player " + id + " has beed enabled already";
         }
-        throw "Players limit reached";
-        return -1;
+        activePlayers.push(id);
+        if (!scores.exists(id)) {
+            scores[id] = 0;
+        }
     }
 
-    public function removePlayer(id:PlayerId):Void {
+
+    public function disablePlayer(id:PlayerId):Void {
         if (!hasPLayer(id)) {
             throw "There is no player with given id: " + id;
         }
-        activePlayers.remove(id.toInt());
-        scores[id.toInt()] = 0;
+        activePlayers.remove(id);
     }
 
     public function changeScore(playerId:PlayerId, deltaScore:Int):Void {
         if (hasPLayer(playerId)) {
-            scores[playerId.toInt()] += deltaScore;
+            scores[playerId] += deltaScore;
             return;
         }
         throw "There is no player with given id: " + playerId;
@@ -48,21 +39,17 @@ class PlayerModel {
 
     public function getScore(playerId:PlayerId):Int {
         if (hasPLayer(playerId)) {
-            return scores[playerId.toInt()];
+            return scores[playerId];
         }
         throw "There is no player with given id: " + playerId;
     }
 
     public function getPlayers():Array<PlayerId> {
-        var val:Array<PlayerId> = new Array<PlayerId>();
-        for (id in activePlayers.iterator()) {
-            val.push(PlayerId.fromInt(id));
-        }
-         return val;
+        return activePlayers.copy();
     }
 
     public function hasPLayer(playerId:PlayerId):Bool {
-        return Lambda.has(activePlayers, playerId.toInt());
+        return Lambda.has(activePlayers, playerId);
     }
 
 }

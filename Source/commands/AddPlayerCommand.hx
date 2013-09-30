@@ -21,13 +21,14 @@ class AddPlayerCommand extends mmvc.impl.Command {
     @inject
     public var appView:ApplicationView;
     @inject public var updateLayoutSignal:UpdateLayoutSignal;
+    @inject public var playerId:PlayerId;
 
 
    override public function execute():Void {
-       var id:PlayerId = playersModel.addPlayer();
+       playersModel.enablePlayer(playerId);
        var view:PlayerView = viewFactory.getView();
-       playerViewsModel.addView(id, view);
-       view.setPlayerId(id);
+       playerViewsModel.addView(playerId, view);
+       view.setPlayerId(playerId);
        appView.addChild(view);
        updateLayoutSignal.dispatch();
     }

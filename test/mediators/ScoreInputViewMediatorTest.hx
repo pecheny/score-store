@@ -1,4 +1,6 @@
 package mediators;
+import signals.LeaveScoreInputModeSignal;
+import signals.StageResizedSignal;
 import view.ViewBase;
 import signals.CenterViewwVerticallySignal;
 import model.vo.PlayerId;
@@ -33,6 +35,8 @@ class ScoreInputViewMediatorTest {
     var passedScore:Int;
     var callsCounter:Int = 0;
     var targetViewBase:ViewBase;
+    var stageResizedSignal:StageResizedSignal;
+    var leaveScoreInputModeSignal:LeaveScoreInputModeSignal;
 
 
     @Before public function startup() {
@@ -47,6 +51,7 @@ class ScoreInputViewMediatorTest {
         assetsModel = mock(AssetsModel);
         assetsModel.getScoreInputMovieClip().returns(createAssetMock());
         centerViewwVerticallySignal = new CenterViewwVerticallySignal();
+        stageResizedSignal = new StageResizedSignal();
 
         scoreInputViewMediator = new ScoreInputViewMediator();
         scoreInputViewMediator.changeScoreSignal = changeScoreSignal;
@@ -54,6 +59,8 @@ class ScoreInputViewMediatorTest {
         scoreInputViewMediator.view = scoreInputView;
         scoreInputViewMediator.assetsModel = assetsModel;
         scoreInputViewMediator.centerViewwVerticallySignal = centerViewwVerticallySignal;
+        scoreInputViewMediator.stageResizedSignal = stageResizedSignal;
+        scoreInputViewMediator.leaveScoreInputModeSignal = new LeaveScoreInputModeSignal();
 
         passedId = null;
         passedScore = 0;
@@ -219,6 +226,4 @@ class ScoreInputViewMediatorTest {
         asset.getChildByName(name).returns(mmock);
         assetMocks[name] = mmock;
     }
-
-//
 }
