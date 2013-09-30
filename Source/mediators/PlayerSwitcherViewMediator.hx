@@ -1,4 +1,5 @@
 package mediators;
+import model.PlayerModel;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import signals.AddPlayerSignal;
@@ -7,18 +8,23 @@ import view.PlayerSwitcherView;
 class PlayerSwitcherViewMediator extends mmvc.impl.Mediator<PlayerSwitcherView> {
     @inject public var addPlayerSignal:AddPlayerSignal;
     @inject public var removePlayerSignal:RemovePlayerSignal;
+    @inject public var playerModel:PlayerModel;
     var playerId:PlayerId;
     var playerSwitcherView:PlayerSwitcherView;
-    var enabled:Bool;
+    public var enabled(default, null):Bool;
 
     override public function onRegister():Void {
         playerSwitcherView = cast view;
         playerId = playerSwitcherView.playerId;
         playerSwitcherView.mouseChildren = false;
         playerSwitcherView.addEventListener(MouseEvent.CLICK, clickHandler);
+        if (playerModel.hasPLayer(playerId)) {
+            turnOn();
+        }
     }
 
     override public function preRemove():Void {
+        turnOff();
         playerSwitcherView.removeEventListener(MouseEvent.CLICK, clickHandler);
         playerSwitcherView.clearChildren();
     }

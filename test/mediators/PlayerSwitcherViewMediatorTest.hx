@@ -1,4 +1,5 @@
 package mediators;
+import model.PlayerModel;
 import massive.munit.Assert;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
@@ -16,6 +17,7 @@ class PlayerSwitcherViewMediatorTest {
     var playerSwitcherView:PlayerSwitcherView;
     var addPlayerSignal:AddPlayerSignal;
     var removePlayerSignal:RemovePlayerSignal;
+    var playerModel:PlayerModel;
     var timer:Timer;
     var callsCounter:Int;
     var passedId:PlayerId;
@@ -24,11 +26,13 @@ class PlayerSwitcherViewMediatorTest {
         addPlayerSignal = new AddPlayerSignal();
         removePlayerSignal = new RemovePlayerSignal();
         playerSwitcherView = new PlayerSwitcherView();
+        playerModel = mock(PlayerModel);
         playerSwitcherView.playerId = PlayerId.fromInt(1);
         playerSwitcherViewMediator = new PlayerSwitcherViewMediator();
         playerSwitcherViewMediator.removePlayerSignal = removePlayerSignal;
         playerSwitcherViewMediator.addPlayerSignal = addPlayerSignal;
         playerSwitcherViewMediator.view = playerSwitcherView;
+        playerSwitcherViewMediator.playerModel = playerModel;
 
         callsCounter = 0;
         passedId = null;
@@ -49,6 +53,18 @@ class PlayerSwitcherViewMediatorTest {
     function shouldDispatchEnableSignalHandler():Void {
         Assert.areEqual(1, callsCounter);
         Assert.areEqual(PlayerId.fromInt(1), passedId);
+    }
+
+    @Test public function should_set_initial_enabled_state():Void {
+        playerModel.hasPLayer(PlayerId.fromInt(1)).returns(true);
+        playerSwitcherViewMediator.onRegister();
+        Assert.areEqual(true, playerSwitcherViewMediator.enabled);
+    }
+
+    @Test public function should_set_initial_disabled_state():Void {
+        playerModel.hasPLayer(PlayerId.fromInt(1)).returns(false);
+        playerSwitcherViewMediator.onRegister();
+        Assert.areEqual(false, playerSwitcherViewMediator.enabled);
     }
 
     @AsyncTest public function should_dispatch_disable_signal(asyncFactory:AsyncFactory):Void {

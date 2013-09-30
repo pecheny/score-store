@@ -20,4 +20,8 @@ class AssetsModel {
         return swf.createMovieClip("ScoreInputView");
     }
 
+    public function getPlayersChooserMovieClip():Sprite {
+        return swf.createMovieClip("PlayersChooser");
+    }
+
 }

@@ -34,5 +34,9 @@ class AssetNames {
     public static var EDITOR_NAME_HITAREA:String = "_name_hitArea";
     public static var EDITOR_AVATAR_HITAREA:String = "_avatar_hitArea";
 
+    public static var CHOOSER_SWITCHER_PREFIX:String = "_avatar_";
+    public static var CHOOSER_OK:String = "_ok";
+    public static var CHOOSER_OK_HITAREA:String = "_ok_hitArea";
+
 
 }
