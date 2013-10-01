@@ -1,4 +1,5 @@
 package mediators;
+import model.PlayerModel;
 import constants.AssetNames;
 import signals.EnterScoreInputModeSignal;
 import factories.PlayerViewFactory;
@@ -29,6 +30,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var enterGameModeSignal:EnterGameModeSignal;
     @inject public var enterEditModeSignal:EnterEditModeSignal;
     @inject public var enterScoreInputModeSignal:EnterScoreInputModeSignal;
+    @inject public var playerModel:PlayerModel;
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
@@ -72,8 +74,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         var _score:TextField = cast layoutMc.getChildByName(AssetNames.SCORE);
         var scoreLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE);
         scoreLabel.copyTransformFrom(_score);
-        scoreLabel.text = "25";
         playerView.setMainTextField(scoreLabel);
+        playerView.setText("" + playerModel.getScore(playerView.getPlayerId()));
 
 
         var _name:TextField = cast layoutMc.getChildByName(AssetNames.NAME);
@@ -108,7 +110,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     }
 
     private function enterEditMode():Void {
-        trace("e" + Std.is(editView, PlayerEditorView));
         playerView.addChild(editView);
     }
 

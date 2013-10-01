@@ -1,4 +1,5 @@
 package mediators;
+import model.PlayerModel;
 import constants.AssetNames;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
@@ -51,6 +52,11 @@ class PlayerViewMediatorTest  {
         playerViewFactory = mock (PlayerViewFactory);
         playerViewFactory.getEditorView(cast Matcher.any).returns(PlayerEditorView.fromPlayerId(PlayerId.fromInt(2)));
 
+        var playerModel:PlayerModel = mock(PlayerModel);
+        playerModel.hasPLayer(cast Matcher.any).returns(false);
+        playerModel.getScore(cast Matcher.any).returns(0);
+
+
         playerViewMediator = new PlayerViewMediator();
         playerViewMediator.layout = layout;
         playerViewMediator.labelFactory = labelFactory;
@@ -58,6 +64,7 @@ class PlayerViewMediatorTest  {
         playerViewMediator.enterGameModeSignal = enterGameModeSignal = new EnterGameModeSignal();
         playerViewMediator.enterEditModeSignal = enterEditModeSignal = new EnterEditModeSignal();
         playerViewMediator.playerViewFactory = playerViewFactory;
+        playerViewMediator.playerModel = playerModel;
 
         callsCounter = 0;
         passedId = null;

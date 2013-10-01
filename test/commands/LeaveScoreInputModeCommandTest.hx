@@ -17,7 +17,7 @@ class LeaveScoreInputModeCommandTest {
         leaveScoreInputModeCommand.scoreInputView = scoreInputView;
     }
 
-    @Test public function should_add_ui_instance_to_appView():Void {
+    @Test public function should_remove_ui_instance_to_appView():Void {
         leaveScoreInputModeCommand.execute();
         applicationView.removeChild(scoreInputView).verify(1);
     }

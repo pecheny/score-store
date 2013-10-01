@@ -29,7 +29,7 @@ class AddPlayerCommand extends mmvc.impl.Command {
        var view:PlayerView = viewFactory.getView();
        playerViewsModel.addView(playerId, view);
        view.setPlayerId(playerId);
-       appView.addChild(view);
+       appView.addChildAt(view, 0);
        updateLayoutSignal.dispatch();
     }
 }

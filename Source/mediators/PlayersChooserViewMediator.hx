@@ -47,7 +47,7 @@ class PlayersChooserViewMediator extends mmvc.impl.Mediator<PlayersChooserView> 
 
     function createViews() {
         for (i in 1...9) {
-            var switcher = playerViewFactory.getPlayerSwitcher(PlayerId.fromInt(1));
+            var switcher = playerViewFactory.getPlayerSwitcher(PlayerId.fromInt(i));
             var switcherAsset = assets.makeGraphics(AssetNames.CHOOSER_SWITCHER_PREFIX + i);
             var label = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_DIGIT);
             label.text = "" + i;

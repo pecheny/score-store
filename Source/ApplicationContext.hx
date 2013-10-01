@@ -1,3 +1,11 @@
+import commands.EnterPlayersChooseCommand;
+import signals.ChoosePlayersSignal;
+import commands.LeavePlayersChooseCommand;
+import signals.PlayersChoosenSignal;
+import mediators.PlayersChooserViewMediator;
+import view.PlayersChooserView;
+import mediators.PlayerSwitcherViewMediator;
+import view.PlayerSwitcherView;
 import mediators.ModalBackgroundViewMediator;
 import view.ModalBackgroundView;
 import commands.CenterViewwVerticallyCommand;
@@ -62,6 +70,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(LabelFactory);
         injector.mapSingleton(ScoreInputView);
         injector.mapSingleton(ModalBackgroundView);
+        injector.mapSingleton(PlayersChooserView);
         commandMap.mapSignalClass(ExitSignal, EmptyCommand);
         commandMap.mapSignalClass(EnterEditModeSignal, EnterEditModeCommand);
         commandMap.mapSignalClass(EnterGameModeSignal, EnterGameModeCommand);
@@ -79,10 +88,14 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(EnterScoreInputModeSignal, EnterScoreInputModeCommand);
         commandMap.mapSignalClass(LeaveScoreInputModeSignal, LeaveScoreInputModeCommand);
         commandMap.mapSignalClass(CenterViewwVerticallySignal, CenterViewwVerticallyCommand);
+        commandMap.mapSignalClass(PlayersChoosenSignal, LeavePlayersChooseCommand);
+        commandMap.mapSignalClass(ChoosePlayersSignal, EnterPlayersChooseCommand);
         mediatorMap.mapView(Button, ButtonMediator);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(PlayerEditorView, PlayerEditorViewMediator);
         mediatorMap.mapView(ScoreInputView, ScoreInputViewMediator);
+        mediatorMap.mapView(PlayerSwitcherView, PlayerSwitcherViewMediator);
+        mediatorMap.mapView(PlayersChooserView, PlayersChooserViewMediator);
         mediatorMap.mapView(ModalBackgroundView, ModalBackgroundViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 

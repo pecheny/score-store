@@ -9,7 +9,7 @@ class EnterEditModeCommand extends mmvc.impl.Command {
     @inject public var buttonsModel:ButtonsModel;
 
     override public function execute():Void {
-        buttonsModel.enableButtons(ButtonName.AddPlayer, ButtonName.ToGame);
+        buttonsModel.enableButtons(ButtonName.ToGame);
         refreshButtonsSignal.dispatch();
         resizeSignal.dispatch();
     }

@@ -28,6 +28,17 @@ class ApplicationView implements mmvc.api.IViewContainer {
         return child;
     }
 
+    public function addChildAt(child:DisplayObject, index:Int):DisplayObject {
+            if (Std.is(child, ViewBase)) {
+                var view:ViewBase = cast child;
+                view.viewAdded = viewAdded;
+                view.viewRemoved = viewRemoved;
+            }
+            container.addChildAt(child, index);
+            viewAdded(child);
+            return child;
+        }
+
     public function removeChild(child:DisplayObject):DisplayObject {
         viewRemoved(child);
         container.removeChild(child);

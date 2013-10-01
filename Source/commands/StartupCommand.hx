@@ -1,4 +1,5 @@
 package commands;
+import signals.ChoosePlayersSignal;
 import signals.EnterGameModeSignal;
 import signals.EnterEditModeSignal;
 import signals.PlayersModifyComplete;
@@ -24,8 +25,8 @@ class StartupCommand extends mmvc.impl.Command {
 
     @inject public var addPlayerSignal:AddPlayerSignal;
     @inject public var exitSignal:ExitSignal;
-    @inject public var enterEditModeSignal:EnterEditModeSignal;
     @inject public var enterGameModeSignal:EnterGameModeSignal;
+    @inject public var choosePlayersSignal:ChoosePlayersSignal;
     @inject public var newGameSignal:NewGameSignal;
     @inject public var playersModifyComplete:PlayersModifyComplete;
 
@@ -51,9 +52,8 @@ class StartupCommand extends mmvc.impl.Command {
     }
 
     private function registerButtons():Void {
-        buttonsModel.registerButtonType(ButtonName.AddPlayer, createButtonView("ButtonAddPlayer"), addPlayerSignal);
         buttonsModel.registerButtonType(ButtonName.Exit, createButtonView("ButtonExit"), exitSignal);
-        buttonsModel.registerButtonType(ButtonName.EditPlayer, createButtonView("ButtonEditPlayer"), enterEditModeSignal);
+        buttonsModel.registerButtonType(ButtonName.EditPlayer, createButtonView("ButtonEditPlayer"), choosePlayersSignal);
         buttonsModel.registerButtonType(ButtonName.ToGame, createButtonView("ButtonOk"), enterGameModeSignal);
         buttonsModel.registerButtonType(ButtonName.New, createButtonView("ButtonNew"), newGameSignal);
     }

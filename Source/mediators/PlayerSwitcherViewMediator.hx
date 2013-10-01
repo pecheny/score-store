@@ -20,22 +20,25 @@ class PlayerSwitcherViewMediator extends mmvc.impl.Mediator<PlayerSwitcherView> 
         playerSwitcherView.addEventListener(MouseEvent.CLICK, clickHandler);
         if (playerModel.hasPLayer(playerId)) {
             turnOn();
+        } else {
+            turnOff();
         }
     }
 
     override public function preRemove():Void {
-        turnOff();
+
         playerSwitcherView.removeEventListener(MouseEvent.CLICK, clickHandler);
         playerSwitcherView.clearChildren();
     }
 
     public function turnOn():Void {
         enabled = true;
+        playerSwitcherView.alpha = 1;
     }
 
     public function turnOff():Void {
         enabled = false;
-
+        playerSwitcherView.alpha = 0.5;
     }
 
     public function switchState():Void {
