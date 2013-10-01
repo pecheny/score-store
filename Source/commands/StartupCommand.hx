@@ -1,7 +1,9 @@
 package commands;
+import constants.LayerName;
+import signals.AddChildSignal;
+import constants.LayerName;
 import signals.ChoosePlayersSignal;
 import signals.EnterGameModeSignal;
-import signals.EnterEditModeSignal;
 import signals.PlayersModifyComplete;
 import signals.NewGameSignal;
 import signals.ExitSignal;
@@ -29,7 +31,7 @@ class StartupCommand extends mmvc.impl.Command {
     @inject public var choosePlayersSignal:ChoosePlayersSignal;
     @inject public var newGameSignal:NewGameSignal;
     @inject public var playersModifyComplete:PlayersModifyComplete;
-
+    @inject public var addChildSignal:AddChildSignal;
 
 
     var swf:SWF;
@@ -38,7 +40,7 @@ class StartupCommand extends mmvc.impl.Command {
         swf = new SWF (Assets.getBytes("assets/CounterAssets.swf"));
         var layout = new AssetsModel(swf);
         injector.mapValue(AssetsModel, layout);
-
+        initLayers();
         initButtonBar();
         registerButtons();
         enterGameModeSignal.dispatch();
@@ -46,9 +48,13 @@ class StartupCommand extends mmvc.impl.Command {
 
     private function initButtonBar():Void {
         var buttonBar = new ViewBase();
-        appView.addChild(buttonBar);
+        addChildSignal.dispatch(LayerName.MAIN, buttonBar);
         buttonBarContainerModel.butonBarContainer = buttonBar;
+    }
 
+    private function initLayers():Void {
+        appView.addLayer(LayerName.MAIN, new ViewBase());
+        appView.addLayer(LayerName.TOP, new ViewBase());
     }
 
     private function registerButtons():Void {

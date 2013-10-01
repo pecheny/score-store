@@ -104,9 +104,9 @@ class ApplicationView implements mmvc.api.IViewContainer {
         return container.stage.stageHeight;
     }
 
-//    public function getRootContainer():DisplayObjectContainer {
-//        return container;
-//    }
+    public function getRootContainer():DisplayObjectContainer {
+        return container;
+    }
 
     public function calculateScale():Float {
         var xRatio = getStageWidth() / (PlayerViewStyle.UNIT_WIDTH + PlayerViewStyle.GRID_STEP * 2);

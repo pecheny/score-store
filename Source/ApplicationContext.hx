@@ -1,3 +1,5 @@
+import signals.RemoveChildSignal;
+import signals.AddChildSignal;
 import commands.EnterPlayersChooseCommand;
 import signals.ChoosePlayersSignal;
 import commands.LeavePlayersChooseCommand;
@@ -71,6 +73,8 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(ScoreInputView);
         injector.mapSingleton(ModalBackgroundView);
         injector.mapSingleton(PlayersChooserView);
+        injector.mapSingleton(AddChildSignal);
+        injector.mapSingleton(RemoveChildSignal);
         commandMap.mapSignalClass(ExitSignal, EmptyCommand);
         commandMap.mapSignalClass(EnterEditModeSignal, EnterEditModeCommand);
         commandMap.mapSignalClass(EnterGameModeSignal, EnterGameModeCommand);

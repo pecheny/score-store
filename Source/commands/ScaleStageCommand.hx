@@ -12,9 +12,6 @@ class ScaleStageCommand extends mmvc.impl.Command {
     override public function execute():Void {
         var scale = appView.calculateScale();
         appView.setScale(scale);
-        root.x = PlayerViewStyle.GRID_STEP * scale;
+        appView.getRootContainer().x = PlayerViewStyle.GRID_STEP * scale;
     }
-
-
-
 }
