@@ -113,5 +113,9 @@ class ApplicationView implements mmvc.api.IViewContainer {
         return xRatio;
     }
 
+    public function getPointerY():Float {
+        return container.stage.mouseY;
+    }
+
 
 }

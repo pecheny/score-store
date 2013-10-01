@@ -1,3 +1,7 @@
+import mediators.ScrollerBackgroundViewMediator;
+import view.ScrollerBackgroundView;
+import mediators.ScrollContainerMediator;
+import view.ScrollContainer;
 import signals.RemoveChildSignal;
 import signals.AddChildSignal;
 import commands.EnterPlayersChooseCommand;
@@ -101,6 +105,8 @@ class ApplicationContext extends mmvc.impl.Context {
         mediatorMap.mapView(PlayerSwitcherView, PlayerSwitcherViewMediator);
         mediatorMap.mapView(PlayersChooserView, PlayersChooserViewMediator);
         mediatorMap.mapView(ModalBackgroundView, ModalBackgroundViewMediator);
+        mediatorMap.mapView(ScrollContainer, ScrollContainerMediator);
+        mediatorMap.mapView(ScrollerBackgroundView, ScrollerBackgroundViewMediator);
         mediatorMap.mapView(ApplicationView, ApplicationViewMediator);
 
         var startupSignal:StartupSignal = cast injector.getInstance(StartupSignal);

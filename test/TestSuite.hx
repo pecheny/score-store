@@ -17,6 +17,8 @@ import mediators.PlayersChooserViewMediatorTest;
 import mediators.PlayerSwitcherViewMediatorTest;
 import mediators.PlayerViewMediatorTest;
 import mediators.ScoreInputViewMediatorTest;
+import mediators.ScrollContainerMediatorTest;
+import mediators.ScrollerBackgroundViewMediatorTest;
 import model.ButtonsModelTest;
 import model.PlayerModelTest;
 import model.PlayerViewsModelTest;
@@ -53,6 +55,8 @@ class TestSuite extends massive.munit.TestSuite
 		add(mediators.PlayerSwitcherViewMediatorTest);
 		add(mediators.PlayerViewMediatorTest);
 		add(mediators.ScoreInputViewMediatorTest);
+		add(mediators.ScrollContainerMediatorTest);
+		add(mediators.ScrollerBackgroundViewMediatorTest);
 		add(model.ButtonsModelTest);
 		add(model.PlayerModelTest);
 		add(model.PlayerViewsModelTest);

@@ -1,4 +1,5 @@
 package commands;
+import view.ScrollContainer;
 import constants.LayerName;
 import signals.AddChildSignal;
 import constants.LayerName;
@@ -53,7 +54,7 @@ class StartupCommand extends mmvc.impl.Command {
     }
 
     private function initLayers():Void {
-        appView.addLayer(LayerName.MAIN, new ViewBase());
+        appView.addLayer(LayerName.MAIN, new ScrollContainer());
         appView.addLayer(LayerName.TOP, new ViewBase());
     }
 
