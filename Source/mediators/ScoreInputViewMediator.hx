@@ -52,7 +52,7 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         for (i in 0...10) {
             var numberLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_DIGIT);
             numberLabel.copyTransformFrom(assets.getChildByName(AssetNames.SCORE_NUMBER_PREFIX + i));
-            numberLabel.text = cast i;
+            numberLabel.text = "" + i;
             scoreInputView.addChild(numberLabel);
         }
         valueLabel = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_VALUE);

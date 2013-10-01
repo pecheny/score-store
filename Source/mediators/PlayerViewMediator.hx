@@ -7,7 +7,6 @@ import view.PlayerEditorView;
 import signals.EnterEditModeSignal;
 import signals.EnterGameModeSignal;
 import flash.text.TextFieldAutoSize;
-import flash.display.MovieClip;
 import signals.ChangeScoreSignal;
 import flash.display.DisplayObject;
 import constants.PlayerViewStyle;
@@ -68,7 +67,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         layoutMc = layout.getPlayerViewMovieClip();
 
         var bg:Sprite = cast layoutMc.getChildByName(AssetNames.BACKGROUND);
-        trace(bg.width, bg.height);
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
         var _score:TextField = cast layoutMc.getChildByName(AssetNames.SCORE);
