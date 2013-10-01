@@ -1,5 +1,9 @@
 package commands;
 
+import massive.munit.Assert;
+import signals.AddChildSignal;
+import constants.LayerName;
+import flash.display.DisplayObject;
 import haxe.Timer;
 import massive.munit.async.AsyncFactory;
 import signals.UpdateLayoutSignal;
@@ -24,6 +28,12 @@ class AddPlayerCommandTest {
     var playerId:PlayerId;
     private var updateLayoutSignal:UpdateLayoutSignal;
 
+    var callsCounter:Int;
+    var passedName:String;
+    var passedChild:DisplayObject;
+
+    var timer:Timer;
+
     @Before
     public function setup():Void {
         addPlayerCommand = new AddPlayerCommand();
@@ -41,6 +51,11 @@ class AddPlayerCommandTest {
         addPlayerCommand.appView = appView;
         addPlayerCommand.updateLayoutSignal = updateLayoutSignal;
         addPlayerCommand.playerId = playerId;
+        addPlayerCommand.addChildSignal = new AddChildSignal();
+
+        callsCounter = 0;
+        passedName = "";
+        passedChild = null;
     }
 
     @Test
@@ -55,10 +70,23 @@ class AddPlayerCommandTest {
         playerViewsModel.addView(playerId, view).verify(1);
     }
 
-    @Test
-    public function should_add_view_to_stage():Void {
+
+    @AsyncTest public function should_add_view_to_stage(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldAddViewToStageHandler, 300);
+        timer = Timer.delay(handler, 200);
+        addPlayerCommand.addChildSignal.add(function(name, child):Void {
+            callsCounter++;
+            passedChild = child;
+            passedName = name;
+        });
         addPlayerCommand.execute();
-        appView.addChild(view).verify(1);
+
+    }
+
+    function shouldAddViewToStageHandler():Void {
+        Assert.areEqual(1, callsCounter);
+        Assert.areEqual(LayerName.MAIN, passedName);
+        Assert.areEqual(view, passedChild);
     }
 
     @Test

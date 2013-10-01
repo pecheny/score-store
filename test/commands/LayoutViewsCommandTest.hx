@@ -5,7 +5,6 @@ import model.ButtonBarContainerModel;
 import constants.PlayerViewStyle;
 import massive.munit.Assert;
 import model.vo.PlayerId;
-import view.ApplicationView;
 import view.PlayerView;
 import mockatoo.Mockatoo;
 import model.PlayerViewsModel;
@@ -18,7 +17,6 @@ class LayoutViewsCommandTest {
     var playerView:PlayerView;
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
-    var appView:ApplicationView;
     var buttonBarContainerModel:ButtonBarContainerModel;
 
     @Before

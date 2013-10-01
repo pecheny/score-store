@@ -1,15 +1,26 @@
 package commands;
+import org.hamcrest.MatchersBase;
+import flash.display.DisplayObject;
+import massive.munit.async.AsyncFactory;
+import haxe.Timer;
+import signals.RemoveChildSignal;
 import view.ModalBackgroundView;
 import view.PlayersChooserView;
 import view.ApplicationView;
 import mockatoo.Mockatoo;
-import mockatoo.Mockatoo.*;
+import mockatoo.Mockatoo.
+* ;
 using mockatoo.Mockatoo;
-class LeavePlayersChooseCommandTest {
-var leavePlayersChooseCommand:LeavePlayersChooseCommand;
+class LeavePlayersChooseCommandTest extends MatchersBase {
+    var leavePlayersChooseCommand:LeavePlayersChooseCommand;
     var applicationView:ApplicationView;
     var playersChooserView:PlayersChooserView;
     var modalBackgroundView:ModalBackgroundView;
+    var timer:Timer;
+
+
+    var passedChilds:Array<DisplayObject>;
+
 
     @Before public function startup() {
         modalBackgroundView = mock(ModalBackgroundView);
@@ -19,15 +30,26 @@ var leavePlayersChooseCommand:LeavePlayersChooseCommand;
         leavePlayersChooseCommand.applicationView = applicationView;
         leavePlayersChooseCommand.playersChooserView = playersChooserView;
         leavePlayersChooseCommand.modalBackgroundView = modalBackgroundView;
+        leavePlayersChooseCommand.removeChildSignal = new RemoveChildSignal();
+
+
+        passedChilds = new Array<DisplayObject>();
     }
 
-    @Test public function should_remove_modal_background():Void {
+
+    @AsyncTest public function should_remove_modal_background_and_chooser(asyncFactory:AsyncFactory):Void {
+        var handler:Dynamic = asyncFactory.createHandler(this, shouldRemoveModalBackgroundHandler, 300);
+        timer = Timer.delay(handler, 200);
+        leavePlayersChooseCommand.removeChildSignal.add(function(child):Void {
+            passedChilds.push(child);
+        });
         leavePlayersChooseCommand.execute();
-        applicationView.removeChild(modalBackgroundView).verify(1);
+
     }
 
-    @Test public function should_remove_players_chooser():Void {
-        leavePlayersChooseCommand.execute();
-        applicationView.removeChild(playersChooserView).verify(1);
+    function shouldRemoveModalBackgroundHandler():Void {
+        assertThat(passedChilds, hasItemInArray(playersChooserView));
+        assertThat(passedChilds, hasItemInArray(modalBackgroundView));
     }
 }
+

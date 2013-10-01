@@ -1,5 +1,4 @@
 package commands;
-import flash.Lib;
 import flash.display.DisplayObject;
 import constants.PlayerViewStyle;
 import view.ApplicationView;
@@ -11,10 +10,8 @@ class ScaleStageCommand extends mmvc.impl.Command {
     var root:DisplayObject;
 
     override public function execute():Void {
-        root = appView.getRootContainer();
         var scale = appView.calculateScale();
-        root.scaleX = scale;
-        root.scaleY = scale;
+        appView.setScale(scale);
         root.x = PlayerViewStyle.GRID_STEP * scale;
     }
 
