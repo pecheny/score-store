@@ -1,4 +1,5 @@
 package mediators;
+import signals.UpdateLayoutSignal;
 import model.PlayerModel;
 import view.ApplicationView;
 import signals.StageResizedSignal;
@@ -8,21 +9,33 @@ class ScrollerBackgroundViewMediator extends mmvc.impl.Mediator<ScrollerBackgrou
     @inject public var applicationView:ApplicationView;
     @inject public var stageResizedSignal:StageResizedSignal;
     @inject public var playerModel:PlayerModel;
+    @inject public var updateLayoutSignal:UpdateLayoutSignal;
     var scrollerBackgroundView:ScrollerBackgroundView;
 
     override public function onRegister():Void {
         scrollerBackgroundView = cast view;
         fillBackground();
         stageResizedSignal.add(stageResizedHandler);
+        updateLayoutSignal.add(stageResizedHandler);
+
     }
 
     override public function preRemove():Void {
         stageResizedSignal.remove(stageResizedHandler);
+        updateLayoutSignal.remove(stageResizedHandler);
     }
 
     function stageResizedHandler():Void {
         fillBackground();
     }
+
+//    function childAddedHandler(name:String, child:DisplayObject):Void {
+//        fillBackground();
+//    }
+//
+//    function childRemovedHandler(child:DisplayObject):Void {
+//        fillBackground();
+//    }
 
     private function fillBackground():Void {
         var numUnits = playerModel.getPlayers().length + 1;

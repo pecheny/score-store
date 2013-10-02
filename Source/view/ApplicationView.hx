@@ -83,10 +83,7 @@ class ApplicationView implements mmvc.api.IViewContainer {
         throw "Can't remove " + child + " which is not a child of the current display list";
     }
 
-    public function setScale(scale:Float):Void {
-        container.scaleX = scale;
-        container.scaleY = scale;
-    }
+
 
     public function isAdded(view:Dynamic):Bool {
         var parent:DisplayObjectContainer = null;
@@ -111,6 +108,15 @@ class ApplicationView implements mmvc.api.IViewContainer {
     public function calculateScale():Float {
         var xRatio = getStageWidth() / (PlayerViewStyle.UNIT_WIDTH + PlayerViewStyle.GRID_STEP * 2);
         return xRatio;
+    }
+
+    public function setScale(scale:Float):Void {
+            container.scaleX = scale;
+            container.scaleY = scale;
+        }
+
+    public function getScale():Float {
+       return container.scaleX;
     }
 
     public function getPointerY():Float {

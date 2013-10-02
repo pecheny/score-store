@@ -1,4 +1,5 @@
 package factories;
+import view.ScrollerBackgroundView;
 import view.PlayerSwitcherView;
 import model.vo.PlayerId;
 import view.PlayerEditorView;
@@ -20,6 +21,10 @@ class PlayerViewFactory {
         var switcher = new PlayerSwitcherView();
         switcher.playerId = id;
         return switcher;
+    }
+
+    public function getScrollerBackground():ScrollerBackgroundView {
+        return new ScrollerBackgroundView();
     }
 
 }

@@ -1,4 +1,3 @@
 package view;
-import flash.display.Sprite;
-class ScrollerBackgroundView extends Sprite{
+class ScrollerBackgroundView extends ViewBase{
 }
