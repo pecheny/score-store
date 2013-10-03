@@ -2,7 +2,7 @@ package commands;
 import signals.AddChildSignal;
 import flash.display.DisplayObject;
 import constants.LayerName;
-import signals.AddPlayerSignal;
+import signals.EnablePlayerSignal;
 import massive.munit.async.AsyncFactory;
 import haxe.Timer;
 import massive.munit.Assert;

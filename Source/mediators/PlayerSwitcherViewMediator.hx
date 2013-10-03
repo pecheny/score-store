@@ -2,12 +2,12 @@ package mediators;
 import model.PlayerModel;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
-import signals.AddPlayerSignal;
-import signals.RemovePlayerSignal;
+import signals.EnablePlayerSignal;
+import signals.DisablePlayerSignal;
 import view.PlayerSwitcherView;
 class PlayerSwitcherViewMediator extends mmvc.impl.Mediator<PlayerSwitcherView> {
-    @inject public var addPlayerSignal:AddPlayerSignal;
-    @inject public var removePlayerSignal:RemovePlayerSignal;
+    @inject public var addPlayerSignal:EnablePlayerSignal;
+    @inject public var removePlayerSignal:DisablePlayerSignal;
     @inject public var playerModel:PlayerModel;
     var playerId:PlayerId;
     var playerSwitcherView:PlayerSwitcherView;

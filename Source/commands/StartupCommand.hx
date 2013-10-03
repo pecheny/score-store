@@ -1,11 +1,11 @@
 package commands;
+import signals.StageResizedSignal;
+import signals.RefreshButtonsSignal;
 import view.ScrollContainer;
 import constants.LayerName;
 import signals.AddChildSignal;
 import constants.LayerName;
 import signals.ChoosePlayersSignal;
-import signals.EnterGameModeSignal;
-import signals.PlayersModifyComplete;
 import signals.NewGameSignal;
 import signals.ExitSignal;
 import flash.display.DisplayObject;
@@ -18,7 +18,7 @@ import model.ButtonBarContainerModel;
 import model.AssetsModel;
 import format.SWF;
 import openfl.Assets;
-import signals.AddPlayerSignal;
+import signals.EnablePlayerSignal;
 class StartupCommand extends mmvc.impl.Command {
 
 
@@ -26,13 +26,13 @@ class StartupCommand extends mmvc.impl.Command {
     @inject public var buttonBarContainerModel:ButtonBarContainerModel;
     @inject public var appView:ApplicationView;
 
-    @inject public var addPlayerSignal:AddPlayerSignal;
+    @inject public var addPlayerSignal:EnablePlayerSignal;
     @inject public var exitSignal:ExitSignal;
-    @inject public var enterGameModeSignal:EnterGameModeSignal;
     @inject public var choosePlayersSignal:ChoosePlayersSignal;
     @inject public var newGameSignal:NewGameSignal;
-    @inject public var playersModifyComplete:PlayersModifyComplete;
     @inject public var addChildSignal:AddChildSignal;
+    @inject public var refreshButtonsSignal:RefreshButtonsSignal;
+    @inject public var stageResizedSignal:StageResizedSignal;
 
 
     var swf:SWF;
@@ -44,7 +44,10 @@ class StartupCommand extends mmvc.impl.Command {
         initLayers();
         initButtonBar();
         registerButtons();
-        enterGameModeSignal.dispatch();
+
+        buttonsModel.enableButtons(ButtonName.New, ButtonName.EditPlayer, ButtonName.Exit);
+        refreshButtonsSignal.dispatch();
+        stageResizedSignal.dispatch();
     }
 
     private function initButtonBar():Void {
@@ -61,7 +64,6 @@ class StartupCommand extends mmvc.impl.Command {
     private function registerButtons():Void {
         buttonsModel.registerButtonType(ButtonName.Exit, createButtonView("ButtonExit"), exitSignal);
         buttonsModel.registerButtonType(ButtonName.EditPlayer, createButtonView("ButtonEditPlayer"), choosePlayersSignal);
-        buttonsModel.registerButtonType(ButtonName.ToGame, createButtonView("ButtonOk"), enterGameModeSignal);
         buttonsModel.registerButtonType(ButtonName.New, createButtonView("ButtonNew"), newGameSignal);
     }
 

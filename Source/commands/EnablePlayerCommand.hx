@@ -8,9 +8,9 @@ import view.ApplicationView;
 import factories.PlayerViewFactory;
 import model.PlayerViewsModel;
 import model.PlayerModel;
-import signals.AddPlayerSignal;
-class AddPlayerCommand extends mmvc.impl.Command {
-    @inject public var mySignal:AddPlayerSignal;
+import signals.EnablePlayerSignal;
+class EnablePlayerCommand extends mmvc.impl.Command {
+    @inject public var mySignal:EnablePlayerSignal;
     @inject public var playersModel:PlayerModel;
     @inject public var playerViewsModel:PlayerViewsModel;
     @inject public var viewFactory:PlayerViewFactory;

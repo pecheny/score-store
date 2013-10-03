@@ -9,7 +9,7 @@ import constants.LayerName;
 import flash.display.DisplayObject;
 import massive.munit.async.AsyncFactory;
 import haxe.Timer;
-import signals.AddPlayerSignal;
+import signals.EnablePlayerSignal;
 import view.ModalBackgroundView;
 import view.PlayersChooserView;
 import view.ApplicationView;

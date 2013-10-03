@@ -1,28 +1,26 @@
 package commands;
 
+import signals.UpdateLayoutSignal;
 import massive.munit.async.AsyncFactory;
 import massive.munit.Assert;
 import signals.RemoveChildSignal;
 import flash.display.DisplayObject;
 import haxe.Timer;
 import mockatoo.Mockatoo.Matcher;
-import view.ApplicationView;
 import model.PlayerViewsModel;
 import view.PlayerView;
 import model.vo.PlayerId;
-import mockatoo.Mockatoo.
-* ;
+import mockatoo.Mockatoo.* ;
 import model.PlayerModel;
 using mockatoo.Mockatoo;
 
-class RemovePlayerCommandTest {
+class DisablePlayerCommandTest {
 
 
-    var removePlayerCommand:RemovePlayerCommand;
+    var removePlayerCommand:DisablePlayerCommand;
     var view:PlayerView;
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
-    var appView:ApplicationView;
 
     var callsCounter:Int;
     var passedChild:DisplayObject;
@@ -30,17 +28,16 @@ class RemovePlayerCommandTest {
 
     @Before
     public function setup():Void {
-        removePlayerCommand = new RemovePlayerCommand();
+        removePlayerCommand = new DisablePlayerCommand();
         removePlayerCommand.playerId = PlayerId.fromInt(1);
         view = mock(PlayerView);
         playerModel = mock(PlayerModel);
         playerViewsModel = mock(PlayerViewsModel);
         playerViewsModel.getView(cast Matcher.any).returns(view);
-        appView = mock(ApplicationView);
         removePlayerCommand.playersModel = playerModel;
         removePlayerCommand.playerViewsModel = playerViewsModel;
-        removePlayerCommand.appView = appView;
         removePlayerCommand.removeChildSignal = new RemoveChildSignal();
+        removePlayerCommand.updateLayoutSignal = new UpdateLayoutSignal();
 
         callsCounter = 0;
         passedChild = null;

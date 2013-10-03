@@ -11,7 +11,7 @@ import flash.display.Sprite;
 import view.PlayerEditorView;
 import model.AssetsModel;
 import factories.LabelFactory;
-import signals.RemovePlayerSignal;
+import signals.DisablePlayerSignal;
 import mockatoo.Mockatoo;
 import mockatoo.Mockatoo.
 * ;
@@ -21,7 +21,7 @@ class PlayerEditorViewMediatorTest {
     var playerEditorViewMediator:PlayerEditorViewMediator;
     var assetsModel:AssetsModel;
     var labelFactory:LabelFactory;
-    var removePlayerSignal:RemovePlayerSignal;
+    var removePlayerSignal:DisablePlayerSignal;
     var playerEditorView:PlayerEditorView;
     var sprite:Sprite;
     var timer:Timer;
@@ -34,7 +34,7 @@ class PlayerEditorViewMediatorTest {
         assetsModel = mock(AssetsModel);
         labelFactory = mock(LabelFactory);
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(tf);
-        removePlayerSignal = new RemovePlayerSignal();
+        removePlayerSignal = new DisablePlayerSignal();
         playerEditorView = PlayerEditorView.fromPlayerId(PlayerId.fromInt(1));
 
         var pemc = mock(Sprite);

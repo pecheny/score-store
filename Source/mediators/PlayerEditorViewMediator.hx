@@ -2,7 +2,7 @@ package mediators;
 import constants.AssetNames;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
-import signals.RemovePlayerSignal;
+import signals.DisablePlayerSignal;
 import flash.events.MouseEvent;
 import flash.text.TextField;
 import factories.LabelFactory;
@@ -13,7 +13,7 @@ using mediators.AssetsMixin;
 class PlayerEditorViewMediator extends mmvc.impl.Mediator<PlayerEditorView> {
     @inject public var assetsModel:AssetsModel;
     @inject public var labelFactory:LabelFactory;
-    @inject public var removePlayerSignal:RemovePlayerSignal;
+    @inject public var removePlayerSignal:DisablePlayerSignal;
     var playerEditorView:PlayerEditorView;
     var deleteHitArea:DisplayObject;
 

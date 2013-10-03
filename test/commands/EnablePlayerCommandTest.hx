@@ -16,11 +16,11 @@ import model.PlayerViewsModel;
 import mockatoo.Mockatoo.
 * ;
 import model.PlayerModel;
-import commands.AddPlayerCommand;
+import commands.EnablePlayerCommand;
 using mockatoo.Mockatoo;
 
-class AddPlayerCommandTest {
-    var addPlayerCommand:AddPlayerCommand;
+class EnablePlayerCommandTest {
+    var addPlayerCommand:EnablePlayerCommand;
     var playerView:PlayerView;
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
@@ -36,7 +36,7 @@ class AddPlayerCommandTest {
 
     @Before
     public function setup():Void {
-        addPlayerCommand = new AddPlayerCommand();
+        addPlayerCommand = new EnablePlayerCommand();
         playerModel = mock(PlayerModel);
         playerId = PlayerId.fromInt(1);
         playerViewsModel = mock(PlayerViewsModel);

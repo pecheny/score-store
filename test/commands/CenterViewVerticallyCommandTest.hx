@@ -6,14 +6,14 @@ import view.ViewBase;
 import mockatoo.Mockatoo.
 * ;
 using mockatoo.Mockatoo;
-class CenterViewwVerticallyCommandTest {
-    var centerViewwVerticallyCommand:CenterViewwVerticallyCommand;
+class CenterViewVerticallyCommandTest {
+    var centerViewwVerticallyCommand:CenterViewVerticallyCommand;
     var viewBase:ViewBase;
     var applicationView:ApplicationView;
 //    var containter:Sprite;
 
     @Before public function startup() {
-        centerViewwVerticallyCommand = new CenterViewwVerticallyCommand();
+        centerViewwVerticallyCommand = new CenterViewVerticallyCommand();
 //        containter = new Sprite();
         viewBase = new ViewBase();
         applicationView = mock(ApplicationView);

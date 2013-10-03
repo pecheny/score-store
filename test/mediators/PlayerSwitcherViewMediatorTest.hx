@@ -5,8 +5,8 @@ import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import massive.munit.async.AsyncFactory;
 import haxe.Timer;
-import signals.RemovePlayerSignal;
-import signals.AddPlayerSignal;
+import signals.DisablePlayerSignal;
+import signals.EnablePlayerSignal;
 import view.PlayerSwitcherView;
 import mockatoo.Mockatoo;
 import mockatoo.Mockatoo.
@@ -15,16 +15,16 @@ using mockatoo.Mockatoo;
 class PlayerSwitcherViewMediatorTest {
     var playerSwitcherViewMediator:PlayerSwitcherViewMediator;
     var playerSwitcherView:PlayerSwitcherView;
-    var addPlayerSignal:AddPlayerSignal;
-    var removePlayerSignal:RemovePlayerSignal;
+    var addPlayerSignal:EnablePlayerSignal;
+    var removePlayerSignal:DisablePlayerSignal;
     var playerModel:PlayerModel;
     var timer:Timer;
     var callsCounter:Int;
     var passedId:PlayerId;
 
     @Before public function startup() {
-        addPlayerSignal = new AddPlayerSignal();
-        removePlayerSignal = new RemovePlayerSignal();
+        addPlayerSignal = new EnablePlayerSignal();
+        removePlayerSignal = new DisablePlayerSignal();
         playerSwitcherView = new PlayerSwitcherView();
         playerModel = mock(PlayerModel);
         playerSwitcherView.playerId = PlayerId.fromInt(1);

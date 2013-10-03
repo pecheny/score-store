@@ -6,7 +6,7 @@ class PlayerView extends ViewBase {
     var label:TextField;
     var playerId:PlayerId;
     var myHeight:Float;
-    var text:String;
+    var text:String = "";
 
     public function new() {
         super();

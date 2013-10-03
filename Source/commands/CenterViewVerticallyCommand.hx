@@ -1,7 +1,7 @@
 package commands;
 import view.ApplicationView;
 import view.ViewBase;
-class CenterViewwVerticallyCommand extends mmvc.impl.Command {
+class CenterViewVerticallyCommand extends mmvc.impl.Command {
 
     @inject public var applicationView:ApplicationView;
     @inject public var viewBase:ViewBase;

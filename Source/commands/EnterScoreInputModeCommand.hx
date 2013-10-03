@@ -1,7 +1,7 @@
 package commands;
 import signals.AddChildSignal;
 import constants.LayerName;
-import signals.AddPlayerSignal;
+import signals.EnablePlayerSignal;
 import view.ModalBackgroundView;
 import view.ApplicationView;
 import view.ScoreInputView;

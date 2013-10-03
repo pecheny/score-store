@@ -1,14 +1,14 @@
 import massive.munit.TestSuite;
 
-import commands.AddPlayerCommandTest;
-import commands.CenterViewwVerticallyCommandTest;
+import commands.CenterViewVerticallyCommandTest;
 import commands.ChangeScoreCommandTest;
+import commands.DisablePlayerCommandTest;
+import commands.EnablePlayerCommandTest;
 import commands.EnterPlayersChooseCommandTest;
 import commands.EnterScoreInputModeCommandTest;
 import commands.LayoutViewsCommandTest;
 import commands.LeavePlayersChooseCommandTest;
 import commands.LeaveScoreInputModeCommandTest;
-import commands.RemovePlayerCommandTest;
 import commands.StartNewGameCommandTest;
 import mediators.ApplicationViewMediatorTest;
 import mediators.ButtonMediatorTest;
@@ -39,15 +39,15 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
-		add(commands.AddPlayerCommandTest);
-		add(commands.CenterViewwVerticallyCommandTest);
+		add(commands.CenterViewVerticallyCommandTest);
 		add(commands.ChangeScoreCommandTest);
+		add(commands.DisablePlayerCommandTest);
+		add(commands.EnablePlayerCommandTest);
 		add(commands.EnterPlayersChooseCommandTest);
 		add(commands.EnterScoreInputModeCommandTest);
 		add(commands.LayoutViewsCommandTest);
 		add(commands.LeavePlayersChooseCommandTest);
 		add(commands.LeaveScoreInputModeCommandTest);
-		add(commands.RemovePlayerCommandTest);
 		add(commands.StartNewGameCommandTest);
 		add(mediators.ApplicationViewMediatorTest);
 		add(mediators.ButtonMediatorTest);

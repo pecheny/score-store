@@ -4,8 +4,6 @@ import constants.AssetNames;
 import signals.EnterScoreInputModeSignal;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
-import signals.EnterEditModeSignal;
-import signals.EnterGameModeSignal;
 import flash.text.TextFieldAutoSize;
 import signals.ChangeScoreSignal;
 import flash.display.DisplayObject;
@@ -16,18 +14,14 @@ import model.AssetsModel;
 import factories.LabelFactory;
 import flash.events.MouseEvent;
 import view.PlayerView;
-import signals.PlayerButtonSignal;
 
 using mediators.AssetsMixin;
 
 class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerViewFactory:PlayerViewFactory;
-    @inject public var playerButtonSignal:PlayerButtonSignal;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
     @inject public var layout:AssetsModel;
-    @inject public var enterGameModeSignal:EnterGameModeSignal;
-    @inject public var enterEditModeSignal:EnterEditModeSignal;
     @inject public var enterScoreInputModeSignal:EnterScoreInputModeSignal;
     @inject public var playerModel:PlayerModel;
 
@@ -49,15 +43,11 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         super.onRegister();
         playerView = cast view;
         editView = playerViewFactory.getEditorView(playerView.getPlayerId());
-        enterGameModeSignal.add(enterGameMode);
-        enterEditModeSignal.add(enterEditMode);
         setupLayout();
         playerView.addEventListener(MouseEvent.CLICK, mouseHandler);
     }
 
     override public function preRemove():Void {
-        enterGameModeSignal.remove(enterGameMode);
-        enterEditModeSignal.remove(enterEditMode);
         playerView.removeEventListener(MouseEvent.CLICK, mouseHandler);
         playerView.clearChildren();
     }

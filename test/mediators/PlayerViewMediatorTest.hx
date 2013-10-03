@@ -3,10 +3,7 @@ import model.PlayerModel;
 import constants.AssetNames;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
-import signals.EnterEditModeSignal;
-import signals.EnterGameModeSignal;
 import signals.ChangeScoreSignal;
-import constants.PlayerViewStyle;
 import flash.display.DisplayObject;
 import model.AssetsModel;
 import flash.display.MovieClip;
@@ -32,8 +29,6 @@ class PlayerViewMediatorTest  {
     var callsCounter:Int = 0;
     var timer:Timer;
     var changeScore:ChangeScoreSignal;
-    var enterGameModeSignal:EnterGameModeSignal;
-    var enterEditModeSignal:EnterEditModeSignal;
     var label:TextField;
     var mc:MovieClip;
     var playerViewFactory:PlayerViewFactory;
@@ -61,8 +56,6 @@ class PlayerViewMediatorTest  {
         playerViewMediator.layout = layout;
         playerViewMediator.labelFactory = labelFactory;
         playerViewMediator.changeScoreSignal = changeScore = new ChangeScoreSignal();
-        playerViewMediator.enterGameModeSignal = enterGameModeSignal = new EnterGameModeSignal();
-        playerViewMediator.enterEditModeSignal = enterEditModeSignal = new EnterEditModeSignal();
         playerViewMediator.playerViewFactory = playerViewFactory;
         playerViewMediator.playerModel = playerModel;
 
@@ -124,46 +117,6 @@ class PlayerViewMediatorTest  {
     }
 
 
-    @AsyncTest public function should_add_edit_view_on_enter_edit_mode(asyncFactory:AsyncFactory):Void {
-        var handler:Dynamic = asyncFactory.createHandler(this, shouldAddEditViewOnEnterEditModeHandler, 300);
-        timer = Timer.delay(handler, 200);
-        mockPlayerView();
-        playerViewMediator.onRegister();
-        enterEditModeSignal.dispatch();
-    }
-
-    function shouldAddEditViewOnEnterEditModeHandler():Void {
-        playerView.addChild(cast Matcher.instanceOf(PlayerEditorView)).verify(1);
-    }
-
-    @AsyncTest public function should_unregister_edit_view_on_enter_edit_mode(asyncFactory:AsyncFactory):Void {
-        var handler:Dynamic = asyncFactory.createHandler(this, shouldUnregisterEditViewOnEnterEditModeHandler, 300);
-        timer = Timer.delay(handler, 200);
-        mockPlayerView();
-        playerViewMediator.onRegister();
-        playerViewMediator.preRemove();
-        enterEditModeSignal.dispatch();
-
-    }
-
-    function shouldUnregisterEditViewOnEnterEditModeHandler():Void {
-        playerView.addChild(cast Matcher.instanceOf(PlayerEditorView)).verify(0);
-    }
-
-    @AsyncTest public function should_remove_edit_view_on_enter_game_mode(asyncFactory:AsyncFactory):Void {
-        var handler:Dynamic = asyncFactory.createHandler(this, shouldRemoveEditViewOnEnterGameModeHandler, 300);
-        timer = Timer.delay(handler, 200);
-        mockPlayerView();
-        playerView.contains(cast Matcher.any).returns(true);
-        playerViewMediator.onRegister();
-        enterGameModeSignal.dispatch();
-
-    }
-
-    function shouldRemoveEditViewOnEnterGameModeHandler():Void {
-        playerView.removeChild(cast Matcher.instanceOf(PlayerEditorView)).verify(1);
-
-    }
 
 
     @Test
