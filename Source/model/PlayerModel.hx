@@ -52,4 +52,8 @@ class PlayerModel {
         return Lambda.has(activePlayers, playerId);
     }
 
+    public function resetScores():Void {
+        scores = new Map<PlayerId, Int>();
+    }
+
 }

@@ -21,7 +21,7 @@ using mockatoo.Mockatoo;
 
 class AddPlayerCommandTest {
     var addPlayerCommand:AddPlayerCommand;
-    var view:PlayerView;
+    var playerView:PlayerView;
     var playerViewsModel:PlayerViewsModel;
     var playerModel:PlayerModel;
     var appView:ApplicationView;
@@ -41,9 +41,9 @@ class AddPlayerCommandTest {
         playerId = PlayerId.fromInt(1);
         playerViewsModel = mock(PlayerViewsModel);
         updateLayoutSignal = mock(UpdateLayoutSignal);
-        view = mock(PlayerView);
+        playerView = mock(PlayerView);
         var factory:PlayerViewFactory = mock(PlayerViewFactory);
-        factory.getView().returns(view);
+        factory.getView().returns(playerView);
         appView = mock(ApplicationView);
         addPlayerCommand.playersModel = playerModel;
         addPlayerCommand.playerViewsModel = playerViewsModel;
@@ -67,7 +67,7 @@ class AddPlayerCommandTest {
     @Test
     public function should_create_view_and_add_to_model():Void {
         addPlayerCommand.execute();
-        playerViewsModel.addView(playerId, view).verify(1);
+        playerViewsModel.addView(playerId, playerView).verify(1);
     }
 
 
@@ -86,18 +86,24 @@ class AddPlayerCommandTest {
     function shouldAddViewToStageHandler():Void {
         Assert.areEqual(1, callsCounter);
         Assert.areEqual(LayerName.MAIN, passedName);
-        Assert.areEqual(view, passedChild);
+        Assert.areEqual(playerView, passedChild);
     }
 
     @Test
     public function should_set_playerId_to_view():Void {
         addPlayerCommand.execute();
-        view.setPlayerId(playerId).verify(1);
+        playerView.setPlayerId(playerId).verify(1);
     }
 
     @Test public function should_dispatch_update_layout():Void {
         addPlayerCommand.execute();
         updateLayoutSignal.dispatch().verify(1);
+    }
+
+    @Test public function should_set_score_to_added_view():Void {
+        playerModel.getScore(cast Matcher.any).returns(4);
+        addPlayerCommand.execute();
+        playerView.setText("4").verify(1);
     }
 
 

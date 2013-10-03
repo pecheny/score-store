@@ -1,3 +1,4 @@
+import commands.StartNewGameCommand;
 import mediators.ScrollerBackgroundViewMediator;
 import view.ScrollerBackgroundView;
 import mediators.ScrollContainerMediator;
@@ -83,7 +84,7 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(EnterEditModeSignal, EnterEditModeCommand);
         commandMap.mapSignalClass(EnterGameModeSignal, EnterGameModeCommand);
         commandMap.mapSignalClass(RefreshButtonsSignal, RefreshButtonsCommand);
-        commandMap.mapSignalClass(NewGameSignal, EmptyCommand);
+        commandMap.mapSignalClass(NewGameSignal, StartNewGameCommand);
         commandMap.mapSignalClass(PlayersModifyComplete, EmptyCommand);
         commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);
         commandMap.mapSignalClass(StageResizedSignal, LayoutViewsCommand);

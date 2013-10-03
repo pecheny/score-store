@@ -122,5 +122,30 @@ class PlayerModelTest extends MatchersBase {
         Assert.areEqual(msg, "Player 1 has beed enabled already");
     }
 
+    @Test public function should_reset_scores():Void {
+        playerModel.enablePlayer(PlayerId.fromInt(1));
+        playerModel.enablePlayer(PlayerId.fromInt(2));
+        playerModel.enablePlayer(PlayerId.fromInt(3));
+        playerModel.enablePlayer(PlayerId.fromInt(4));
+
+        playerModel.changeScore(PlayerId.fromInt(1), 3);
+        playerModel.changeScore(PlayerId.fromInt(2), 5);
+        playerModel.changeScore(PlayerId.fromInt(3), -2);
+        playerModel.changeScore(PlayerId.fromInt(4), 1);
+
+        playerModel.disablePlayer(PlayerId.fromInt(2));
+        playerModel.disablePlayer(PlayerId.fromInt(3));
+
+        playerModel.resetScores();
+
+        playerModel.enablePlayer(PlayerId.fromInt(2));
+        playerModel.enablePlayer(PlayerId.fromInt(3));
+
+        for (player in playerModel.getPlayers().iterator()) {
+            Assert.areEqual(0, playerModel.getScore(player));
+        }
+
+    }
+
 
 }

@@ -6,6 +6,7 @@ class PlayerView extends ViewBase {
     var label:TextField;
     var playerId:PlayerId;
     var myHeight:Float;
+    var text:String;
 
     public function new() {
         super();
@@ -26,11 +27,15 @@ class PlayerView extends ViewBase {
             throw "TextField should be null";
         }
         label = textField;
+        label.text = text;
         addChild(label);
     }
 
     public function setText(text:String):Void {
-        label.text = text;
+        this.text = text;
+        if (label != null) {
+            label.text = text;
+        };
     }
 
     override public function toString():String {
