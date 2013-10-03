@@ -14,8 +14,8 @@ class DisablePlayerCommand extends mmvc.impl.Command {
 
     override public function execute():Void {
         playersModel.disablePlayer(playerId);
-        var pview:PlayerView = playerViewsModel.getView(playerId);
-        playerViewsModel.removeView(playerId);
+        var pview:PlayerView = playerViewsModel.getPlayerView(playerId);
+        playerViewsModel.removePlayerView(playerId);
         removeChildSignal.dispatch(pview);
         updateLayoutSignal.dispatch();
     }

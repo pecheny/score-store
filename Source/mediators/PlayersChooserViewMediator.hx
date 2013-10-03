@@ -1,4 +1,5 @@
 package mediators;
+import signals.CloseModalWindowSignal;
 import flash.geom.Matrix;
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
@@ -7,10 +8,9 @@ import model.vo.PlayerId;
 import signals.StageResizedSignal;
 import constants.PlayerViewStyle;
 import flash.display.Sprite;
-import signals.CenterViewwVerticallySignal;
+import signals.CenterViewVerticallySignal;
 import constants.AssetNames;
 import model.AssetsModel;
-import signals.PlayersChoosenSignal;
 import factories.PlayerViewFactory;
 import view.PlayersChooserView;
 using mediators.AssetsMixin;
@@ -18,9 +18,9 @@ using mediators.AssetsMixin;
 class PlayersChooserViewMediator extends mmvc.impl.Mediator<PlayersChooserView> {
 
     @inject public var playerViewFactory:PlayerViewFactory;
-    @inject public var playersChoosenSignal:PlayersChoosenSignal;
+    @inject public var closeModalWindowSignal:CloseModalWindowSignal;
     @inject public var assetsModel:AssetsModel;
-    @inject public var centerViewwVerticallySignal:CenterViewwVerticallySignal;
+    @inject public var centerViewwVerticallySignal:CenterViewVerticallySignal;
     @inject public var stageResizedSignal:StageResizedSignal;
     @inject public var labelFactory:LabelFactory;
 
@@ -74,7 +74,7 @@ class PlayersChooserViewMediator extends mmvc.impl.Mediator<PlayersChooserView> 
     }
 
     function okClickHandler(e:MouseEvent) {
-        playersChoosenSignal.dispatch();
+        closeModalWindowSignal.dispatch();
     }
 
     private function stageResizedHandler():Void {

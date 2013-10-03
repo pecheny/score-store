@@ -1,4 +1,6 @@
 package factories;
+import view.ScoreInputView;
+import view.ModalBackgroundView;
 import view.ScrollerBackgroundView;
 import view.PlayerSwitcherView;
 import model.vo.PlayerId;
@@ -25,6 +27,16 @@ class PlayerViewFactory {
 
     public function getScrollerBackground():ScrollerBackgroundView {
         return new ScrollerBackgroundView();
+    }
+
+    public function grtModalBackground():ModalBackgroundView {
+        return new ModalBackgroundView();
+    }
+
+    public function getScoreInput(id:PlayerId):ScoreInputView {
+        var scoreInput = new ScoreInputView();
+        scoreInput.id = id;
+        return scoreInput;
     }
 
 }

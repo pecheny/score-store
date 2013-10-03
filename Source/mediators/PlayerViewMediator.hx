@@ -1,7 +1,7 @@
 package mediators;
+import signals.ShowModalWindowSignal;
 import model.PlayerModel;
 import constants.AssetNames;
-import signals.EnterScoreInputModeSignal;
 import factories.PlayerViewFactory;
 import view.PlayerEditorView;
 import flash.text.TextFieldAutoSize;
@@ -22,8 +22,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
     @inject public var layout:AssetsModel;
-    @inject public var enterScoreInputModeSignal:EnterScoreInputModeSignal;
     @inject public var playerModel:PlayerModel;
+    @inject public var showModalWindowSignal:ShowModalWindowSignal;
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
@@ -110,7 +110,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
             changeScoreSignal.dispatch(playerView.getPlayerId(), -1);
         }
         else if (target.name == scoreTapZone.name) {
-            enterScoreInputModeSignal.dispatch(playerView.getPlayerId());
+             showModalWindowSignal.dispatch(playerViewFactory.getScoreInput(playerView.getPlayerId()));
         }
     }
 }

@@ -1,6 +1,7 @@
 package mediators;
+import signals.CloseModalWindowSignal;
 import signals.StageResizedSignal;
-import signals.CenterViewwVerticallySignal;
+import signals.CenterViewVerticallySignal;
 import flash.text.TextField;
 import factories.LabelFactory;
 import flash.events.MouseEvent;
@@ -10,7 +11,6 @@ import view.PlayerSwitcherView;
 import view.ViewBase;
 import massive.munit.async.AsyncFactory;
 import haxe.Timer;
-import signals.PlayersChoosenSignal;
 import view.PlayersChooserView;
 import factories.PlayerViewFactory;
 import mockatoo.Mockatoo;
@@ -21,9 +21,9 @@ class PlayersChooserViewMediatorTest {
     var playersChooserViewMediator:PlayersChooserViewMediator;
     var playerViewFactory:PlayerViewFactory;
     var playersChooserView:PlayersChooserView;
-    var playersChoosenSignal:PlayersChoosenSignal;
     var switchers:Map<String, ViewBase>;
     var assetsModel:AssetsModel;
+    var closeModalWindowSignal:CloseModalWindowSignal;
     var timer:Timer;
     var sprite:Sprite;
 
@@ -34,7 +34,6 @@ class PlayersChooserViewMediatorTest {
         var switcher = mock(PlayerSwitcherView);
         playerViewFactory.getPlayerSwitcher(cast Matcher.any).returns(switcher);
 
-        playersChoosenSignal = mock(PlayersChoosenSignal);
 
         assetsModel = mock(AssetsModel);
         sprite = new Sprite();
@@ -42,14 +41,16 @@ class PlayersChooserViewMediatorTest {
         asset.getChildByName(cast Matcher.any).returns(sprite);
         assetsModel.getPlayersChooserMovieClip().returns(asset);
 
+        closeModalWindowSignal = mock(CloseModalWindowSignal);
+
         var labelFactory:LabelFactory = mock(LabelFactory);
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(new TextField());
 
         playersChooserViewMediator = new PlayersChooserViewMediator();
         playersChooserViewMediator.playerViewFactory = playerViewFactory;
-        playersChooserViewMediator.playersChoosenSignal = playersChoosenSignal;
+        playersChooserViewMediator.closeModalWindowSignal = closeModalWindowSignal;
         playersChooserViewMediator.assetsModel = assetsModel;
-        playersChooserViewMediator.centerViewwVerticallySignal = new CenterViewwVerticallySignal();
+        playersChooserViewMediator.centerViewwVerticallySignal = new CenterViewVerticallySignal();
         playersChooserViewMediator.labelFactory = labelFactory;
         playersChooserViewMediator.stageResizedSignal = new StageResizedSignal();
         playersChooserViewMediator.view = playersChooserView;
@@ -69,7 +70,7 @@ class PlayersChooserViewMediatorTest {
     }
 
     function shouldDispatchOkSignalHandler():Void {
-        playersChoosenSignal.dispatch().verify(1);
+        closeModalWindowSignal.dispatch().verify(1);
     }
 
 

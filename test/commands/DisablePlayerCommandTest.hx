@@ -33,7 +33,7 @@ class DisablePlayerCommandTest {
         view = mock(PlayerView);
         playerModel = mock(PlayerModel);
         playerViewsModel = mock(PlayerViewsModel);
-        playerViewsModel.getView(cast Matcher.any).returns(view);
+        playerViewsModel.getPlayerView(cast Matcher.any).returns(view);
         removePlayerCommand.playersModel = playerModel;
         removePlayerCommand.playerViewsModel = playerViewsModel;
         removePlayerCommand.removeChildSignal = new RemoveChildSignal();
@@ -67,7 +67,7 @@ class DisablePlayerCommandTest {
     @Test
     public function command_should_remove_view_from_model():Void {
         removePlayerCommand.execute();
-        playerViewsModel.removeView(PlayerId.fromInt(1)).verify(1);
+        playerViewsModel.removePlayerView(PlayerId.fromInt(1)).verify(1);
     }
 }
 

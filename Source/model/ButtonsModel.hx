@@ -11,16 +11,16 @@ class ButtonsModel {
 
     var customViews:Map<ButtonName, ViewBase>;
     var activeButtons:Array<ViewBase>;
-    var buttonSignals:Map<ViewBase, Signal0>;
+    var buttonHandlers:Map<ViewBase, Void -> Void>;
 
     public function new():Void {
         customViews = new Map<ButtonName, ViewBase>();
-        buttonSignals = new Map<ViewBase, Signal0>();
+        buttonHandlers = new Map<ViewBase, Void -> Void>();
         activeButtons = new Array<ViewBase>();
     }
 
 
-    public function registerButtonType(name:ButtonName, view:ViewBase, signal:Signal0):Void {
+    public function registerButtonType(name:ButtonName, view:ViewBase, callback:Void -> Void):Void {
         if (customViews.exists(name)) {
             throw KEY_EXISTS;
         }
@@ -28,7 +28,7 @@ class ButtonsModel {
             throw VALUE_EXISTS;
         }
         customViews[name] = view;
-        buttonSignals[view] = signal;
+        buttonHandlers[view] = callback;
     }
 
     public function enableButtons(button1:ButtonName, ?button2:Null<ButtonName>, ?button3:Null<ButtonName>):Void {
@@ -69,9 +69,9 @@ class ButtonsModel {
         return activeButtons.copy();
     }
 
-    public function getSignal(button:ViewBase):Signal0 {
+    public function getCallback(button:ViewBase):Void -> Void {
         if (hasButtonRegistred(button)) {
-            return buttonSignals[button];
+            return buttonHandlers[button];
         }
         throw ErrorConsts.ERROR_COMMON;
     }

@@ -1,8 +1,8 @@
 package mediators;
-import signals.LeaveScoreInputModeSignal;
+import signals.CloseModalWindowSignal;
 import signals.StageResizedSignal;
 import view.ViewBase;
-import signals.CenterViewwVerticallySignal;
+import signals.CenterViewVerticallySignal;
 import model.vo.PlayerId;
 import flash.events.MouseEvent;
 import massive.munit.async.AsyncFactory;
@@ -22,7 +22,7 @@ import mockatoo.Mockatoo.
 using mockatoo.Mockatoo;
 class ScoreInputViewMediatorTest {
     var scoreInputViewMediator:ScoreInputViewMediator;
-    var centerViewwVerticallySignal:CenterViewwVerticallySignal;
+    var centerViewwVerticallySignal:CenterViewVerticallySignal;
     var scoreInputView:ScoreInputView;
     var changeScoreSignal:ChangeScoreSignal;
     var assetsModel:AssetsModel;
@@ -36,7 +36,6 @@ class ScoreInputViewMediatorTest {
     var callsCounter:Int = 0;
     var targetViewBase:ViewBase;
     var stageResizedSignal:StageResizedSignal;
-    var leaveScoreInputModeSignal:LeaveScoreInputModeSignal;
 
 
     @Before public function startup() {
@@ -50,7 +49,7 @@ class ScoreInputViewMediatorTest {
         labelFactory.getLabelFromStyle(cast Matcher.any).returns(factoryTextField);
         assetsModel = mock(AssetsModel);
         assetsModel.getScoreInputMovieClip().returns(createAssetMock());
-        centerViewwVerticallySignal = new CenterViewwVerticallySignal();
+        centerViewwVerticallySignal = new CenterViewVerticallySignal();
         stageResizedSignal = new StageResizedSignal();
 
         scoreInputViewMediator = new ScoreInputViewMediator();
@@ -60,7 +59,7 @@ class ScoreInputViewMediatorTest {
         scoreInputViewMediator.assetsModel = assetsModel;
         scoreInputViewMediator.centerViewwVerticallySignal = centerViewwVerticallySignal;
         scoreInputViewMediator.stageResizedSignal = stageResizedSignal;
-        scoreInputViewMediator.leaveScoreInputModeSignal = new LeaveScoreInputModeSignal();
+        scoreInputViewMediator.closeModalWindowSignal = new CloseModalWindowSignal();
 
         passedId = null;
         passedScore = 0;

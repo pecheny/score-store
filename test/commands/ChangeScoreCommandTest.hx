@@ -23,7 +23,7 @@ class ChangeScoreCommandTest {
         playerModel = mock(PlayerModel);
         playerModel.getScore(cast Matcher.any).returns(2);
         playerViewsModel = mock(PlayerViewsModel);
-        playerViewsModel.getView(cast Matcher.any).returns(view);
+        playerViewsModel.getPlayerView(cast Matcher.any).returns(view);
         changeScoreCommand.playerId = PlayerId.fromInt(1);
         changeScoreCommand.deltaScore = 2;
         changeScoreCommand.playersModel = playerModel;

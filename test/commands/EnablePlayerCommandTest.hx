@@ -67,7 +67,7 @@ class EnablePlayerCommandTest {
     @Test
     public function should_create_view_and_add_to_model():Void {
         addPlayerCommand.execute();
-        playerViewsModel.addView(playerId, playerView).verify(1);
+        playerViewsModel.addPlayerView(playerId, playerView).verify(1);
     }
 
 

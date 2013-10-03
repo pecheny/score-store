@@ -22,7 +22,7 @@ class EnablePlayerCommand extends mmvc.impl.Command {
     override public function execute():Void {
         playersModel.enablePlayer(playerId);
         var playerView:PlayerView = viewFactory.getView();
-        playerViewsModel.addView(playerId, playerView);
+        playerViewsModel.addPlayerView(playerId, playerView);
         playerView.setPlayerId(playerId);
         playerView.setText("" + playersModel.getScore(playerId));
         addChildSignal.dispatch(LayerName.MAIN, playerView);

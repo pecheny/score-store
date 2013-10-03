@@ -15,7 +15,7 @@ class LayoutViewsCommand extends mmvc.impl.Command {
         var players = playersModel.getPlayers().iterator();
         var y:Float = PlayerViewStyle.GRID_STEP;
         for (playerId in players) {
-            var viewInstance:ViewBase = playerViewsModel.getView(playerId);
+            var viewInstance:ViewBase = playerViewsModel.getPlayerView(playerId);
             viewInstance.y = y;
             y += viewInstance.getHeight() + PlayerViewStyle.GRID_STEP;
         }

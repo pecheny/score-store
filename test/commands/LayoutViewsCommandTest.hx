@@ -28,7 +28,7 @@ class LayoutViewsCommandTest {
         playerModel = mock(PlayerModel);
 
         playerViewsModel = mock(PlayerViewsModel);
-        playerViewsModel.getView(cast Matcher.any).returns(playerView);
+        playerViewsModel.getPlayerView(cast Matcher.any).returns(playerView);
 
         buttonBarContainerModel = mock(ButtonBarContainerModel);
         buttonBarContainerModel.butonBarContainer = mock(ViewBase);

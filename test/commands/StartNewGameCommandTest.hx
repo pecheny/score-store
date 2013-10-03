@@ -21,7 +21,7 @@ class StartNewGameCommandTest {
         playerView = mock(PlayerView);
 
         playerViewsModel = mock(PlayerViewsModel);
-        playerViewsModel.getView(cast Matcher.any).returns(playerView);
+        playerViewsModel.getPlayerView(cast Matcher.any).returns(playerView);
 
         startNewGameCommand = new StartNewGameCommand();
         startNewGameCommand.playerViewsModel = playerViewsModel;

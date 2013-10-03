@@ -18,7 +18,7 @@ class ChangeScoreCommand extends mmvc.impl.Command {
 
     override public function execute():Void {
         playersModel.changeScore(playerId, deltaScore);
-        var pview:PlayerView = playerViewsModel.getView(playerId);
+        var pview:PlayerView = playerViewsModel.getPlayerView(playerId);
         var score:Int = playersModel.getScore(playerId);
         pview.setText("" + score);
     }

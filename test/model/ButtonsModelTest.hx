@@ -4,7 +4,6 @@ import constants.ButtonName;
 import mockatoo.Mockatoo;
 import constants.ErrorConsts;
 import massive.munit.Assert;
-import msignal.Signal.Signal0;
 import org.hamcrest.MatchersBase;
 import view.ViewBase;
 import org.hamcrest.MatcherAssert;
@@ -22,30 +21,30 @@ class ButtonsModelTest extends MatchersBase {
 
     @Test public function should_register_and_check_button_by_name():Void {
         var button:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name = ButtonName.Exit;
         Assert.isFalse(buttonsModel.hasButtonRegistred(name));
-        buttonsModel.registerButtonType(name, button, signal);
+        buttonsModel.registerButtonType(name, button, callback);
         Assert.isTrue(buttonsModel.hasButtonRegistred(name));
     }
 
     @Test public function should_register_and_check_button_by_view():Void {
         var button:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name = ButtonName.Exit;
         Assert.isFalse(buttonsModel.hasButtonRegistred(button));
-        buttonsModel.registerButtonType(name, button, signal);
+        buttonsModel.registerButtonType(name, button, callback);
         Assert.isTrue(buttonsModel.hasButtonRegistred(button));
     }
 
     @Test public function should_throw_on_check_button_by_wrong_type():Void {
         var button:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name = ButtonName.Exit;
-        buttonsModel.registerButtonType(name, button, signal);
+        buttonsModel.registerButtonType(name, button, callback);
         var msg:String = "";
         try {
-            buttonsModel.hasButtonRegistred(signal);
+            buttonsModel.hasButtonRegistred(callback);
         } catch (e:String) {
             msg = e;
         }
@@ -54,9 +53,9 @@ class ButtonsModelTest extends MatchersBase {
 
     @Test public function should_enable_one_registered_button():Void {
         var button:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name = ButtonName.Exit;
-        buttonsModel.registerButtonType(name, button, signal);
+        buttonsModel.registerButtonType(name, button, callback);
         buttonsModel.enableButtons(name);
         var activeButtons = buttonsModel.getActiveButtons();
         Assert.isNotNull(activeButtons);
@@ -66,13 +65,13 @@ class ButtonsModelTest extends MatchersBase {
 
     @Test public function should_enable_registered_buttons():Void {
         var button1:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
         var name2 = ButtonName.AddPlayer;
 
-        buttonsModel.registerButtonType(name1, button1, signal);
-        buttonsModel.registerButtonType(name2, button2, signal);
+        buttonsModel.registerButtonType(name1, button1, callback);
+        buttonsModel.registerButtonType(name2, button2, callback);
         buttonsModel.enableButtons(name1, name2);
         var activeButtons = buttonsModel.getActiveButtons();
         assertThat(activeButtons, arrayWithSize(2));
@@ -92,13 +91,13 @@ class ButtonsModelTest extends MatchersBase {
 
     @Test public function should_reset_buttons():Void {
         var button1:ViewBase = mock(ViewBase);
-        var signal = new Signal0();
+        var callback = function(){};
         var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
         var name2 = ButtonName.AddPlayer;
 
-        buttonsModel.registerButtonType(name1, button1, signal);
-        buttonsModel.registerButtonType(name2, button2, signal);
+        buttonsModel.registerButtonType(name1, button1, callback);
+        buttonsModel.registerButtonType(name2, button2, callback);
         buttonsModel.enableButtons(name1, name2);
 
         buttonsModel.resetButtons();
@@ -108,17 +107,17 @@ class ButtonsModelTest extends MatchersBase {
 
     @Test public function should_return_signal_by_button():Void {
         var button1:ViewBase = mock(ViewBase);
-        var signal1 = new Signal0();
-        var signal2 = new Signal0();
+        var callback1 = function(){};
+        var callback = function(){};
         var name1 = ButtonName.Exit;
         var button2:ViewBase = mock(ViewBase);
         var name2 = ButtonName.AddPlayer;
 
-        buttonsModel.registerButtonType(name1, button1, signal1);
-        buttonsModel.registerButtonType(name2, button2, signal2);
+        buttonsModel.registerButtonType(name1, button1, callback1);
+        buttonsModel.registerButtonType(name2, button2, callback);
 
-        Assert.areEqual(buttonsModel.getSignal(button1), signal1);
-        Assert.areEqual(buttonsModel.getSignal(button2), signal2);
+        Assert.areEqual(buttonsModel.getCallback(button1), callback1);
+        Assert.areEqual(buttonsModel.getCallback(button2), callback);
     }
 
 
