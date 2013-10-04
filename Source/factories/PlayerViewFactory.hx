@@ -1,10 +1,11 @@
 package factories;
+import view.PlayersChooserView;
+import view.NewGameConfirmationView;
 import view.ScoreInputView;
 import view.ModalBackgroundView;
 import view.ScrollerBackgroundView;
 import view.PlayerSwitcherView;
 import model.vo.PlayerId;
-import view.PlayerEditorView;
 import view.PlayerView;
 class PlayerViewFactory {
     public function new():Void {
@@ -15,9 +16,7 @@ class PlayerViewFactory {
         return new PlayerView();
     }
 
-    public function getEditorView(id:PlayerId):PlayerEditorView {
-        return PlayerEditorView.fromPlayerId(id);
-    }
+
 
     public function getPlayerSwitcher(id:PlayerId):PlayerSwitcherView {
         var switcher = new PlayerSwitcherView();
@@ -39,4 +38,11 @@ class PlayerViewFactory {
         return scoreInput;
     }
 
+    public function getNewGameConfirmation():NewGameConfirmationView {
+        return new NewGameConfirmationView();
+    }
+
+    public function getPlayersChooser():PlayersChooserView {
+            return new PlayersChooserView();
+        }
 }

@@ -3,7 +3,6 @@ import signals.ShowModalWindowSignal;
 import model.PlayerModel;
 import constants.AssetNames;
 import factories.PlayerViewFactory;
-import view.PlayerEditorView;
 import flash.text.TextFieldAutoSize;
 import signals.ChangeScoreSignal;
 import flash.display.DisplayObject;
@@ -32,7 +31,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     var minusTapZone:DisplayObject;
     var scoreTapZone:DisplayObject;
 
-    var editView:PlayerEditorView;
 
     public function new() {
         super();
@@ -42,7 +40,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     override public function onRegister() {
         super.onRegister();
         playerView = cast view;
-        editView = playerViewFactory.getEditorView(playerView.getPlayerId());
         setupLayout();
         playerView.addEventListener(MouseEvent.CLICK, mouseHandler);
     }
@@ -91,15 +88,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
     }
 
-    private function enterGameMode():Void {
-        if (playerView.contains(editView)) {
-            playerView.removeChild(editView);
-        }
-    }
-
-    private function enterEditMode():Void {
-        playerView.addChild(editView);
-    }
 
     private function mouseHandler(e:MouseEvent):Void {
         var target:Sprite = cast e.target;

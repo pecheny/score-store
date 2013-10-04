@@ -24,4 +24,8 @@ class AssetsModel {
         return swf.createMovieClip("PlayersChooser");
     }
 
+    public function getNewGameConfirmation():Sprite {
+        return swf.createMovieClip("NewGameConfirmation");
+    }
+
 }

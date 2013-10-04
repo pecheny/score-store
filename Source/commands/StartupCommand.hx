@@ -1,4 +1,5 @@
 package commands;
+import factories.PlayerViewFactory;
 import view.PlayersChooserView;
 import signals.ShowModalWindowSignal;
 import signals.StageResizedSignal;
@@ -31,10 +32,11 @@ class StartupCommand extends mmvc.impl.Command {
     @inject public var exitSignal:ExitSignal;
     @inject public var newGameSignal:NewGameSignal;
     @inject public var showModalWindowSignal:ShowModalWindowSignal;
-    @inject public var playersChooserView:PlayersChooserView;
     @inject public var addChildSignal:AddChildSignal;
     @inject public var refreshButtonsSignal:RefreshButtonsSignal;
     @inject public var stageResizedSignal:StageResizedSignal;
+
+    @inject public var playerViewFactory:PlayerViewFactory;
 
 
     var swf:SWF;
@@ -65,8 +67,8 @@ class StartupCommand extends mmvc.impl.Command {
 
     private function registerButtons():Void {
         buttonsModel.registerButtonType(ButtonName.Exit, createButtonView("ButtonExit"), function() {exitSignal.dispatch();});
-        buttonsModel.registerButtonType(ButtonName.EditPlayer, createButtonView("ButtonEditPlayer"), function() {showModalWindowSignal.dispatch(playersChooserView);});
-        buttonsModel.registerButtonType(ButtonName.New, createButtonView("ButtonNew"), function() {newGameSignal.dispatch();});
+        buttonsModel.registerButtonType(ButtonName.EditPlayer, createButtonView("ButtonEditPlayer"), function() {showModalWindowSignal.dispatch(playerViewFactory.getPlayersChooser());});
+        buttonsModel.registerButtonType(ButtonName.New, createButtonView("ButtonNew"), function() {showModalWindowSignal.dispatch(playerViewFactory.getNewGameConfirmation());});
     }
 
     function createButtonView(assetName:String):ViewBase {

@@ -1,3 +1,5 @@
+import mediators.NewGameConfirmationViewMediator;
+import view.NewGameConfirmationView;
 import signals.CloseModalWindowSignal;
 import signals.ShowModalWindowSignal;
 import commands.StartNewGameCommand;
@@ -19,8 +21,6 @@ import commands.CenterViewVerticallyCommand;
 import signals.CenterViewVerticallySignal;
 import view.ScoreInputView;
 import mediators.ScoreInputViewMediator;
-import mediators.PlayerEditorViewMediator;
-import view.PlayerEditorView;
 import signals.UpdateLayoutSignal;
 import mediators.ButtonMediator;
 import view.Button;
@@ -64,9 +64,6 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(ButtonBarContainerModel);
         injector.mapSingleton(PlayerViewFactory);
         injector.mapSingleton(LabelFactory);
-        injector.mapSingleton(ScoreInputView);
-        injector.mapSingleton(ModalBackgroundView);
-        injector.mapSingleton(PlayersChooserView);
         injector.mapSingleton(AddChildSignal);
         injector.mapSingleton(RemoveChildSignal);
         commandMap.mapSignalClass(ExitSignal, EmptyCommand);
@@ -84,7 +81,7 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(CenterViewVerticallySignal, CenterViewVerticallyCommand);
         mediatorMap.mapView(Button, ButtonMediator);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
-        mediatorMap.mapView(PlayerEditorView, PlayerEditorViewMediator);
+        mediatorMap.mapView(NewGameConfirmationView, NewGameConfirmationViewMediator);
         mediatorMap.mapView(ScoreInputView, ScoreInputViewMediator);
         mediatorMap.mapView(PlayerSwitcherView, PlayerSwitcherViewMediator);
         mediatorMap.mapView(PlayersChooserView, PlayersChooserViewMediator);
