@@ -1,6 +1,5 @@
 package mediators;
 import view.ScrollerBackgroundView;
-import view.ViewBase;
 import factories.PlayerViewFactory;
 import massive.munit.Assert;
 import flash.Lib;

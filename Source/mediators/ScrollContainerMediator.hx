@@ -25,23 +25,27 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
         scrollContainer.addChild(scrollerBackgroundView);
         scrollContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         scrollContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-        scrollContainer.addEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
+        scrollContainer.stage.addEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
     }
 
 
     override public function preRemove():Void {
         scrollContainer.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         scrollContainer.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-        scrollContainer.removeEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
+        scrollContainer.stage.removeEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
         scrollContainer.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
         scrollContainer.clearChildren();
     }
 
     private function mouseDownHandler(e:MouseEvent):Void {
         if (checkScrollNeeded()) {
-            initialY = applicationView.getPointerY() / applicationView.getScale() + scrollContainer.y;
+            storeStartPosition();
             scrollContainer.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
         }
+    }
+
+    private function storeStartPosition():Void {
+        initialY = applicationView.getPointerY() / applicationView.getScale() - scrollContainer.y;
     }
 
     private function checkScrollNeeded():Bool {
@@ -55,14 +59,17 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
 
     private function enterFrameHandler(e:Event):Void {
         var ty = applicationView.getPointerY() / applicationView.getScale() - initialY;
-        scrollContainer.y = clamp(ty, applicationView.getStageHeight() / applicationView.getScale() - scrollContainer.height, 0);
+        scrollContainer.y =  clampAndUpdateState(ty, applicationView.getStageHeight() / applicationView.getScale() - scrollContainer.height, 0);
     }
 
-    private function clamp(value:Float, min:Float, max:Float):Float {
-        if (value < min)
+    private function clampAndUpdateState(value:Float, min:Float, max:Float):Float {
+        if (value < min) {
+            storeStartPosition();
             return min;
-        else if (value > max)
-            return max;
+        }
+        else if (value > max) {
+            storeStartPosition();
+            return max;}
         else
             return value;
     }
