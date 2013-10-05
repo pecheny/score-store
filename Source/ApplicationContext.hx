@@ -1,3 +1,4 @@
+import commands.ExitCommand;
 import mediators.NewGameConfirmationViewMediator;
 import view.NewGameConfirmationView;
 import signals.CloseModalWindowSignal;
@@ -28,7 +29,6 @@ import commands.RefreshButtonsCommand;
 import signals.RefreshButtonsSignal;
 import signals.NewGameSignal;
 import signals.ExitSignal;
-import commands.EmptyCommand;
 import model.ButtonsModel;
 import model.ButtonBarContainerModel;
 import commands.LayoutViewsCommand;
@@ -51,6 +51,8 @@ import signals.ChangeScoreSignal;
 import signals.DisablePlayerSignal;
 import signals.EnablePlayerSignal;
 import mmvc.api.IViewContainer;
+
+
 class ApplicationContext extends mmvc.impl.Context {
     public function new(?contextView:IViewContainer = null) {
         super(contextView);
@@ -66,7 +68,7 @@ class ApplicationContext extends mmvc.impl.Context {
         injector.mapSingleton(LabelFactory);
         injector.mapSingleton(AddChildSignal);
         injector.mapSingleton(RemoveChildSignal);
-        commandMap.mapSignalClass(ExitSignal, EmptyCommand);
+        commandMap.mapSignalClass(ExitSignal, ExitCommand);
         commandMap.mapSignalClass(RefreshButtonsSignal, RefreshButtonsCommand);
         commandMap.mapSignalClass(NewGameSignal, StartNewGameCommand);
         commandMap.mapSignalClass(StageResizedSignal, ScaleStageCommand);
@@ -94,8 +96,4 @@ class ApplicationContext extends mmvc.impl.Context {
         startupSignal.dispatch();
     }
 
-
-    override public function shutdown() {
-
-    }
 }
