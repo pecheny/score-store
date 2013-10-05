@@ -27,18 +27,11 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     var playerView:PlayerView;
     var layoutMc:Sprite;
 
-    var plusTapZone:DisplayObject;
-    var minusTapZone:DisplayObject;
-    var scoreTapZone:DisplayObject;
-
-
-    public function new() {
-        super();
-    }
+    var tapZones:Map<String, DisplayObject>;
 
 
     override public function onRegister() {
-        super.onRegister();
+        tapZones = new Map<String, DisplayObject>();
         playerView = cast view;
         setupLayout();
         playerView.addEventListener(MouseEvent.CLICK, mouseHandler);
@@ -46,6 +39,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
     override public function preRemove():Void {
         playerView.removeEventListener(MouseEvent.CLICK, mouseHandler);
+        unmapTapZones();
         playerView.clearChildren();
     }
 
@@ -56,6 +50,13 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         var bg:Sprite = cast layoutMc.getChildByName(AssetNames.BACKGROUND);
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
+        createViews();
+        createTapZone(AssetNames.PLUS_HITAREA);
+        createTapZone(AssetNames.MINUS_HITAREA);
+        createTapZone(AssetNames.SCORE_HITAREA);
+    }
+
+    private function createViews():Void {
         var _score:TextField = cast layoutMc.getChildByName(AssetNames.SCORE);
         var scoreLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE);
         scoreLabel.copyTransformFrom(_score);
@@ -75,30 +76,37 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
         var minusButton = layoutMc.makeGraphics(AssetNames.MINUS_VIEW);
         playerView.addChild(minusButton);
+    }
 
+    private function createTapZone(name:String):Void {
+        var tapZone = layoutMc.makeTapZone(name);
+        tapZones[name] = tapZone;
+        tapZone.addEventListener(MouseEvent.MOUSE_DOWN, tapZoneMouseDownHandler);
+        playerView.addChild(tapZone);
+    }
 
-        plusTapZone = layoutMc.makeTapZone(AssetNames.PLUS_HITAREA);
-        playerView.addChild(plusTapZone);
+    private function unmapTapZones():Void {
+        for (tapZone in tapZones.iterator()) {
+            tapZone.removeEventListener(MouseEvent.MOUSE_DOWN, tapZoneMouseDownHandler);
+        }
+    }
 
-        minusTapZone = layoutMc.makeTapZone(AssetNames.MINUS_HITAREA);
-        playerView.addChild(minusTapZone);
-
-        scoreTapZone = layoutMc.makeTapZone(AssetNames.SCORE_HITAREA);
-        playerView.addChild(scoreTapZone);
-
+    private function tapZoneMouseDownHandler(e:MouseEvent):Void {
+        e.stopImmediatePropagation();
     }
 
 
     private function mouseHandler(e:MouseEvent):Void {
+        e.stopImmediatePropagation();
         var target:Sprite = cast e.target;
-        if (target.name == plusTapZone.name) {
+        if (target.name == AssetNames.PLUS_HITAREA) {
             changeScoreSignal.dispatch(playerView.getPlayerId(), 1);
         }
-        else if (target.name == minusTapZone.name) {
+        else if (target.name == AssetNames.MINUS_HITAREA) {
             changeScoreSignal.dispatch(playerView.getPlayerId(), -1);
         }
-        else if (target.name == scoreTapZone.name) {
-             showModalWindowSignal.dispatch(playerViewFactory.getScoreInput(playerView.getPlayerId()));
+        else if (target.name == AssetNames.SCORE_HITAREA) {
+            showModalWindowSignal.dispatch(playerViewFactory.getScoreInput(playerView.getPlayerId()));
         }
     }
 }
