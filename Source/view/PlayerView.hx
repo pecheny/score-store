@@ -36,7 +36,6 @@ class PlayerView extends ViewBase {
         this.score = score;
         if (label != null) {
         var magnitude = Math.abs(score);
-            label.text = (magnitude > 999) ? "" + 999 : "" + magnitude;
             if (score < 0) {
                 label.textColor = PlayerViewStyle.SCORE_NEGATIVE_COLOR;
             } else if (score > 0) {
@@ -44,6 +43,7 @@ class PlayerView extends ViewBase {
             } else {
                 label.textColor = PlayerViewStyle.SCORE_NEUTRAL_COLOR;
             }
+            label.text = (magnitude > 999) ? "" + 999 : "" + magnitude;
         };
     }
 
