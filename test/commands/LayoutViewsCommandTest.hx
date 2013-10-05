@@ -1,5 +1,6 @@
 package commands;
 
+import view.ApplicationView;
 import view.ViewBase;
 import model.ButtonBarContainerModel;
 import constants.PlayerViewStyle;
@@ -36,6 +37,11 @@ class LayoutViewsCommandTest {
         layoutViewsCommand.playersModel = playerModel;
         layoutViewsCommand.playerViewsModel = playerViewsModel;
         layoutViewsCommand.buttonBarContainerModel = buttonBarContainerModel;
+        layoutViewsCommand.applicationView = mock(ApplicationView);
+        layoutViewsCommand.applicationView = mock(ApplicationView);
+        layoutViewsCommand.applicationView.getStageHeight().returns(800);
+        layoutViewsCommand.applicationView.getScale().returns(1.67);
+
     }
 
     @Test

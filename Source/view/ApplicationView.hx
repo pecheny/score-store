@@ -84,7 +84,6 @@ class ApplicationView implements mmvc.api.IViewContainer {
     }
 
 
-
     public function isAdded(view:Dynamic):Bool {
         var parent:DisplayObjectContainer = null;
         while (view.parent != null) {
@@ -111,16 +110,20 @@ class ApplicationView implements mmvc.api.IViewContainer {
     }
 
     public function setScale(scale:Float):Void {
-            container.scaleX = scale;
-            container.scaleY = scale;
-        }
+        container.scaleX = scale;
+        container.scaleY = scale;
+    }
 
     public function getScale():Float {
-       return container.scaleX;
+        return container.scaleX;
     }
 
     public function getPointerY():Float {
         return container.stage.mouseY;
+    }
+
+    public function getStage():DisplayObject {
+        return container.stage;
     }
 
 

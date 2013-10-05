@@ -39,7 +39,7 @@ class ChangeScoreCommandTest {
     @Test
       public function command_should_update_view():Void {
           changeScoreCommand.execute();
-          view.setText("2").verify(1);
+          view.setScore(2).verify(1);
       }
 
 }

@@ -2,7 +2,6 @@ package mediators;
 import model.PlayerModel;
 import constants.AssetNames;
 import factories.PlayerViewFactory;
-import view.PlayerEditorView;
 import signals.ChangeScoreSignal;
 import flash.display.DisplayObject;
 import model.AssetsModel;
@@ -45,7 +44,6 @@ class PlayerViewMediatorTest  {
         layout.getPlayerViewMovieClip().returns(mc);
 
         playerViewFactory = mock (PlayerViewFactory);
-        playerViewFactory.getEditorView(cast Matcher.any).returns(PlayerEditorView.fromPlayerId(PlayerId.fromInt(2)));
 
         var playerModel:PlayerModel = mock(PlayerModel);
         playerModel.hasPLayer(cast Matcher.any).returns(false);

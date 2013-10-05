@@ -66,6 +66,8 @@ class ScoreInputViewMediator extends mmvc.impl.Mediator<ScoreInputView> {
         scoreInputView.addChild(assets.makeGraphics(AssetNames.SCORE_BACKSPACE));
     }
 
+
+
     private function createTapZones():Void {
         var tapZone:DisplayObject;
         for (i in 0...10) {

@@ -11,7 +11,6 @@ import commands.StartNewGameCommandTest;
 import mediators.ApplicationViewMediatorTest;
 import mediators.ButtonMediatorTest;
 import mediators.ModalBackgroundViewMediatorTest;
-import mediators.PlayerEditorViewMediatorTest;
 import mediators.PlayersChooserViewMediatorTest;
 import mediators.PlayerSwitcherViewMediatorTest;
 import mediators.PlayerViewMediatorTest;
@@ -48,7 +47,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(mediators.ApplicationViewMediatorTest);
 		add(mediators.ButtonMediatorTest);
 		add(mediators.ModalBackgroundViewMediatorTest);
-		add(mediators.PlayerEditorViewMediatorTest);
 		add(mediators.PlayersChooserViewMediatorTest);
 		add(mediators.PlayerSwitcherViewMediatorTest);
 		add(mediators.PlayerViewMediatorTest);
