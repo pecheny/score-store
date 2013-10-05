@@ -1,4 +1,5 @@
 package commands;
+import model.vo.PlayerId;
 import factories.PlayerViewFactory;
 import view.PlayersChooserView;
 import signals.ShowModalWindowSignal;
@@ -28,7 +29,7 @@ class StartupCommand extends mmvc.impl.Command {
     @inject public var buttonBarContainerModel:ButtonBarContainerModel;
     @inject public var appView:ApplicationView;
 
-    @inject public var addPlayerSignal:EnablePlayerSignal;
+    @inject public var enablePlayerSignal:EnablePlayerSignal;
     @inject public var exitSignal:ExitSignal;
     @inject public var newGameSignal:NewGameSignal;
     @inject public var showModalWindowSignal:ShowModalWindowSignal;
@@ -52,6 +53,14 @@ class StartupCommand extends mmvc.impl.Command {
         buttonsModel.enableButtons(ButtonName.New, ButtonName.EditPlayer, ButtonName.Exit);
         refreshButtonsSignal.dispatch();
         stageResizedSignal.dispatch();
+
+        showWelcomeState();
+    }
+
+    private function showWelcomeState():Void {
+       enablePlayerSignal.dispatch(PlayerId.fromInt(1));
+       enablePlayerSignal.dispatch(PlayerId.fromInt(2));
+       showModalWindowSignal.dispatch(playerViewFactory.getPlayersChooser());
     }
 
     private function initButtonBar():Void {
