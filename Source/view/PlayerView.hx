@@ -1,4 +1,5 @@
 package view;
+import constants.PlayerViewStyle;
 import model.vo.PlayerId;
 import flash.display.DisplayObject;
 import flash.text.TextField;
@@ -6,7 +7,7 @@ class PlayerView extends ViewBase {
     var label:TextField;
     var playerId:PlayerId;
     var myHeight:Float;
-    var text:String = "";
+    var score:Int = 0;
 
     public function new() {
         super();
@@ -27,14 +28,22 @@ class PlayerView extends ViewBase {
             throw "TextField should be null";
         }
         label = textField;
-        label.text = text;
+        setScore(score);
         addChild(label);
     }
 
-    public function setText(text:String):Void {
-        this.text = text;
+    public function setScore(score:Int):Void {
+        this.score = score;
         if (label != null) {
-            label.text = text;
+        var magnitude = Math.abs(score);
+            label.text = (magnitude > 999) ? "" + 999 : "" + magnitude;
+            if (score < 0) {
+                label.textColor = PlayerViewStyle.SCORE_NEGATIVE_COLOR;
+            } else if (score > 0) {
+                label.textColor = PlayerViewStyle.SCORE_POSITIVE_COLOR;
+            } else {
+                label.textColor = PlayerViewStyle.SCORE_NEUTRAL_COLOR;
+            }
         };
     }
 

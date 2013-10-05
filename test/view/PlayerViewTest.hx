@@ -22,7 +22,7 @@ class PlayerViewTest  {
        public function should_generate_set_label_text():Void {
            var label:TextField = new TextField();
            playerView.setMainTextField(label);
-           playerView.setText("foobar");
-           Assert.areEqual(label.text, "foobar");
+           playerView.setScore(10);
+           Assert.areEqual(label.text, 10);
        }
 }

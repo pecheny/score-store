@@ -103,7 +103,7 @@ class EnablePlayerCommandTest {
     @Test public function should_set_score_to_added_view():Void {
         playerModel.getScore(cast Matcher.any).returns(4);
         addPlayerCommand.execute();
-        playerView.setText("4").verify(1);
+        playerView.setScore(4).verify(1);
     }
 
 

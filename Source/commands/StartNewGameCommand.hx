@@ -9,7 +9,7 @@ class StartNewGameCommand extends mmvc.impl.Command {
     override public function execute():Void {
     playerModel.resetScores();
         for (player in playerModel.getPlayers().iterator()) {
-        playerViewsModel.getPlayerView(player).setText("0");
+        playerViewsModel.getPlayerView(player).setScore(0);
         }
     }
 

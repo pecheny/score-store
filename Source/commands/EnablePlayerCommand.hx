@@ -24,7 +24,7 @@ class EnablePlayerCommand extends mmvc.impl.Command {
         var playerView:PlayerView = viewFactory.getView();
         playerViewsModel.addPlayerView(playerId, playerView);
         playerView.setPlayerId(playerId);
-        playerView.setText("" + playersModel.getScore(playerId));
+        playerView.setScore(playersModel.getScore(playerId));
         addChildSignal.dispatch(LayerName.MAIN, playerView);
         updateLayoutSignal.dispatch();
     }

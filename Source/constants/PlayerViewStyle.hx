@@ -7,14 +7,12 @@ align:String
 }
 class PlayerViewStyle {
 
-    public static var GRID_STEP:Int = 20;
+    public static inline var GRID_STEP:Int = 20;
 
 
-
-
-    public static var CORNER_RADIUS:Float = 50;
-    public static var UNIT_HEIGHT:Float = 140;
-    public static var UNIT_WIDTH:Float = 500;
+    public static inline var CORNER_RADIUS:Float = 50;
+    public static inline var UNIT_HEIGHT:Float = 140;
+    public static inline var UNIT_WIDTH:Float = 500;
 
 
     public static var STYLE_SCORE:LabelStyle = {
@@ -22,9 +20,25 @@ class PlayerViewStyle {
     size : 92,
     spacing : 0,
     color:0xffffff,
-    align:"right"};
+    align:"center"};
     val;
     };
+
+    public static inline var SCORE_POSITIVE_COLOR:UInt = 0x9BCD06;
+    public static inline var SCORE_NEGATIVE_COLOR:UInt = 0xCC0000;
+    public static inline var SCORE_NEUTRAL_COLOR:UInt = 0xffffff;
+
+//    public static var STYLE_SCORE_POSITIVE:LabelStyle = {
+//    var val:LabelStyle = Reflect.copy(STYLE_SCORE);
+//    val.color = 0x9BCD06;
+//    val;
+//    };
+//    public static var STYLE_SCORE_NEGATIVE:LabelStyle = {
+//    var val:LabelStyle = Reflect.copy(STYLE_SCORE);
+//    val.color = 0xCC0000;
+//    val;
+//    };
+
 
     public static var STYLE_NAME:LabelStyle = {
     var val:LabelStyle = {

@@ -20,7 +20,7 @@ class ChangeScoreCommand extends mmvc.impl.Command {
         playersModel.changeScore(playerId, deltaScore);
         var pview:PlayerView = playerViewsModel.getPlayerView(playerId);
         var score:Int = playersModel.getScore(playerId);
-        pview.setText("" + score);
+        pview.setScore(score);
     }
 
 }

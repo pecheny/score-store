@@ -60,7 +60,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         var scoreLabel:TextField = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE);
         scoreLabel.copyTransformFrom(_score);
         playerView.setMainTextField(scoreLabel);
-        playerView.setText("" + playerModel.getScore(playerView.getPlayerId()));
+        playerView.setScore(playerModel.getScore(playerView.getPlayerId()));
 
 
         var _name:TextField = cast layoutMc.getChildByName(AssetNames.NAME);

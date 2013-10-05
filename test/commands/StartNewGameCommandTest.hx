@@ -35,6 +35,6 @@ class StartNewGameCommandTest {
 
     @Test public function should_update_available_views():Void {
         startNewGameCommand.execute();
-        playerView.setText("0").verify(3);
+        playerView.setScore(0).verify(3);
     }
 }
