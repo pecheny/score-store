@@ -2,7 +2,6 @@ package mediators;
 import view.ScrollerBackgroundView;
 import factories.PlayerViewFactory;
 import massive.munit.Assert;
-import flash.Lib;
 import flash.geom.Point;
 import org.hamcrest.MatchersBase;
 import flash.events.Event;
@@ -36,7 +35,7 @@ class ScrollContainerMediatorTest extends MatchersBase {
         containerFake.addChild(scrollContainer);
         stageFake = new Sprite();
         stageFake.addChild(containerFake);
-        Lib.current.addChild(stageFake);
+//        Lib.current.addChild(stageFake);
 
         var bg:ScrollerBackgroundView = new ScrollerBackgroundView();
         bg.initBounds(10, 1000, 5);
@@ -44,11 +43,11 @@ class ScrollContainerMediatorTest extends MatchersBase {
         playerViewFactory.getScrollerBackground().returns(bg);
 
 
-
         applicationView = mock(ApplicationView);
         applicationView.getRootContainer().returns(containerFake);
         applicationView.getStageHeight().returns(800);
         applicationView.getScale().returns(scale);
+        applicationView.getStage().returns(stageFake);
 
         scrollContainerMediator = new ScrollContainerMediator();
         scrollContainerMediator.view = scrollContainer;
@@ -86,14 +85,21 @@ class ScrollContainerMediatorTest extends MatchersBase {
     @AsyncTest public function move_to_top_should_be_constrained(asyncFactory:AsyncFactory):Void {
         var handler:Dynamic = asyncFactory.createHandler(this, moveToTopShouldBeConstrainedHandler, 300);
         timer = Timer.delay(handler, 200);
-        applicationView.getPointerY().when().thenReturn(135).thenReturn(15).thenReturn(1500);
+        applicationView.getPointerY().when().thenReturn(10).thenReturn(10).thenReturn(0).thenReturn(600);
         scrollContainerMediator.onRegister();
         scrollContainer.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
         scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
         scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP));
+
     }
 
     function moveToTopShouldBeConstrainedHandler():Void {
+        trace("boo " + scrollContainerMediator.log);
         Assert.areEqual(0, scrollContainer.y);
     }
 
@@ -105,6 +111,9 @@ class ScrollContainerMediatorTest extends MatchersBase {
         scrollContainer.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_DOWN));
         scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
         scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new Event(Event.ENTER_FRAME));
+        scrollContainer.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP));
     }
 
     function moveBottomShouldBeConstrainedHandler():Void {

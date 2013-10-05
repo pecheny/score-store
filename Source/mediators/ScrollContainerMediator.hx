@@ -14,6 +14,7 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
     var point:Point;
     var tpoint:Point;
     var scrollerBackgroundView:ScrollerBackgroundView;
+    var pointerPosition:Float;
     public var log:String;
 
     override public function onRegister():Void {
@@ -25,7 +26,7 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
         scrollContainer.addChild(scrollerBackgroundView);
         scrollContainer.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         scrollContainer.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-        scrollContainer.stage.addEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
+        applicationView.getStage().addEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
     }
 
 
@@ -39,13 +40,14 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
 
     private function mouseDownHandler(e:MouseEvent):Void {
         if (checkScrollNeeded()) {
+            pointerPosition = applicationView.getPointerY()/applicationView.getScale();
             storeStartPosition();
             scrollContainer.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
         }
     }
 
     private function storeStartPosition():Void {
-        initialY = applicationView.getPointerY() / applicationView.getScale() - scrollContainer.y;
+        initialY = pointerPosition  - scrollContainer.y;
     }
 
     private function checkScrollNeeded():Bool {
@@ -58,17 +60,20 @@ class ScrollContainerMediator extends mmvc.impl.Mediator<ScrollContainer> {
 
 
     private function enterFrameHandler(e:Event):Void {
-        var ty = applicationView.getPointerY() / applicationView.getScale() - initialY;
-        scrollContainer.y =  clampAndUpdateState(ty, applicationView.getStageHeight() / applicationView.getScale() - scrollContainer.height, 0);
+        pointerPosition = applicationView.getPointerY()/applicationView.getScale();
+        var ty = pointerPosition - initialY;
+        scrollContainer.y =  clamp(ty, applicationView.getStageHeight() / applicationView.getScale() - scrollContainer.height, 0);
+        if (scrollContainer.y != ty) {
+            storeStartPosition();
+        }
+        log += " " + Math.round(pointerPosition) + " " + Math.round(initialY) + " " + Math.round(ty) + ";";
     }
 
-    private function clampAndUpdateState(value:Float, min:Float, max:Float):Float {
+    private function clamp(value:Float, min:Float, max:Float):Float {
         if (value < min) {
-            storeStartPosition();
             return min;
         }
         else if (value > max) {
-            storeStartPosition();
             return max;}
         else
             return value;
