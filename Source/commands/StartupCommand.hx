@@ -1,4 +1,6 @@
 package commands;
+import constants.FilePaths;
+import signals.SetStateSignal;
 import model.vo.PlayerId;
 import factories.PlayerViewFactory;
 import view.PlayersChooserView;
@@ -36,6 +38,7 @@ class StartupCommand extends mmvc.impl.Command {
     @inject public var addChildSignal:AddChildSignal;
     @inject public var refreshButtonsSignal:RefreshButtonsSignal;
     @inject public var stageResizedSignal:StageResizedSignal;
+    @inject public var setStateSignal:SetStateSignal;
 
     @inject public var playerViewFactory:PlayerViewFactory;
 
@@ -54,13 +57,24 @@ class StartupCommand extends mmvc.impl.Command {
         refreshButtonsSignal.dispatch();
         stageResizedSignal.dispatch();
 
+
+#if mobile
+        var path = SystemPath.documentsDirectory + FilePaths.APP_DIR + FilePaths.SESSION_FILE_NAME;
+            if(sys.FileSystem.exists(path)) {
+        var state = sys.io.File.getContent(path);
+              setStateSignal.dispatch(state);
+            } else {
+                    showWelcomeState();
+            }
+        #else
         showWelcomeState();
+#end
     }
 
     private function showWelcomeState():Void {
-       enablePlayerSignal.dispatch(PlayerId.fromInt(1));
-       enablePlayerSignal.dispatch(PlayerId.fromInt(2));
-       showModalWindowSignal.dispatch(playerViewFactory.getPlayersChooser());
+        enablePlayerSignal.dispatch(PlayerId.fromInt(1));
+        enablePlayerSignal.dispatch(PlayerId.fromInt(2));
+        showModalWindowSignal.dispatch(playerViewFactory.getPlayersChooser());
     }
 
     private function initButtonBar():Void {

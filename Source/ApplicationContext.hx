@@ -1,3 +1,7 @@
+import commands.SetStateCommand;
+import signals.SetStateSignal;
+import commands.DumpStateCommand;
+import signals.DumpStateSignal;
 import commands.ExitCommand;
 import mediators.NewGameConfirmationViewMediator;
 import view.NewGameConfirmationView;
@@ -81,6 +85,8 @@ class ApplicationContext extends mmvc.impl.Context {
         commandMap.mapSignalClass(ShowModalWindowSignal, ShowModalWindowCommand);
         commandMap.mapSignalClass(CloseModalWindowSignal, CloseModalWindowCommand);
         commandMap.mapSignalClass(CenterViewVerticallySignal, CenterViewVerticallyCommand);
+        commandMap.mapSignalClass(DumpStateSignal, DumpStateCommand);
+        commandMap.mapSignalClass(SetStateSignal, SetStateCommand);
         mediatorMap.mapView(Button, ButtonMediator);
         mediatorMap.mapView(PlayerView, PlayerViewMediator);
         mediatorMap.mapView(NewGameConfirmationView, NewGameConfirmationViewMediator);

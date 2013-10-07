@@ -56,4 +56,12 @@ class PlayerModel {
         scores = new Map<PlayerId, Int>();
     }
 
+    public function getStateMap():Map<PlayerId, Int> {
+    var stateMap = new Map<PlayerId, Int>();
+        for (player in activePlayers.iterator()) {
+        stateMap[player] = scores[player];
+        }
+        return stateMap;
+    }
+
 }
