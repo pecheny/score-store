@@ -56,10 +56,10 @@ class PlayerModel {
         scores = new Map<PlayerId, Int>();
     }
 
-    public function getStateMap():Map<PlayerId, Int> {
-    var stateMap = new Map<PlayerId, Int>();
+    public function getStateMap():Map<Int, Int> {
+    var stateMap = new Map<Int, Int>();
         for (player in activePlayers.iterator()) {
-        stateMap[player] = scores[player];
+        stateMap[player.toInt()] = scores[player];
         }
         return stateMap;
     }

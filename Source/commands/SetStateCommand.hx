@@ -13,10 +13,11 @@ class SetStateCommand extends mmvc.impl.Command {
 
     override public function execute():Void {
         newGameSignal.dispatch();
-        var players:Map<PlayerId, Int> = haxe.Unserializer.run(state);
+        var players:Map<Int, Int> = haxe.Unserializer.run(state);
         for (player in players.keys()) {
-            enablePlayerSignal.dispatch(player);
-            changeScoreSignal.dispatch(player, players[player]);
+            var id = PlayerId.fromInt(player);
+            enablePlayerSignal.dispatch(id);
+            changeScoreSignal.dispatch(id, players[player]);
         }
     }
 }
