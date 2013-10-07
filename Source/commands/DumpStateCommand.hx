@@ -1,4 +1,9 @@
 package commands;
+#if mobile
+import constants.FilePaths;
+import sys.FileSystem;
+#end
+
 import model.PlayerModel;
 class DumpStateCommand extends mmvc.impl.Command {
 
