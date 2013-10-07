@@ -10,7 +10,7 @@ class PlayerViewStyle {
     public static inline var GRID_STEP:Int = 20;
 
 
-    public static inline var CORNER_RADIUS:Float = 50;
+    public static inline var CORNER_RADIUS:Float = 0;
     public static inline var UNIT_HEIGHT:Float = 140;
     public static inline var UNIT_WIDTH:Float = 500;
 

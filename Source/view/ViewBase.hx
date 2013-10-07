@@ -4,6 +4,7 @@ import flash.display.Sprite;
 class ViewBase extends Sprite {
     public var isAddedFlag:Bool;
     public var backgroundColor:UInt = 0;
+    public var backgroundAlpha:Float = .75;
 
     public var viewAdded:Dynamic -> Void;
     public var viewRemoved:Dynamic -> Void;
@@ -14,9 +15,11 @@ class ViewBase extends Sprite {
 
     public function initBounds(w:Float, h:Float, r:Float):Void {
         graphics.clear();
-        graphics.beginFill(backgroundColor, 0.75);
-        graphics.drawRect(0, 0, w, h);
-//        graphics.drawRoundRect(0, 0, w, h, r, r);
+        graphics.beginFill(backgroundColor, backgroundAlpha);
+        if (r > 0) {
+            graphics.drawRoundRect(0, 0, w, h, r, r);
+        } else {
+            graphics.drawRect(0, 0, w, h);}
         graphics.endFill();
     }
 

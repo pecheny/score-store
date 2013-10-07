@@ -17,8 +17,8 @@ class PlayerSwitcherViewMediator extends mmvc.impl.Mediator<PlayerSwitcherView> 
         playerSwitcherView = cast view;
         playerId = playerSwitcherView.playerId;
         playerSwitcherView.mouseChildren = false;
-//        playerSwitcherView.backgroundColor = 0xffffff;
-        playerSwitcherView.initBounds(100, 100, 1);
+        playerSwitcherView.backgroundAlpha = 0;
+        playerSwitcherView.initBounds(100, 110, 0);
         playerSwitcherView.addEventListener(MouseEvent.CLICK, clickHandler);
         if (playerModel.hasPLayer(playerId)) {
             turnOn();
@@ -40,7 +40,7 @@ class PlayerSwitcherViewMediator extends mmvc.impl.Mediator<PlayerSwitcherView> 
 
     public function turnOff():Void {
         enabled = false;
-        playerSwitcherView.alpha = 0.5;
+        playerSwitcherView.alpha = 0.1;
     }
 
     public function switchState():Void {

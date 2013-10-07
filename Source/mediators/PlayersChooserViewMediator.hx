@@ -49,13 +49,13 @@ class PlayersChooserViewMediator extends mmvc.impl.Mediator<PlayersChooserView> 
         for (i in 1...9) {
             var switcher = playerViewFactory.getPlayerSwitcher(PlayerId.fromInt(i));
             var switcherAsset = assets.makeGraphics(AssetNames.CHOOSER_SWITCHER_PREFIX + i);
-            var label = labelFactory.getLabelFromStyle(PlayerViewStyle.STYLE_SCORE_INPUT_DIGIT);
-            label.text = "" + i;
-            switcher.x = switcherAsset.x;
-            switcher.y = switcherAsset.y;
-            switcherAsset.transform.matrix = new Matrix();
+            var bounds = switcherAsset.getBounds(switcherAsset);
+            switcher.x = switcherAsset.x + bounds.x * switcherAsset.scaleX;
+            switcher.y = switcherAsset.y + bounds.y * switcherAsset.scaleY;
+            switcherAsset.x = -bounds.x * switcherAsset.scaleX;
+            switcherAsset.y = -bounds.y * switcherAsset.scaleY;
+//            switcherAsset.transform.matrix = new Matrix();
             switcher.addChild(switcherAsset);
-            switcher.addChild(label);
             playersChooserView.addChild(switcher);
         }
         var okView = assets.makeGraphics(AssetNames.CHOOSER_OK);
