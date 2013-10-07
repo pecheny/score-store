@@ -1,4 +1,7 @@
 package model;
+import view.ApplicationView;
+import constants.PlayerViewStyle;
+import Lambda;
 import flash.display.DisplayObject;
 import model.vo.PlayerId;
 import view.PlayerView;
@@ -6,6 +9,7 @@ class PlayerViewsModel {
 
     private var playerViews:Map<PlayerId, PlayerView>;
     private var customViews:Map<String, DisplayObject>;
+    @inject public var applicationView:ApplicationView;
 
     public function new():Void {
         playerViews = new Map<PlayerId, PlayerView>();
@@ -67,6 +71,14 @@ class PlayerViewsModel {
 
     public function hasCustomView(id:String):Bool {
         return customViews.exists(id);
+    }
+
+    public function calculateContainerHeight():Float {
+        var numUnits = Lambda.count(playerViews) + 1;
+        var unitsHeight = numUnits * (PlayerViewStyle.UNIT_HEIGHT + PlayerViewStyle.GRID_STEP) + PlayerViewStyle.GRID_STEP;
+        var stageHeight = applicationView.getStageHeight() / applicationView.calculateScale();
+        var height = Math.max(unitsHeight, stageHeight);
+        return height;
     }
 
 }

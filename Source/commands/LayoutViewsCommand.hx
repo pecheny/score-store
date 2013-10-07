@@ -26,10 +26,8 @@ class LayoutViewsCommand extends mmvc.impl.Command {
     }
 
     private function isFitInScreen():Bool {
-        var numUnits = playersModel.getPlayers().length + 1;
-           var unitsHeight = numUnits * (PlayerViewStyle.UNIT_HEIGHT + PlayerViewStyle.GRID_STEP) + PlayerViewStyle.GRID_STEP;
            var stageHeight = applicationView.getStageHeight() / applicationView.calculateScale();
-           return unitsHeight < stageHeight;
+           return playerViewsModel.calculateContainerHeight() <= stageHeight;
     }
 
 }

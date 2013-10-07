@@ -1,4 +1,5 @@
 package mediators;
+import model.PlayerViewsModel;
 import signals.UpdateLayoutSignal;
 import model.PlayerModel;
 import view.ApplicationView;
@@ -10,6 +11,7 @@ class ScrollerBackgroundViewMediator extends mmvc.impl.Mediator<ScrollerBackgrou
     @inject public var stageResizedSignal:StageResizedSignal;
     @inject public var playerModel:PlayerModel;
     @inject public var updateLayoutSignal:UpdateLayoutSignal;
+    @inject public var playerViewsModel:PlayerViewsModel;
     var scrollerBackgroundView:ScrollerBackgroundView;
 
     override public function onRegister():Void {
@@ -38,14 +40,9 @@ class ScrollerBackgroundViewMediator extends mmvc.impl.Mediator<ScrollerBackgrou
 //    }
 
     private function fillBackground():Void {
-        var numUnits = playerModel.getPlayers().length + 1;
-        var unitsHeight = numUnits * (PlayerViewStyle.UNIT_HEIGHT + PlayerViewStyle.GRID_STEP) + PlayerViewStyle.GRID_STEP;
-        var stageHeight = applicationView.getStageHeight() / applicationView.calculateScale();
-        var height = Math.max(unitsHeight, stageHeight);
-
         scrollerBackgroundView.graphics.clear();
         scrollerBackgroundView.graphics.beginFill(0xffffff);
-        scrollerBackgroundView.graphics.drawRect(-PlayerViewStyle.GRID_STEP, 0, applicationView.getStageWidth() / applicationView.calculateScale(), height);
+        scrollerBackgroundView.graphics.drawRect(-PlayerViewStyle.GRID_STEP, 0, applicationView.getStageWidth() / applicationView.calculateScale(), playerViewsModel.calculateContainerHeight());
         scrollerBackgroundView.graphics.endFill();
     }
 }
