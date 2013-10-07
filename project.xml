@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 
-    <meta title="BoardCounter" package="com.example.boardcounter" version="1.0.0" company="Company Name"/>
-    <app main="Main" path="Export" file="BoardCounter"/>
+    <meta title="ScoreStore" package="com.shoo" version="1.0.0"/>
+    <app main="Main" path="Export" file="ScoreStore"/>
     <window width="640" height="800" background="##660000" fps="30" unless="mobile"/>
     <window orientation="portrait"/>
     <certificate path="C:\Users\shoo\shoo.keystore"  alias="shookey" />
@@ -11,15 +11,15 @@
     <haxelib name="openfl"/>
     <haxelib name="mmvc"/>
     <haxelib name="msignal"/>
-    <haxelib name="actuate"/>
     <haxelib name="swf"/>
 
     <template if="mobile" path="Templates"/>
 
+    <icon path="Assets/icon_48.png" size="48" />
+    <icon path="Assets/icon_72.png" size="72" />
+    <icon path="Assets/icon_96.png" size="96" />
+    <icon path="Assets/icon_144.png" size="144" />
 
-    <!--<assets path="Assets/CounterAssets.swf" rename="assets" exclude="openfl.svg" />-->
-    <assets path="Assets" rename="assets" exclude="openfl.svg"/>
-    <!--<library path="Assets/CounterAssets.swf"/>-->
-    <icon path="Assets/openfl.svg"/>
+    <assets path="Assets" rename="assets" exclude="CounterAssets.fla "/>
 
 </project>

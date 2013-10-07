@@ -23,6 +23,8 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var layout:AssetsModel;
     @inject public var playerModel:PlayerModel;
     @inject public var showModalWindowSignal:ShowModalWindowSignal;
+    @inject public var assetsModel:AssetsModel;
+
 
     var playerView:PlayerView;
     var layoutMc:Sprite;
@@ -51,9 +53,18 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);
 
         createViews();
+        createAvatar();
         createTapZone(AssetNames.PLUS_HITAREA);
         createTapZone(AssetNames.MINUS_HITAREA);
         createTapZone(AssetNames.SCORE_HITAREA);
+    }
+
+    private function createAvatar():Void {
+        var layoutSource = layoutMc.makeGraphics(AssetNames.AVATAR);
+        var avatar = assetsModel.getAvatar(playerView.getPlayerId());
+        avatar.mouseEnabled = false;
+        avatar.transform.matrix = layoutSource.transform.matrix;
+        playerView.addChild(avatar);
     }
 
     private function createViews():Void {

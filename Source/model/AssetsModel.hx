@@ -1,4 +1,7 @@
 package model;
+import constants.PlayerColor;
+import constants.AssetNames;
+import model.vo.PlayerId;
 import flash.display.Sprite;
 import format.SWF;
 class AssetsModel {
@@ -26,6 +29,10 @@ class AssetsModel {
 
     public function getNewGameConfirmation():Sprite {
         return swf.createMovieClip("NewGameConfirmation");
+    }
+
+    public function getAvatar(id:PlayerId):Sprite {
+        return swf.createMovieClip(AssetNames.AVATAR_CLASS_PREFIX + PlayerColor.getPlayerColor(id));
     }
 
 }

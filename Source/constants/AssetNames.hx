@@ -11,6 +11,8 @@ class AssetNames {
 
 
     public static inline var SCORE_NUMBER_HITAREA_PREFIX:String = "_hitArea_";
+    public static inline var AVATAR_CLASS_PREFIX:String = "Meeple";
+    public static inline var AVATAR:String = "_avatar";
 
     public static inline var SCORE_MINUS_HITAREA:String = "_hitArea_m";
     public static inline var SCORE_PLUS_HITAREA:String = "_hitArea_p";
