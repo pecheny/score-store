@@ -3,7 +3,7 @@
 
     <meta title="ScoreStore" package="com.shoo" version="1.0.0"/>
     <app main="Main" path="Export" file="ScoreStore"/>
-    <window width="640" height="800" background="##660000" fps="30" unless="mobile"/>
+    <window width="720" height="1280" background="##660000" fps="30" unless="mobile"/>
     <window orientation="portrait"/>
     <certificate path="C:\Users\shoo\shoo.keystore"  alias="shookey" />
     <source path="Source"/>
