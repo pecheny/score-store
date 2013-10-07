@@ -15,7 +15,8 @@ class ViewBase extends Sprite {
     public function initBounds(w:Float, h:Float, r:Float):Void {
         graphics.clear();
         graphics.beginFill(backgroundColor, 0.75);
-        graphics.drawRoundRect(0, 0, w, h, r, r);
+        graphics.drawRect(0, 0, w, h);
+//        graphics.drawRoundRect(0, 0, w, h, r, r);
         graphics.endFill();
     }
 
