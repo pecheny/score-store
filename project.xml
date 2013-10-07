@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	
-	<meta title="BoardCounter" package="com.example.boardcounter" version="1.0.0" company="Company Name" />
-	<app main="Main" path="Export" file="BoardCounter" />
-    <window width="640" height="800" background="##660000" fps="30"  unless="mobile" />
-	<window orientation="portrait" />
-	
-	<source path="Source" />
-	
-    <haxelib name="openfl" />
-    <haxelib name="mmvc" />
-    <haxelib name="msignal" />
-    <haxelib name="actuate" />
-    <haxelib name="swf" />
+
+    <meta title="BoardCounter" package="com.example.boardcounter" version="1.0.0" company="Company Name"/>
+    <app main="Main" path="Export" file="BoardCounter"/>
+    <window width="640" height="800" background="##660000" fps="30" unless="mobile"/>
+    <window orientation="portrait"/>
+    <certificate path="C:\Users\shoo\shoo.keystore"  alias="shookey" />
+    <source path="Source"/>
+
+    <haxelib name="openfl"/>
+    <haxelib name="mmvc"/>
+    <haxelib name="msignal"/>
+    <haxelib name="actuate"/>
+    <haxelib name="swf"/>
+
+    <template if="mobile" path="Templates"/>
 
 
     <!--<assets path="Assets/CounterAssets.swf" rename="assets" exclude="openfl.svg" />-->
-    <assets path="Assets" rename="assets" exclude="openfl.svg" />
+    <assets path="Assets" rename="assets" exclude="openfl.svg"/>
     <!--<library path="Assets/CounterAssets.swf"/>-->
-	<icon path="Assets/openfl.svg" />
-	
+    <icon path="Assets/openfl.svg"/>
+
 </project>
