@@ -1,4 +1,6 @@
 package mediators;
+import model.PlayerViewsModel;
+import signals.ShowModalWindowSignal;
 import model.PlayerModel;
 import constants.AssetNames;
 import factories.PlayerViewFactory;
@@ -42,6 +44,7 @@ class PlayerViewMediatorTest  {
         mc = new MovieClipMocked(label);
         var layout:AssetsModel = mock(AssetsModel);
         layout.getPlayerViewMovieClip().returns(mc);
+        layout.getAvatar(cast Matcher.any).returns(mc);
 
         playerViewFactory = mock (PlayerViewFactory);
 
@@ -50,12 +53,16 @@ class PlayerViewMediatorTest  {
         playerModel.getScore(cast Matcher.any).returns(0);
 
 
+
+
+
         playerViewMediator = new PlayerViewMediator();
-        playerViewMediator.layout = layout;
+        playerViewMediator.assetsModel = layout;
         playerViewMediator.labelFactory = labelFactory;
         playerViewMediator.changeScoreSignal = changeScore = new ChangeScoreSignal();
         playerViewMediator.playerViewFactory = playerViewFactory;
         playerViewMediator.playerModel = playerModel;
+        playerViewMediator.showModalWindowSignal = new ShowModalWindowSignal();
 
         callsCounter = 0;
         passedId = null;

@@ -1,4 +1,6 @@
 package mediators;
+import signals.ShowModalWindowSignal;
+import signals.CloseModalWindowSignal;
 import massive.munit.async.AsyncFactory;
 import haxe.Timer;
 import signals.StageResizedSignal;
@@ -28,10 +30,12 @@ class ApplicationViewMediatorTest {
 
 
         applicationViewMediator = new ApplicationViewMediator();
-        applicationViewMediator.resizeSignal = stageResizedSignal;
         applicationViewMediator.contextView = applicationView;
+        applicationViewMediator.resizeSignal = stageResizedSignal;
         applicationViewMediator.addChildSignal = addChildSignal;
         applicationViewMediator.removeChildSignal = removeChildSignal;
+        applicationViewMediator.showModalWindowSignal = new ShowModalWindowSignal();
+        applicationViewMediator.closeModalWindowSignal = new CloseModalWindowSignal();
     }
 
     @AsyncTest public function should_call_addChild(asyncFactory:AsyncFactory):Void {

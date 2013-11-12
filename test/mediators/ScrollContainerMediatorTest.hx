@@ -1,4 +1,6 @@
 package mediators;
+import model.PlayerViewsModel;
+import signals.UpdateLayoutSignal;
 import view.ScrollerBackgroundView;
 import factories.PlayerViewFactory;
 import massive.munit.Assert;
@@ -42,6 +44,9 @@ class ScrollContainerMediatorTest extends MatchersBase {
         playerViewFactory = mock(PlayerViewFactory);
         playerViewFactory.getScrollerBackground().returns(bg);
 
+        var playerViewsModel:PlayerViewsModel = mock(PlayerViewsModel);
+        playerViewsModel.calculateContainerHeight().returns(400);
+
 
         applicationView = mock(ApplicationView);
         applicationView.getRootContainer().returns(containerFake);
@@ -53,6 +58,8 @@ class ScrollContainerMediatorTest extends MatchersBase {
         scrollContainerMediator.view = scrollContainer;
         scrollContainerMediator.applicationView = applicationView;
         scrollContainerMediator.playerViewFactory = playerViewFactory;
+        scrollContainerMediator.updateLayoutSignal = new UpdateLayoutSignal();
+        scrollContainerMediator.playerViewsModel = playerViewsModel;
     }
 
     @AsyncTest public function should_keep_position_when_pointer_does_not_move(asyncFactory:AsyncFactory):Void {

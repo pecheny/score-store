@@ -20,7 +20,6 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
     @inject public var playerViewFactory:PlayerViewFactory;
     @inject public var changeScoreSignal:ChangeScoreSignal;
     @inject public var labelFactory:LabelFactory;
-    @inject public var layout:AssetsModel;
     @inject public var playerModel:PlayerModel;
     @inject public var showModalWindowSignal:ShowModalWindowSignal;
     @inject public var assetsModel:AssetsModel;
@@ -47,7 +46,7 @@ class PlayerViewMediator extends mmvc.impl.Mediator<PlayerView> {
 
 
     public function setupLayout():Void {
-        layoutMc = layout.getPlayerViewMovieClip();
+        layoutMc = assetsModel.getPlayerViewMovieClip();
 
         var bg:Sprite = cast layoutMc.getChildByName(AssetNames.BACKGROUND);
         playerView.initBounds(bg.width, bg.height, PlayerViewStyle.CORNER_RADIUS);

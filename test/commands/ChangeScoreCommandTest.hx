@@ -1,5 +1,6 @@
 package commands;
 
+import signals.DumpStateSignal;
 import mockatoo.Mockatoo.Matcher;
 import view.PlayerView;
 import model.PlayerViewsModel;
@@ -28,6 +29,7 @@ class ChangeScoreCommandTest {
         changeScoreCommand.deltaScore = 2;
         changeScoreCommand.playersModel = playerModel;
         changeScoreCommand.playerViewsModel = playerViewsModel;
+        changeScoreCommand.dumpStateSignal = new DumpStateSignal();
     }
 
     @Test

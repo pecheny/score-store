@@ -4,11 +4,12 @@
     <meta title="ScoreStore" package="com.shoo" version="1.0.0"/>
     <app main="Main" path="Export" file="ScoreStore"/>
     <window width="720" height="1280" background="##660000" fps="30" unless="mobile"/>
+    <window antialiasing="4"/>
     <window orientation="portrait"/>
     <certificate path="C:\Users\shoo\shoo.keystore"  alias="shookey" />
     <source path="Source"/>
 
-    <haxelib name="openfl"/>
+    <haxelib name="openfl" version="1.0.5"/>
     <haxelib name="mmvc"/>
     <haxelib name="msignal"/>
     <haxelib name="swf"/>

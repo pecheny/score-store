@@ -1,4 +1,7 @@
 package mediators;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Sprite;
 import signals.CloseModalWindowSignal;
 import signals.ShowModalWindowSignal;
 import flash.events.KeyboardEvent;
